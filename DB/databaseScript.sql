@@ -1,5 +1,6 @@
 drop schema ReFrigderate;
 create schema ReFrigderate;
+SET SCHEMA 'refrigderate';
 drop table users;
 create table users(
     userid       varchar(255)    not null
