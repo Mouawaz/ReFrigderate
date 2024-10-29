@@ -128,11 +128,26 @@
                     <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>
                 </configuration>
                 <executions>
+                    <!-- First execution: Compile Protobuf message classes -->
                     <execution>
+                        <id>generate-protobuf</id>
                         <goals>
                             <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/generated-sources/protobuf/java</outputDirectory>
+                        </configuration>
+                    </execution>
+
+                    <!-- Second execution: Compile gRPC service classes -->
+                    <execution>
+                        <id>generate-grpc</id>
+                        <goals>
                             <goal>compile-custom</goal>
                         </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/generated-sources/protobuf/grpc</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

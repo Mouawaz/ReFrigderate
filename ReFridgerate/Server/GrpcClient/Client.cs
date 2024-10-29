@@ -12,7 +12,7 @@ public class Client : IUserRepository
 
     public Client()
     {
-        channel = GrpcChannel.ForAddress("https://localhost:9090");
+        channel = GrpcChannel.ForAddress("http://localhost:8080");
         userService = new UserService.UserServiceClient(channel);
     }
 
