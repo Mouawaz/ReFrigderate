@@ -1,14 +1,14 @@
 {
   "version": 2,
-  "dgSpecHash": "JZOYj7wy1xo=",
+  "dgSpecHash": "/3OZ/spOz1A=",
   "success": true,
-  "projectFilePath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
+  "projectFilePath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\duzyw\\.nuget\\packages\\google.protobuf\\3.29.0-rc2\\google.protobuf.3.29.0-rc2.nupkg.sha512",
-    "C:\\Users\\duzyw\\.nuget\\packages\\grpc.core.api\\2.67.0-pre1\\grpc.core.api.2.67.0-pre1.nupkg.sha512",
-    "C:\\Users\\duzyw\\.nuget\\packages\\grpc.net.client\\2.67.0-pre1\\grpc.net.client.2.67.0-pre1.nupkg.sha512",
-    "C:\\Users\\duzyw\\.nuget\\packages\\grpc.net.common\\2.67.0-pre1\\grpc.net.common.2.67.0-pre1.nupkg.sha512",
-    "C:\\Users\\duzyw\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
+    "C:\\Users\\1stof\\.nuget\\packages\\google.protobuf\\3.29.0-rc2\\google.protobuf.3.29.0-rc2.nupkg.sha512",
+    "C:\\Users\\1stof\\.nuget\\packages\\grpc.core.api\\2.67.0-pre1\\grpc.core.api.2.67.0-pre1.nupkg.sha512",
+    "C:\\Users\\1stof\\.nuget\\packages\\grpc.net.client\\2.67.0-pre1\\grpc.net.client.2.67.0-pre1.nupkg.sha512",
+    "C:\\Users\\1stof\\.nuget\\packages\\grpc.net.common\\2.67.0-pre1\\grpc.net.common.2.67.0-pre1.nupkg.sha512",
+    "C:\\Users\\1stof\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
   ],
   "logs": []
 }

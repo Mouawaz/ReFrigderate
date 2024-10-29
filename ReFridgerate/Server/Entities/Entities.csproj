@@ -5,7 +5,9 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
+    <ItemGroup>
+        <Protobuf Include="Protos\User.proto" GrpcServices="Client" />
+    </ItemGroup>
     <ItemGroup>
       <PackageReference Include="Google.Protobuf" Version="3.29.0-rc2" />
       <PackageReference Include="Grpc.Net.Client" Version="2.67.0-pre1" />

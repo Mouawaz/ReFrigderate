@@ -3,7 +3,7 @@ syntax = "proto3";
 //  both sides agree on the data format...i think.
 
 option java_package = "Server";
-
+option csharp_namespace = "Entities";
 
 
 message UserIdRequest {

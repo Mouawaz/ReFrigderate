@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {}
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\obj\\",
+        "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\1stof\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\1stof\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -78,17 +78,17 @@
         }
       }
     },
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
+        "projectUniqueName": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
         "projectName": "GrpcClient",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\obj\\",
+        "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
+        "packagesPath": "C:\\Users\\1stof\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\1stof\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -100,11 +100,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
+              "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
               },
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
+              "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
+                "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
               }
             }
           }
@@ -159,17 +159,17 @@
         }
       }
     },
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
+        "projectUniqueName": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
         "projectName": "RepositoryContracts",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\obj\\",
+        "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
+        "packagesPath": "C:\\Users\\1stof\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\1stof\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -181,8 +181,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
+              "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
               }
             }
           }
@@ -221,17 +221,17 @@
         }
       }
     },
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
+        "projectUniqueName": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
         "projectName": "Test",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\obj\\",
+        "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
+        "packagesPath": "C:\\Users\\1stof\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\1stof\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -243,8 +243,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
+              "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
+                "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
               }
             }
           }

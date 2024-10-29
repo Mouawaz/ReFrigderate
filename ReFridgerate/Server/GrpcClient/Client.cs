@@ -1,9 +1,10 @@
 using System.Threading.Channels;
+using Entities;
 using Grpc.Net.Client;
-using GrpcClient2;
+using GrpcClient;
 using RepositoryContracts;
 
-namespace GrpcClient2;
+namespace GrpcClient;
 
 public class Client : IUserRepository
 {

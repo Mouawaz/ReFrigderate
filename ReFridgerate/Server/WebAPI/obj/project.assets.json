@@ -793,19 +793,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\duzyw\\.nuget\\packages\\": {}
+    "C:\\Users\\1stof\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\WebAPI.csproj",
+      "projectUniqueName": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\WebAPI.csproj",
-      "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-      "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\obj\\",
+      "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\1stof\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\1stof\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -817,14 +817,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {
-              "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj"
+            "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {
+              "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj"
             },
-            "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
-              "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
+            "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
+              "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
             },
-            "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
-              "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
+            "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
+              "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
             }
           }
         }

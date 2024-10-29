@@ -1,4 +1,4 @@
-using GrpcClient2;
+using GrpcClient;
 using RepositoryContracts;
 
 var builder = WebApplication.CreateBuilder(args);

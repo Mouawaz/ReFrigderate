@@ -1,4 +1,5 @@
-
+using APIContracts.UserDtos;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryContracts;
 
@@ -18,12 +19,22 @@ public class UsersController : ControllerBase
     
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetSingleUser([FromRoute] int id)
+    public async Task<ActionResult<UserDto>> GetSingleUser([FromRoute] int id)
     {
         try
         {
             User user = await userRepo.GetSingleAsync(id);
-            return user;
+            UserDto dto = new UserDto()
+            {
+                UserId = user.Userid,
+                FirstName = user.Firstname,
+                LastName = user.Lastname,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                PhoneNumber = user.PhoneNumber,
+                Sex = user.Sex
+            };
+            return dto;
         }
         catch (Exception e)
         {
