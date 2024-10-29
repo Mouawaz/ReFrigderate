@@ -1,0 +1,17 @@
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\GrpcClient2.deps.json
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\GrpcClient2.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\GrpcClient2.pdb
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.csproj.AssemblyReference.cache
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.AssemblyInfoInputs.cache
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.AssemblyInfo.cs
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.csproj.CoreCompileInputs.cache
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\refint\GrpcClient2.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClient2.pdb
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\ref\GrpcClient2.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\Entities.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\RepositoryContracts.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\Entities.pdb
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\bin\Debug\net8.0\RepositoryContracts.pdb
+C:\Users\1stof\RiderProjects\ReFridgerate\Server\GrpcClient2\obj\Debug\net8.0\GrpcClie.503B8AEC.Up2Date

@@ -1,0 +1,29 @@
+syntax = "proto3";
+// .proto files are used for the gRPC structure of the data and the services.
+//  both sides agree on the data format...i think.
+
+option java_package = "Server";
+
+
+
+message UserIdRequest {
+  string userid = 1;
+}
+
+message User {
+  string userid = 1;
+  string email = 2;
+  string password = 3;
+  string firstname = 4;
+  string lastname = 5;
+  string dateOfBirth = 6;
+  string sex = 7;
+  string phoneNumber = 8;
+}
+
+service UserService {
+  rpc GetUser(UserIdRequest) returns (User); // Defines a gRPC service that is then compiled into the protobuf
+}
+// then you create the logic in the server class and database operations
+// For the server here, this User.proto file is compiled into Java (or c#) using the Protobuf compiler .
+// It allows clients to request user details by providing a user ID fx

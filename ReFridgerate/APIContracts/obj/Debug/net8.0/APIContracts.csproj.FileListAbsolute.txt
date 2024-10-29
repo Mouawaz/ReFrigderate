@@ -1,0 +1,11 @@
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\bin\Debug\net8.0\APIContracts.deps.json
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\bin\Debug\net8.0\APIContracts.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\bin\Debug\net8.0\APIContracts.pdb
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.AssemblyInfoInputs.cache
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.AssemblyInfo.cs
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.csproj.CoreCompileInputs.cache
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\refint\APIContracts.dll
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.pdb
+C:\Users\1stof\RiderProjects\ReFridgerate\APIContracts\obj\Debug\net8.0\ref\APIContracts.dll
