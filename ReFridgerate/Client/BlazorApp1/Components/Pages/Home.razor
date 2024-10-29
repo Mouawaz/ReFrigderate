@@ -1,0 +1,44 @@
+﻿@page "/"
+@using System.Reflection.Metadata
+@using APIContracts.UserDtos
+@using BlazorApp1.Services
+
+@inject IUserService userService
+
+<PageTitle>Home</PageTitle>
+
+<h1>Hello to our proof of concept</h1>
+<input type="text" class="p-3" placeholder="Enter id" @bind="userId"/>
+<button class="btn btn-primary" @onclick="ShowUser">Click me</button>
+
+@if (user != null)
+{
+    <div>
+        <h3>User Details</h3>
+        <p><strong>ID:</strong> @user.UserId</p>
+        <p><strong> First name:</strong> @user.FirstName</p>
+        <p><strong> Last name:</strong> @user.LastName</p>
+        <p><strong>Email:</strong> @user.Email</p>
+        <p><strong> Sex:</strong> @user.Sex</p>
+        <p><strong> Date of birth:</strong> @user.DateOfBirth</p>
+        <p><strong>Phone number :</strong> @user.PhoneNumber</p>
+    </div>
+}
+
+@code {
+    private UserDto? user;
+    private int userId;
+    
+    private async Task ShowUser()
+    {
+        try
+        {
+            user = await userService.GetSingleUserAsync(userId); 
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+
+}
