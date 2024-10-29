@@ -1,5 +1,9 @@
 syntax = "proto3";
 
+message UserIdRequest {
+  string userid = 1;
+}
+
 message Users {
   string userid = 1;
   string email = 2;
@@ -9,4 +13,10 @@ message Users {
   string dateOfBirth = 6;
   string sex = 7;
   string phoneNumber = 8;
+}
+service UserService {
+  rpc GetUser(UserIdRequest) returns (Users); // Defines a gRPC service that is then compiled into the protobuf
+  // then you create the logic in the server class
+
+  // It allows clients to request user details by providing a user ID fx
 }
