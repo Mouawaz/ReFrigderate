@@ -45,3 +45,15 @@ C:/Users/1stof/IdeaProjects/ReFrigderate/ReFridgerate/APIContracts/obj/Debug/net
 /Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/obj/Debug/net8.0/refint/APIContracts.dll
 /Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.pdb
 /Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/obj/Debug/net8.0/ref/APIContracts.dll
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\bin\Debug\net8.0\APIContracts.deps.json
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\bin\Debug\net8.0\APIContracts.dll
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\bin\Debug\net8.0\APIContracts.pdb
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.AssemblyInfoInputs.cache
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.AssemblyInfo.cs
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.csproj.CoreCompileInputs.cache
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.sourcelink.json
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.dll
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\refint\APIContracts.dll
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\APIContracts.pdb
+C:\Projects\ReFrigderate\ReFridgerate\APIContracts\obj\Debug\net8.0\ref\APIContracts.dll

@@ -793,19 +793,19 @@
     ]
   },
   "packageFolders": {
-    "/Users/josip/.nuget/packages/": {}
+    "C:\\Users\\duzyw\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/WebAPI/WebAPI.csproj",
+      "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\WebAPI.csproj",
       "projectName": "WebAPI",
-      "projectPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/WebAPI/WebAPI.csproj",
-      "packagesPath": "/Users/josip/.nuget/packages/",
-      "outputPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/WebAPI/obj/",
+      "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\WebAPI.csproj",
+      "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
+      "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\WebAPI\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/josip/.nuget/NuGet/NuGet.Config"
+        "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
@@ -817,14 +817,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/APIContracts.csproj": {
-              "projectPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/APIContracts.csproj"
+            "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {
+              "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj"
             },
-            "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/GrpcClient/GrpcClient.csproj": {
-              "projectPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/GrpcClient/GrpcClient.csproj"
+            "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
+              "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
             },
-            "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/RepositoryContracts/RepositoryContracts.csproj": {
-              "projectPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/RepositoryContracts/RepositoryContracts.csproj"
+            "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
+              "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
             }
           }
         }
@@ -882,7 +882,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/Users/josip/.dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
