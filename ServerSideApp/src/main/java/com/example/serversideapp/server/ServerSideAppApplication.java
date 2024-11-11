@@ -14,17 +14,18 @@ public class ServerSideAppApplication {
     public static void main(String[] args) {
         DBQuery dbQuery = new DBQuery();
         GeneralIngredientsManager ingredientsManager = new GeneralIngredientsManagerImpl(dbQuery);
-        int PORT = 8080;
-        Server server = ServerBuilder.forPort(PORT)
-                .addService(new IngredientServiceImplemented(ingredientsManager)).build();
-        try {
-            server.start();
-            System.out.println("Server started on port: " + PORT);
-            server.awaitTermination();
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
+        System.out.println(ingredientsManager.GetAllIngredients());
+//        int PORT = 8080;
+//        Server server = ServerBuilder.forPort(PORT)
+//                .addService(new IngredientServiceImplemented(ingredientsManager)).build();
+//        try {
+//            server.start();
+//            System.out.println("Server started on port: " + PORT);
+//            server.awaitTermination();
+//        }
+//        catch (Exception e){
+//            System.out.println(e);
+//        }
 //        SpringApplication.run(ServerSideAppApplication.class, args);
     }
 

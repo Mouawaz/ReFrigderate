@@ -4,12 +4,14 @@ import Server.IngredientOuterClass;
 import com.example.serversideapp.back.DBManager;
 import com.example.serversideapp.shared.IngredientLocal;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
 
-    DBManager dbManager;
+    private DBManager dbManager;
     public GeneralIngredientsManagerImpl(DBManager dbManager){
         this.dbManager = dbManager;
     }
@@ -26,12 +28,13 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
     }
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
-        Date TodaysDate = new Date();
+        Date todaysDate = new Date();
+        int days = (int)TimeUnit.MILLISECONDS.toDays(local.getExpirationDate().getTime() - todaysDate.getTime());
         return IngredientOuterClass.Ingredient.newBuilder()
                 .setId(local.getId())
                 .setName(local.getName())
                 .setCost(local.getCost())
                 .setAmount(local.getAmount())
-                .setDaysUntilBad(local.getExpirationDate().compareTo(TodaysDate)).build();
+                .setDaysUntilBad(days).build();
     }
 }
