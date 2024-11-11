@@ -152,6 +152,7 @@ INSERT INTO Owner (ownerID, AccessToReport) VALUES
 
 
 INSERT INTO Ingredient (ingredientID, name, cost, quantityInStorage, expirationDate) VALUES
+(0, 'Test', 0,0,'24-12-24')   ,
 (1, 'Tomato', 0.50, 100, '2024-12-01'),
 (2, 'Cheese', 2.00, 50, '2024-11-20');
 
