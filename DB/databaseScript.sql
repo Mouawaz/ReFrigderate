@@ -20,7 +20,7 @@ Drop Function if exists clear_old_inventory() CASCADE;
 Drop function if exists trigger_clear_old_inventory() Cascade;
 DROP FUNCTION IF EXISTS check_and_clear_old_inventory() CASCADE;
 DROP TRIGGER IF EXISTS auto_clear_old_inventory ON refrigderate.inventory CASCADE;
-
+SET datestyle TO 'ISO, DMY';
  create TABLE "user"(
     userID INT PRIMARY KEY,
     name VARCHAR(100),
@@ -134,8 +134,8 @@ CREATE TABLE Menu (
 );
 
 INSERT INTO "user" (userID, name, email, password, firstname, lastname, dateofbirth, sex, phonenumber) VALUES
-(1, 'jdoe', 'jdoe@example.com', 'password123', 'John', 'Doe', '1985-06-15', 'M', '1234567890'),
-(2, 'asmith', 'asmith@example.com', 'password456', 'Alice', 'Smith', '1990-11-23', 'F', '0987654321');
+(1, 'jdoe', 'jdoe@example.com', 'password123', 'John', 'Doe', '15-06-1985', 'M', '1234567890'),
+(2, 'asmith', 'asmith@example.com', 'password456', 'Alice', 'Smith', '23-11-1990', 'F', '0987654321')
 
 
 INSERT INTO Chef (chefID, position, shiftSchedule) VALUES
@@ -154,19 +154,19 @@ INSERT INTO Owner (ownerID, AccessToReport) VALUES
 
 
 INSERT INTO Ingredient (ingredientID, name, cost, quantityInStorage, expirationDate) VALUES
-(0, 'Test', 0,0,'24-12-24')   ,
-(1, 'Tomato', 0.50, 100, '2024-12-01'),
-(2, 'Cheese', 2.00, 50, '2024-11-20');
+(0, 'Test', 0, 0, '24-12-2024'),
+(1, 'Tomato', 0.50, 100, '01-12-2024'),
+(2, 'Cheese', 2.00, 50, '20-11-2024');
 
 
 INSERT INTO Report (reportID, type, data, creationDate, ownerID) VALUES
-(1, 'Inventory', 'Monthly stock report', '2024-11-01', 1),
-(2, 'Performance', 'Weekly performance metrics', '2024-11-08', 2);
+(1, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
+(2, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
 
 
 INSERT INTO Inventory (InventoryID, ingredientID, chefID, actionType, quantity, date, expirationDate) VALUES
-(1, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
-(2, 2, 2, 'Subtract', 10, '2024-11-05', '2024-11-20');
+(1, 1, 1, 'Add', 30, '25-10-2024', '01-12-2024'),
+(2, 2, 2, 'Subtract', 10, '05-11-2024', '20-11-2024');
 
 
 INSERT INTO Alert (alertID, transactionID, thresholdType, status) VALUES
