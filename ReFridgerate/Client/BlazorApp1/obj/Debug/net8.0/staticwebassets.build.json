@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8JhAvxbj4k8fzY6Ke+tRr+NWeuh95JmsyZp3rwbnZ/Y=",
+  "Hash": "H1zKpHDLuWNZH2D8z4q5+kIUQjxQR7hJ5QvdMH0Q25Y=",
   "Source": "BlazorApp1",
   "BasePath": "_content/BlazorApp1",
   "Mode": "Default",
@@ -8,19 +8,19 @@
   "ReferencedProjectsConfiguration": [],
   "DiscoveryPatterns": [
     {
-      "Name": "BlazorApp1/wwwroot",
+      "Name": "BlazorApp1\\wwwroot",
       "Source": "BlazorApp1",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\",
       "BasePath": "_content/BlazorApp1",
       "Pattern": "**"
     }
   ],
   "Assets": [
     {
-      "Identity": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/bundle/BlazorApp1.styles.css",
+      "Identity": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorApp1.styles.css",
       "SourceId": "BlazorApp1",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/bundle/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\",
       "BasePath": "_content/BlazorApp1",
       "RelativePath": "BlazorApp1.styles.css",
       "AssetKind": "All",
@@ -33,13 +33,13 @@
       "AssetTraitValue": "ApplicationBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/bundle/BlazorApp1.styles.css"
+      "OriginalItemSpec": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\Debug\\net8.0\\scopedcss\\bundle\\BlazorApp1.styles.css"
     },
     {
-      "Identity": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/projectbundle/BlazorApp1.bundle.scp.css",
+      "Identity": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorApp1.bundle.scp.css",
       "SourceId": "BlazorApp1",
       "SourceType": "Computed",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/projectbundle/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\",
       "BasePath": "_content/BlazorApp1",
       "RelativePath": "BlazorApp1.bundle.scp.css",
       "AssetKind": "All",
@@ -52,13 +52,13 @@
       "AssetTraitValue": "ProjectBundle",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/projectbundle/BlazorApp1.bundle.scp.css"
+      "OriginalItemSpec": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\BlazorApp1.bundle.scp.css"
     },
     {
-      "Identity": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/app.css",
+      "Identity": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\app.css",
       "SourceId": "BlazorApp1",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\",
       "BasePath": "_content/BlazorApp1",
       "RelativePath": "app.css",
       "AssetKind": "All",
@@ -71,13 +71,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/app.css"
+      "OriginalItemSpec": "wwwroot\\app.css"
     },
     {
-      "Identity": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/bootstrap/bootstrap.min.css",
+      "Identity": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\bootstrap\\bootstrap.min.css",
       "SourceId": "BlazorApp1",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\",
       "BasePath": "_content/BlazorApp1",
       "RelativePath": "bootstrap/bootstrap.min.css",
       "AssetKind": "All",
@@ -90,13 +90,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/bootstrap/bootstrap.min.css"
+      "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css"
     },
     {
-      "Identity": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/bootstrap/bootstrap.min.css.map",
+      "Identity": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\bootstrap\\bootstrap.min.css.map",
       "SourceId": "BlazorApp1",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\",
       "BasePath": "_content/BlazorApp1",
       "RelativePath": "bootstrap/bootstrap.min.css.map",
       "AssetKind": "All",
@@ -109,13 +109,13 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/bootstrap/bootstrap.min.css.map"
+      "OriginalItemSpec": "wwwroot\\bootstrap\\bootstrap.min.css.map"
     },
     {
-      "Identity": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/favicon.png",
+      "Identity": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\favicon.png",
       "SourceId": "BlazorApp1",
       "SourceType": "Discovered",
-      "ContentRoot": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Client/BlazorApp1/wwwroot/",
+      "ContentRoot": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\wwwroot\\",
       "BasePath": "_content/BlazorApp1",
       "RelativePath": "favicon.png",
       "AssetKind": "All",
@@ -128,7 +128,7 @@
       "AssetTraitValue": "",
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot/favicon.png"
+      "OriginalItemSpec": "wwwroot\\favicon.png"
     }
   ]
 }

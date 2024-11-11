@@ -49,3 +49,16 @@ C:/Users/1stof/IdeaProjects/ReFrigderate/ReFridgerate/Server/Entities/obj/Debug/
 /Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/Entities/obj/Debug/net8.0/refint/Entities.dll
 /Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.pdb
 /Users/josip/RiderProjects/ReFrigderate/ReFridgerate/Server/Entities/obj/Debug/net8.0/ref/Entities.dll
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\bin\Debug\net8.0\Entities.deps.json
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\bin\Debug\net8.0\Entities.dll
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\bin\Debug\net8.0\Entities.pdb
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.csproj.AssemblyReference.cache
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.GeneratedMSBuildEditorConfig.editorconfig
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.AssemblyInfoInputs.cache
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.AssemblyInfo.cs
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.csproj.CoreCompileInputs.cache
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.sourcelink.json
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.dll
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\refint\Entities.dll
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\Entities.pdb
+C:\Projects\ReFrigderate\ReFridgerate\Server\Entities\obj\Debug\net8.0\ref\Entities.dll

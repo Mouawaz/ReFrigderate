@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/APIContracts.csproj": {}
+    "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {}
   },
   "projects": {
-    "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/APIContracts.csproj": {
+    "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/APIContracts.csproj",
+        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj",
         "projectName": "APIContracts",
-        "projectPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/APIContracts.csproj",
-        "packagesPath": "/Users/josip/.nuget/packages/",
-        "outputPath": "/Users/josip/RiderProjects/ReFrigderate/ReFridgerate/APIContracts/obj/",
+        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj",
+        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
+        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/josip/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -58,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/Users/josip/.dotnet/sdk/8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
