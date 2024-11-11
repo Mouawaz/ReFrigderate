@@ -11,13 +11,15 @@ DROP TABLE IF EXISTS Owner CASCADE;
 DROP TABLE IF EXISTS Waiter CASCADE;
 DROP TABLE IF EXISTS Chef CASCADE;
 DROP TABLE IF EXISTS "user" CASCADE;
-
-
 DROP TYPE IF EXISTS menu_status;
 DROP TYPE IF EXISTS threshold_type;
 DROP TYPE IF EXISTS action_type;
 DROP TYPE IF EXISTS report_type;
 
+Drop Function if exists clear_old_inventory() CASCADE;
+Drop function if exists trigger_clear_old_inventory() Cascade;
+DROP FUNCTION IF EXISTS check_and_clear_old_inventory() CASCADE;
+DROP TRIGGER IF EXISTS auto_clear_old_inventory ON refrigderate.inventory CASCADE;
 
  create TABLE "user"(
     userID INT PRIMARY KEY,
@@ -190,3 +192,29 @@ INSERT INTO RecipeIngredient (recipeID, ingredientID, quantityNeeded) VALUES
 INSERT INTO MenuRecipe (menuID, recipeID) VALUES
 (1, 1),  -- Tomato Soup on Lunch Menu
 (2, 2);  -- Cheese Omelet on Dinner Menu
+
+
+CREATE OR REPLACE FUNCTION clear_old_inventory()
+RETURNS void AS $$
+BEGIN
+
+    DELETE FROM Inventory
+    WHERE date < (CURRENT_DATE - INTERVAL '3 months');
+
+
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION check_and_clear_old_inventory()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM refrigderate.inventory
+    WHERE date < (CURRENT_DATE - INTERVAL '3 months');
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+CREATE TRIGGER auto_clear_old_inventory
+    AFTER INSERT OR UPDATE ON refrigderate.inventory
+    FOR EACH STATEMENT
+    EXECUTE FUNCTION check_and_clear_old_inventory();
