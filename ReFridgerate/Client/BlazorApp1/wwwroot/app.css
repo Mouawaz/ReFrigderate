@@ -1,5 +1,8 @@
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }
 
 a, .btn-link {
@@ -48,4 +51,15 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
     border-color: #929292;
+}
+
+.nav-link:hover {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+}
+
+
+.nav-link.active {
+    background-color: #d0d0d0;
+    border-radius: 4px;
 }

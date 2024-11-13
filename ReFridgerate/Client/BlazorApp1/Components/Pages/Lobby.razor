@@ -1,6 +1,87 @@
+@page "/"
+@inject IJSRuntime JSRuntime 
+
+<link href="css/lobby.css" rel="stylesheet" />
+<div class="page-container">
+    <div class="header">
+        <h1>Ingredients</h1>
+        <div class="header-controls">
+            <div class="search-box">
+                <span>🔎</span>
+                <input type="text" placeholder="Search..."/>
+            </div>
+            <button class="filter-button">
+                <span>🔎</span>
+                <span>Filters</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="items-grid">
+        @foreach (var item in items)
+        {
+            <div class="item-card">
+                <div class="item-metadata">
+                    <div class="meta-item">@item.Days</div>
+                    <div class="meta-item">@item.Weight</div>
+                    <div class="notification-bell">
+                        <i>🔔</i>
+                    </div>
+                </div>
+
+                <div class="item-image">
+                    <div class="placeholder-image">❌</div>
+                </div>
+
+                <div class="item-name">
+                    @item.Name
+                </div>
+
+                <div class="item-actions">
+                    <button class="edit-button">
+                        <i class="edit-icon">✏️</i>
+                        <span>Edit</span>
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
 @page "/Lobby"
 <h3>Lobby</h3>
 
 @code {
-    
+    private string searchText = "";
+    private List<ItemModel> items = new();
+
+    protected override void OnInitialized()
+    {
+        // sample
+        items = new List<ItemModel>
+        {
+            new ItemModel
+            {
+                Name = "Carrot",
+                Days = "7d",
+                Weight = "21kg"
+            },
+            new ItemModel
+            {
+                Name = "Potato",
+                Days = "14d",
+                Weight = "100kg"
+            },
+            //  more items here 
+        };
+    }
+
+    public class ItemModel
+    {
+        public string Name { get; set; }
+        public string Days { get; set; }
+        public string Weight { get; set; }
+    }
+
 }
