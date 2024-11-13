@@ -1,3 +1,4 @@
+using BusinessLayer;
 using GrpcClient;
 using RepositoryContracts;
 
@@ -11,6 +12,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, Client>();
+builder.Services.AddScoped<IIngredientRepository, IngredientLogic>();
 
 var app = builder.Build();
 

@@ -1,0 +1,41 @@
+syntax = "proto3";
+// .proto files are used for the gRPC structure of the data and the services.
+//  both sides agree on the data format...i think.
+
+option java_package = "Server";
+option csharp_namespace = "Entities";
+
+
+message Empty{} //For some reason the rpc service cant take 0 arguments to i pass it an empty message
+
+message Ingredient {
+  int32 id = 1;
+  string name = 2;
+  float cost = 3;
+  int32 amount = 4;
+  int32 daysUntilBad = 5;
+}
+
+message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?
+  repeated Ingredient messages = 1;
+}
+message UpdateIngredientRequest{ //Many 'Ingredient' messages | basically an array list?
+  int32 id = 1;
+  int32 amount = 2;
+  int32 daysUntilBad = 3;
+  int32 difference = 4;
+}
+
+//message UpdateRequest{ Update needs to be discussed
+//  int32 id = 1;
+//  int32 amount
+//}
+
+service IngredientService{
+  rpc GetAllIngredients(Empty) returns (AllIngredientResponse);
+  rpc UpdateIngredient(UpdateIngredientRequest) returns (Ingredient);
+}
+
+//service UserService {
+//  rpc GetUser(UserIdRequest) returns (User); // Defines a gRPC service that is then compiled into the protobuf
+//}

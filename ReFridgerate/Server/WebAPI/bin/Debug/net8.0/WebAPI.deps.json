@@ -9,6 +9,7 @@
       "WebAPI/1.0.0": {
         "dependencies": {
           "APIContracts": "1.0.0",
+          "BusinessLayer": "1.0.0",
           "Google.Protobuf": "3.29.0-rc2",
           "Grpc.Net.Client": "2.67.0-pre1",
           "Grpc.Tools": "2.67.0",
@@ -116,6 +117,18 @@
           }
         }
       },
+      "BusinessLayer/1.0.0": {
+        "dependencies": {
+          "GrpcClient": "1.0.0",
+          "RepositoryContracts": "1.0.0"
+        },
+        "runtime": {
+          "BusinessLayer.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Entities/1.0.0": {
         "dependencies": {
           "Google.Protobuf": "3.29.0-rc2",
@@ -144,6 +157,7 @@
       },
       "RepositoryContracts/1.0.0": {
         "dependencies": {
+          "APIContracts": "1.0.0",
           "Entities": "1.0.0"
         },
         "runtime": {
@@ -246,6 +260,11 @@
       "hashPath": "swashbuckle.aspnetcore.swaggerui.6.4.0.nupkg.sha512"
     },
     "APIContracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "BusinessLayer/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
