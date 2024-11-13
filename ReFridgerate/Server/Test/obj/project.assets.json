@@ -77,6 +77,16 @@
           "buildTransitive/netcoreapp3.1/_._": {}
         }
       },
+      "APIContracts/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v8.0",
+        "compile": {
+          "bin/placeholder/APIContracts.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/APIContracts.dll": {}
+        }
+      },
       "Entities/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
@@ -111,6 +121,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "APIContracts": "1.0.0",
           "Entities": "1.0.0"
         },
         "compile": {
@@ -277,6 +288,11 @@
         "microsoft.extensions.logging.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]
+    },
+    "APIContracts/1.0.0": {
+      "type": "project",
+      "path": "../../APIContracts/APIContracts.csproj",
+      "msbuildProject": "../../APIContracts/APIContracts.csproj"
     },
     "Entities/1.0.0": {
       "type": "project",

@@ -66,6 +66,14 @@
           }
         }
       },
+      "APIContracts/1.0.0": {
+        "runtime": {
+          "APIContracts.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Entities/1.0.0": {
         "dependencies": {
           "Google.Protobuf": "3.29.0-rc2",
@@ -80,6 +88,7 @@
       },
       "RepositoryContracts/1.0.0": {
         "dependencies": {
+          "APIContracts": "1.0.0",
           "Entities": "1.0.0"
         },
         "runtime": {
@@ -138,6 +147,11 @@
       "sha512": "sha512-/HggWBbTwy8TgebGSX5DBZ24ndhzi93sHUBDvP1IxbZD7FDokYzdAr6+vbWGjw2XAfR2EJ1sfKUotpjHnFWPxA==",
       "path": "microsoft.extensions.logging.abstractions/6.0.0",
       "hashPath": "microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
+    },
+    "APIContracts/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Entities/1.0.0": {
       "type": "project",

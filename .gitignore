@@ -855,3 +855,10 @@ ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.GeneratedMSBuildEditorConfig.
 ReFridgerate/Server/WebAPI/obj/project.packagespec.json
 ReFridgerate/Server/WebAPI/obj/rider.project.model.nuget.info
 *.cs
+/ReFridgerate/APIContracts/obj
+/ReFridgerate/Client/BlazorApp1/obj
+/ReFridgerate/Server/Entities/obj
+/ReFridgerate/Server/BusinessLayer/bin
+/ReFridgerate/Server/Test/bin
+/ReFridgerate/Server/WebAPI/bin
+/ReFridgerate/Server/RepositoryContracts/bin
