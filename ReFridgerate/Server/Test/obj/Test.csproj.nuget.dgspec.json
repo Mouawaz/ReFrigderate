@@ -1,25 +1,28 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {}
+    "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
+    "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
+        "projectUniqueName": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
         "projectName": "Entities",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\obj\\",
+        "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj",
+        "packagesPath": "C:\\Users\\lucam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -74,37 +77,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
+    "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
+        "projectUniqueName": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
         "projectName": "GrpcClient",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\obj\\",
+        "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj",
+        "packagesPath": "C:\\Users\\lucam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
+              "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
               },
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
+              "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
+                "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj"
               }
             }
           }
@@ -155,34 +161,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
+    "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
+        "projectUniqueName": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
         "projectName": "RepositoryContracts",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\obj\\",
+        "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\RepositoryContracts.csproj",
+        "packagesPath": "C:\\Users\\lucam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\RepositoryContracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
+              "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj": {
+                "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Entities\\Entities.csproj"
               }
             }
           }
@@ -217,34 +226,37 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {
+    "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
+        "projectUniqueName": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
         "projectName": "Test",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\Test\\obj\\",
+        "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
+        "packagesPath": "C:\\Users\\lucam\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Test\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\lucam\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
-                "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
+              "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj": {
+                "projectPath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\GrpcClient\\GrpcClient.csproj"
               }
             }
           }
@@ -279,7 +291,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.403/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
