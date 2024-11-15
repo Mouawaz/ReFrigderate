@@ -4,6 +4,6 @@ using Entities;
 namespace RepositoryContracts;
 public interface IIngredientRepository
 {
-    Ingredient UpdateAsync(int id, UpdateIngredientDto userInfo, int difference);
-    IQueryable<Ingredient> GetAllIngredients();
+    Task<IngredientDto> UpdateAsync(int id, UpdateIngredientDto userInfo, int difference);
+    IQueryable<IngredientDto> GetAllIngredients();
 }

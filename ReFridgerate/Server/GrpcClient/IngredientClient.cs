@@ -1,3 +1,4 @@
+using APIContracts.IngridientDtos;
 using Entities;
 using Google.Protobuf;
 using Grpc.Net.Client;
@@ -15,21 +16,47 @@ public class IngredientClient : IIngredientClientManager
         ingredientService = new IngredientService.IngredientServiceClient(channel);
     }
 
-    public Ingredient UpdateIngredient(Ingredient ingredient, int difference)
+    public IngredientDto UpdateIngredient(IngredientDto ingredientDto, int difference)
     {
         UpdateIngredientRequest request = new()
         {
-            Id = ingredient.Id,
-            Amount = ingredient.Amount,
-            DaysUntilBad = ingredient.DaysUntilBad,
+            Id = ingredientDto.Id,
+            DaysUntilBad = ingredientDto.DaysUntilBad,
             Difference = difference
         };
-        return ingredientService.UpdateIngredient(request);
+        Ingredient ingredient =  ingredientService.UpdateIngredient(request);
+        IngredientDto responseDto = new()
+        {
+            Id = ingredient.Id,
+            Name = ingredient.Name,
+            Cost = ingredient.Cost,
+            Amount = ingredient.Amount,
+            DaysUntilBad = ingredient.DaysUntilBad,
+            StockStatus = ingredient.StockStatus,
+
+        };
+        return responseDto;
     }
 
-    public IQueryable<Ingredient> GetAllIngredients()
+    public IQueryable<IngredientDto> GetAllIngredients()
     {
-        Console.WriteLine( ingredientService.GetAllIngredients(new Empty()));
-        return ingredientService.GetAllIngredients(new Empty()).Messages.AsQueryable();
+        IQueryable<Ingredient> ingredients = ingredientService.GetAllIngredients(new Empty()).Messages.AsQueryable();
+        List<IngredientDto> ingredientDtos = new();
+        foreach (Ingredient ingredient in ingredients)
+        {
+            IngredientDto dto = new()
+            {
+                Id = ingredient.Id,
+                Name = ingredient.Name,
+                Cost = ingredient.Cost,
+                Amount = ingredient.Amount,
+                DaysUntilBad = ingredient.DaysUntilBad,
+                StockStatus = ingredient.StockStatus,
+
+            };
+            ingredientDtos.Add(dto);
+        }
+        
+        return ingredientDtos.AsQueryable();
     }
 }

@@ -1,9 +1,10 @@
+using APIContracts.IngridientDtos;
 using Entities;
 
 namespace GrpcClient;
 
 public interface IIngredientClientManager
 {
-    Ingredient UpdateIngredient(Ingredient ingredient, int difference);
-    IQueryable<Ingredient> GetAllIngredients();
+    IngredientDto UpdateIngredient(IngredientDto IngredientDto, int difference);
+    IQueryable<IngredientDto> GetAllIngredients();
 }
