@@ -13,6 +13,7 @@ message Ingredient {
   float cost = 3;
   int32 amount = 4;
   int32 daysUntilBad = 5;
+  int32 stockStatus = 6;
 }
 
 message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?
