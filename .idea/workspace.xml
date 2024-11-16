@@ -253,7 +253,7 @@
       <command value="mvn compile" />
     </option>
   </component>
-  <component name="RunManager" selected="Database Script.databaseScript.sql">
+  <component name="RunManager" selected="Spring Boot.ServerSideAppApplication (1)">
     <configuration name="databaseScript.sql" type="DatabaseScript" editBeforeRun="true" nameIsGenerated="true">
       <script-file value="$PROJECT_DIR$/DB/databaseScript.sql" />
       <script-mode>FILE</script-mode>
@@ -286,6 +286,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Spring Boot.ServerSideAppApplication (1)" />
+        <item itemvalue="Spring Boot.ServerSideAppApplication" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>

@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "telet3uDJvM=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\BlazorApp1.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Client\\BlazorApp1\\obj\\project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
+}

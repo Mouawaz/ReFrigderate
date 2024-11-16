@@ -1,0 +1,14 @@
+{
+  "version": 2,
+  "dgSpecHash": "pulv8H9EIsk=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\lucam\\Desktop\\ReFrigderate\\ReFridgerate\\Server\\Test\\Test.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\lucam\\.nuget\\packages\\google.protobuf\\3.29.0-rc2\\google.protobuf.3.29.0-rc2.nupkg.sha512",
+    "C:\\Users\\lucam\\.nuget\\packages\\grpc.core.api\\2.67.0-pre1\\grpc.core.api.2.67.0-pre1.nupkg.sha512",
+    "C:\\Users\\lucam\\.nuget\\packages\\grpc.net.client\\2.67.0-pre1\\grpc.net.client.2.67.0-pre1.nupkg.sha512",
+    "C:\\Users\\lucam\\.nuget\\packages\\grpc.net.common\\2.67.0-pre1\\grpc.net.common.2.67.0-pre1.nupkg.sha512",
+    "C:\\Users\\lucam\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\6.0.0\\microsoft.extensions.logging.abstractions.6.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
