@@ -13,19 +13,22 @@ message Ingredient {
   float cost = 3;
   int32 amount = 4;
   int32 daysUntilBad = 5;
+  int32 stockStatus = 6;
 }
 
 message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?
   repeated Ingredient messages = 1;
 }
 
-//message UpdateRequest{ Update needs to be discussed
-//  int32 id = 1;
-//  int32 amount
-//}
+message UpdateIngredientRequest{
+  int32 id = 1;
+  int32 difference = 2;
+  int32 daysUntilBad = 3;
+}
 
 service IngredientService{
   rpc GetAllIngredients(Empty) returns (AllIngredientResponse);
+  rpc UpdateIngredient(UpdateIngredientRequest) returns (Ingredient);
 }
 
 //service UserService {
