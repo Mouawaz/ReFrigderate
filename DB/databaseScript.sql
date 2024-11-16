@@ -45,7 +45,7 @@ create TABLE Chef (
 );
 
 create TABLE Waiter (
-                        waiterID INT PRIMARY KEY,
+                        waiterID SERIAL PRIMARY KEY,
                         tableAssignment VARCHAR(50),
                         shiftSchedule VARCHAR(50),
                         FOREIGN KEY (waiterID) REFERENCES refridgerate."user"(userID)
@@ -60,7 +60,7 @@ create TABLE Owner (
 CREATE TYPE report_type AS ENUM ('Inventory', 'Performance');
 
 CREATE TABLE Report (
-                        reportID INT PRIMARY KEY,
+                        reportID SERIAL PRIMARY KEY,
                         type report_type,
                         data TEXT,
                         creationDate DATE,
@@ -70,14 +70,14 @@ CREATE TABLE Report (
 
 
 create TABLE Ingredient (
-                            ingredientID INT PRIMARY KEY,
+                            ingredientID SERIAL PRIMARY KEY,
                             name VARCHAR(100),
                             cost DECIMAL(10, 2)
 );
 
 CREATE TYPE action_type AS ENUM ('Add', 'Subtract');
 CREATE TABLE Inventory (
-                           InventoryID INT PRIMARY KEY,
+                           InventoryID SERIAL PRIMARY KEY,
                            ingredientID INT,
                            chefID INT,
                            actionType action_type,
@@ -100,7 +100,7 @@ CREATE TABLE Alert (
 
 
 create TABLE Recipe (
-                        recipeID INT PRIMARY KEY,
+                        recipeID SERIAL PRIMARY KEY,
                         name VARCHAR(100),
                         instructions TEXT,
                         modificationsAllowed BOOLEAN,
@@ -111,7 +111,7 @@ create TABLE Recipe (
 CREATE TYPE menu_status AS ENUM ('Available', 'Unavailable');
 
 CREATE TABLE Menu (
-                      menuID INT PRIMARY KEY,
+                      menuID SERIAL PRIMARY KEY,
                       name VARCHAR(100),
                       status menu_status
 );
@@ -155,24 +155,24 @@ INSERT INTO Owner (ownerID, AccessToReport) VALUES
 
 
 INSERT INTO Ingredient (ingredientID, name, cost) VALUES
-                                                      (0, 'Test', 0),
-                                                      (1, 'Tomato', 0.50),
-                                                      (2, 'Cheese', 2.00);
+--                                                                                          (0, 'Test', 0),
+                                                                                         (DEFAULT, 'Tomato', 0.50),
+                                                                                         (DEFAULT, 'Cheese', 2.00);
 
 
 INSERT INTO Report (reportID, type, data, creationDate, ownerID) VALUES
-                                                                     (1, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
-                                                                     (2, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
+                                                                     (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
+                                                                     (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
 
 
 INSERT INTO Inventory (InventoryID, ingredientID, chefID, actionType, quantity, date, expirationDate) VALUES
-                                                                                                          (1, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
-                                                                                                          (2, 1, 1, 'Add', 40, '2024-10-25', '2024-12-05'),
-                                                                                                          (3, 2, 2, 'Add', 10, '2024-11-05', '2024-11-10'),
-                                                                                                          (4, 2, 2, 'Subtract', -10, '2024-11-09', '2024-11-09'),
-                                                                                                          (5, 2, 2, 'Add', 20, '2024-11-05', '2024-11-25'),
-                                                                                                          (6, 2, 2, 'Subtract', -20, '2024-11-05', '2024-11-25'),
-                                                                                                          (7, 2, 2, 'Add', 10, '2024-11-05', '2024-12-01');
+                                                                                                          (DEFAULT, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
+                                                                                                          (DEFAULT, 1, 1, 'Add', 40, '2024-10-25', '2024-12-05'),
+                                                                                                          (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-11-10'),
+                                                                                                          (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-09', '2024-11-09'),
+                                                                                                          (DEFAULT, 2, 2, 'Add', 20, '2024-11-05', '2024-11-25'),
+                                                                                                          (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-05', '2024-11-25'),
+                                                                                                          (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-12-01');
 
 
 INSERT INTO Alert (alertID, transactionID, thresholdType, status) VALUES
@@ -181,13 +181,13 @@ INSERT INTO Alert (alertID, transactionID, thresholdType, status) VALUES
 
 
 INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID) VALUES
-                                                                                    (1, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1),
-                                                                                    (2, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2);
+                                                                                    (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1),
+                                                                                    (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2);
 
 
 INSERT INTO Menu (menuID, name, status) VALUES
-                                            (1, 'Lunch Menu', 'Available'),
-                                            (2, 'Dinner Menu', 'Unavailable');
+                                            (DEFAULT, 'Lunch Menu', 'Available'),
+                                            (DEFAULT, 'Dinner Menu', 'Unavailable');
 
 
 INSERT INTO RecipeIngredient (recipeID, ingredientID, quantityNeeded) VALUES
