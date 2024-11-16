@@ -1270,3 +1270,10 @@ ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.sourcelink.json
 ReFridgerate/Server/WebAPI/obj/rider.project.model.nuget.info
 ReFridgerate/Server/WebAPI/obj/rider.project.restore.info
 .idea/dataSources.local.xml
+/ReFridgerate/Client/BlazorApp1/bin
+/ReFridgerate/Server/BusinessLayer/obj
+/ReFridgerate/Server/GrpcClient/bin
+/ReFridgerate/Server/GrpcClient/obj
+/ReFridgerate/Server/RepositoryContracts/obj
+/ReFridgerate/Server/Test/obj
+/ReFridgerate/Server/WebAPI/obj

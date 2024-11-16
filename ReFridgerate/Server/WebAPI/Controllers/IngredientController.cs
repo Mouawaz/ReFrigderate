@@ -26,8 +26,8 @@ public class IngredientController{
         try
         {
 
-            Ingredient ingredient =
-                ingredientRepo.UpdateAsync(id, userInfo, userInfo.Difference);
+            IngredientDto ingredient =
+               await ingredientRepo.UpdateAsync(id, userInfo, userInfo.Difference);
             return Results.Ok(ingredient);
         }
         catch (ArgumentException e)
@@ -49,7 +49,7 @@ public class IngredientController{
     {
         try
         {
-            IQueryable<Ingredient> ingredients = ingredientRepo.GetAllIngredients();
+            IQueryable<IngredientDto> ingredients = ingredientRepo.GetAllIngredients();
             return Results.Ok(ingredients);
         }
         catch (Exception e)

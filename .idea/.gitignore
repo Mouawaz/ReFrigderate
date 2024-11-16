@@ -101,3 +101,17 @@ bld/
 *.pubxml
 *.pubxml.user
 launchSettings.json
+
+obj/
+/obj/
+**/obj/
+
+bin/
+/bin/
+**/bin/
+
+
+*.exe
+*.dll
+*.pdb
+*.cache

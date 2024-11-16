@@ -15,11 +15,10 @@ public class IngredientLogic : IIngredientRepository
         this.clientManager = new IngredientClient();
     }
 
-    public Ingredient UpdateAsync(int id, UpdateIngredientDto userInfo, int difference)
+    public async Task<IngredientDto> UpdateAsync(int id, UpdateIngredientDto userInfo, int difference)
     {
         DateTime today = DateTime.Today.Date;
         DateTime givenDate;
-        int daysUntilBad;
         if (userInfo.Amount < 0)
         {
              throw new ArgumentException("Amount cannot be negative");
@@ -34,19 +33,20 @@ public class IngredientLogic : IIngredientRepository
             throw new ArgumentException("Date is not valid");
         }
         
-        Ingredient ingredient = new()
+        IngredientDto ingredient = new()
         {
             Id = id,
             Name = userInfo.Name,
             Amount = userInfo.Amount,
             Cost = userInfo.Cost,
-            DaysUntilBad = (givenDate - today).Days
+            DaysUntilBad = (givenDate - today).Days,
+            
                 
         };
         return  clientManager.UpdateIngredient(ingredient, difference);
     }
 
-    public IQueryable<Ingredient> GetAllIngredients()
+    public IQueryable<IngredientDto> GetAllIngredients()
     {
         return clientManager.GetAllIngredients();
     }
