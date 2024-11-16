@@ -5,5 +5,6 @@ import Server.IngredientOuterClass;
 import java.util.ArrayList;
 
 public interface GeneralIngredientsManager {
-    public IngredientOuterClass.AllIngredientResponse GetAllIngredients();
+    IngredientOuterClass.AllIngredientResponse GetAllIngredients();
+    IngredientOuterClass.Ingredient UpdateIngredient(IngredientOuterClass.UpdateIngredientRequest request);
 }

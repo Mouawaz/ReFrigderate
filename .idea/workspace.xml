@@ -4,188 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/protos/Ingredient.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/bin/Debug/net8.0/APIContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/bin/Debug/net8.0/APIContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/bin/Debug/net8.0/APIContracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/bin/Debug/net8.0/APIContracts.pdb" afterDir="false" />
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="try to fix weird merge issues :)">
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/ref/APIContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/ref/APIContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/refint/APIContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/refint/APIContracts.dll" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/APIContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/APIContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/APIContracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/APIContracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.staticwebassets.runtime.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/bin/Debug/net8.0/BlazorApp1.staticwebassets.runtime.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/BlazorApp1.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/BlazorApp1.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/BlazorApp1.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/BlazorApp1.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.genruntimeconfig.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/BlazorApp1.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/ref/BlazorApp1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/ref/BlazorApp1.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/refint/BlazorApp1.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/refint/BlazorApp1.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/Components/Layout/MainLayout.razor.rz.scp.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/Components/Layout/NavMenu.razor.rz.scp.css" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/Components/Layout/NavMenu.razor.rz.scp.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/bundle/BlazorApp1.styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/bundle/BlazorApp1.styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/projectbundle/BlazorApp1.bundle.scp.css" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/scopedcss/projectbundle/BlazorApp1.bundle.scp.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/staticwebassets.build.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/staticwebassets.build.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/staticwebassets.development.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/staticwebassets.development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/staticwebassets.pack.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/Debug/net8.0/staticwebassets.pack.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/ReFridgerate C# server.sln" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/ReFridgerate C# server.sln" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/Entities.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/Entities.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/bin/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/bin/Debug/net8.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/bin/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/bin/Debug/net8.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/1255d1a520d30ea4_User.protodep" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/Entities.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/ref/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/ref/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/refint/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Debug/net8.0/refint/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Entities.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Entities.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Entities.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/Entities.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/Entities.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/Entities.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/GrpcClient.deps.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/GrpcClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/GrpcClient.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/RepositoryContracts.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/bin/Debug/net8.0/RepositoryContracts.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.csproj.Up2Date" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/GrpcClient.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/ref/GrpcClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/Debug/net8.0/refint/GrpcClient.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/GrpcClient.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/GrpcClient.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/GrpcClient.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/GrpcClient.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/RepositoryContracts.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/RepositoryContracts.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/RepositoryContracts.deps.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/RepositoryContracts.deps.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/RepositoryContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/RepositoryContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/RepositoryContracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/bin/Debug/net8.0/RepositoryContracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/RepositoryContracts.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/ref/RepositoryContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/ref/RepositoryContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/refint/RepositoryContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/Debug/net8.0/refint/RepositoryContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/RepositoryContracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/RepositoryContracts.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/RepositoryContracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/RepositoryContracts.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Entities.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Entities.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Entities.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Entities.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/GrpcClient.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/GrpcClient.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/GrpcClient.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/GrpcClient.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/RepositoryContracts.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/RepositoryContracts.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/RepositoryContracts.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/RepositoryContracts.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Test.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Test.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Test.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/bin/Debug/net8.0/Test.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.csproj.CoreCompileInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.csproj.CoreCompileInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.csproj.FileListAbsolute.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.genruntimeconfig.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.genruntimeconfig.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.pdb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/Test.sourcelink.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/apphost.exe" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/ref/Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/ref/Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/refint/Test.dll" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Debug/net8.0/refint/Test.dll" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Test.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Test.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Test.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/Test.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/obj/rider.project.restore.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/WebAPI.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/WebAPI.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/Debug/net8.0/WebAPI.csproj.AssemblyReference.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/WebAPI.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/WebAPI.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/WebAPI.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBQuery.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DarkyenusTimeTracker">
+    <option name="totalTimeSeconds" value="5951" />
+    <option name="idleThresholdMs" value="30000" />
+    <option name="autoCountIdleSeconds" value="15" />
+    <option name="gitIntegration" value="true" />
+    <option name="naggedAbout" value="1" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -251,6 +97,8 @@
     <option name="myCommands">
       <command value="mvn clean" />
       <command value="mvn compile" />
+      <command value="?" />
+      <command value="cd.." />
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.ServerSideAppApplication (1)">
@@ -296,8 +144,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23339.11" />
-        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23339.11" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -321,10 +169,25 @@
       <workItem from="1731315186667" duration="1368000" />
       <workItem from="1731317609182" duration="3387000" />
       <workItem from="1731486694851" duration="1281000" />
+      <workItem from="1731673880526" duration="1626000" />
+      <workItem from="1731759927317" duration="8670000" />
     </task>
+    <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
+      <option name="closed" value="true" />
+      <created>1731786129952</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1731786129953</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="try to fix weird merge issues :)" />
+    <option name="LAST_COMMIT_MESSAGE" value="try to fix weird merge issues :)" />
   </component>
 </project>
