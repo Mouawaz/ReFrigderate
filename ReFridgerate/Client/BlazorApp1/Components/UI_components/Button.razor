@@ -1,0 +1,13 @@
+<button class="custom-button" @onclick="OnClick">
+    @if (!string.IsNullOrEmpty(Icon))
+    {
+    <img class="button-icon" src="Images/@Icon" alt="@Icon" />
+    }
+    <span>@Text</span>
+</button>
+
+@code {
+[Parameter] public string Icon { get; set; } 
+[Parameter] public string Text { get; set; } 
+[Parameter] public EventCallback OnClick { get; set; } 
+}

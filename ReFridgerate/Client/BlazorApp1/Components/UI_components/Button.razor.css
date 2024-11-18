@@ -1,0 +1,25 @@
+.custom-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: #ADD2CA;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.custom-button:hover {
+    background-color: #4CE2C2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.button-icon {
+    width: 0.938rem;
+    height: 0.938rem;
+    display: inline-block;
+    vertical-align: middle;
+}
