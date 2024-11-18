@@ -1,3 +1,11 @@
+.ingredientt{
+    width: 0.938rem;
+    height: 0.938rem;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
 .page-container {
     padding: 2rem;
 }
@@ -9,13 +17,21 @@
 }
 
 .item-card {
-    background-color: #f0f0f0;
+    background-color: white; 
     padding: 1.5rem;
     border-radius: 16px;
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+    transition: transform 0.2s, box-shadow 0.2s; 
 }
+
+.item-card:hover {
+    transform: translateY(-5px); 
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); 
+}
+
 
 .item-metadata {
     display: flex;
@@ -88,12 +104,17 @@
     align-items: center;
 }
 
+.header{
+    padding-bottom: 3rem;
+}
+
 .search-box {
     border: 1px solid #000;
     padding: 0.5rem;
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    border-radius: 0.5rem;
 }
 
 .search-box input {
@@ -111,3 +132,4 @@
     gap: 0.5rem;
     cursor: pointer;
 }
+

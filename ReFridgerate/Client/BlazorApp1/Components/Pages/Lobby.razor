@@ -1,31 +1,31 @@
 @page "/"
-@inject IJSRuntime JSRuntime 
+@inject IJSRuntime JSRuntime
+@using BlazorApp.Components.Services
+@inject IIngredientService IngredientService
 
-<link href="css/lobby.css" rel="stylesheet" />
+<link href="css/lobby.css?version=0.1" rel="stylesheet" />
 <div class="page-container">
     <div class="header">
         <h1>Ingredients</h1>
         <div class="header-controls">
             <div class="search-box">
-                <span>🔎</span>
+                <img class="ingredientt" src="Images/search.png" alt="search"/>
                 <input type="text" placeholder="Search..."/>
             </div>
-            <button class="filter-button">
-                <span>🔎</span>
-                <span>Filters</span>
-            </button>
+            
         </div>
     </div>
 
     <div class="items-grid">
-        @foreach (var item in items)
+        @foreach (var ingredient in ingredients)
         {
             <div class="item-card">
                 <div class="item-metadata">
-                    <div class="meta-item">@item.Days</div>
-                    <div class="meta-item">@item.Weight</div>
+                    <div class="meta-item">@ingredient.DaysUntilBad</div>
+                    <div class="meta-item">@ingredient.Amount</div>
                     <div class="notification-bell">
                         <i>🔔</i>
+                        <span class="glyphicon glyphicon-bell"></span>
                     </div>
                 </div>
 
@@ -34,29 +34,35 @@
                 </div>
 
                 <div class="item-name">
-                    @item.Name
+                    @ingredient.Name
                 </div>
 
                 <div class="item-actions">
-                    <button class="edit-button">
-                        <i class="edit-icon">✏️</i>
-                        <span>Edit</span>
-                    </button>
+                    <Button Icon="editing.png" Text="Edit"></Button>
                 </div>
             </div>
+        }
+    </div>
+    <div>
+        @foreach (var ingredient in ingredients)
+        {
+        <li> @ingredient.Name</li>
         }
     </div>
 </div>
 
 
 @page "/Lobby"
+@using APIContracts.IngridientDtos
+@using BlazorApp1.Services
 <h3>Lobby</h3>
 
 @code {
     private string searchText = "";
     private List<ItemModel> items = new();
+    private List<IngredientDto> ingredients = new();
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         // sample
         items = new List<ItemModel>
@@ -73,8 +79,22 @@
                 Days = "14d",
                 Weight = "100kg"
             },
+            new ItemModel
+            {
+                Name = "Guza",
+                
+            }
             //  more items here 
         };
+        try
+        {
+            ingredients = await IngredientService.GetIngredientsAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error fetching ingredients: {e.Message} ");
+            throw;
+        }
     }
 
     public class ItemModel

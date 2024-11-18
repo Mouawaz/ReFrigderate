@@ -10,4 +10,13 @@
       <ProjectReference Include="..\..\APIContracts\APIContracts.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Include="wwwroot\Images\cheese.png" />
+      <None Include="wwwroot\Images\editing.png" />
+      <None Include="wwwroot\Images\fridge.png" />
+      <None Include="wwwroot\Images\notification.png" />
+      <None Include="wwwroot\Images\search.png" />
+      <None Include="wwwroot\Images\tomato.png" />
+    </ItemGroup>
+
 </Project>

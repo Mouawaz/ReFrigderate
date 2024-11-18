@@ -1,3 +1,4 @@
+using BlazorApp.Components.Services;
 using BlazorApp1.Components;
 using BlazorApp1.Services;
 
@@ -12,6 +13,7 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri("http://localhost:5180")
 });
 builder.Services.AddScoped<IUserService, HttpUserService>();
+builder.Services.AddScoped<IIngredientService, HttpIngredientService>();
 
 var app = builder.Build();
 
