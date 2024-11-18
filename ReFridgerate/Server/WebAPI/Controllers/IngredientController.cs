@@ -11,7 +11,8 @@ namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-public class IngredientController{
+public class IngredientController : ControllerBase
+{
 
     private readonly IIngredientRepository ingredientRepo;
 
@@ -20,7 +21,7 @@ public class IngredientController{
         this.ingredientRepo = ingredientRepo;
     }
     [HttpPut("{id}")]
-    public async Task<IResult> UpdateUser([FromRoute] int id,
+    public async Task<IResult> UpdateIngredient([FromRoute] int id,
         [FromBody] UpdateIngredientDto userInfo)
     {
         try

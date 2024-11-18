@@ -1,6 +1,28 @@
-﻿using GrpcClient;
+﻿using APIContracts.IngridientDtos;
+using BusinessLayer;
+using Entities;
+using GrpcClient;
+using RepositoryContracts;
+using WebAPI;
+using WebAPI.Controllers;
 
+IIngredientRepository repository = new IngredientLogic(); 
+IngredientController controller = new IngredientController(repository);
 Client client = new Client();
 IngredientClient ingredientClient = new IngredientClient();
-ingredientClient.GetAllIngredients();
+//ingredientClient.GetAllIngredients();
+UpdateIngredientDto dto = new()
+{
+    Name = "Carrots",
+    Amount = 100,
+    Difference = 10,
+    Cost = 120,
+    Substraction = false,
+    DateOfExpiration = DateTime.Now.Date.ToString("d/M/yyyy")
+    
+    
+};
+var result = controller.UpdateIngredient(1, dto).Result;
+Console.WriteLine(result);
+
 //Console.WriteLine(await client.GetSingleAsync(2)); 

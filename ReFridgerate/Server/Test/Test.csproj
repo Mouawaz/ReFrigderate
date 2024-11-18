@@ -9,6 +9,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\GrpcClient\GrpcClient.csproj" />
+      <ProjectReference Include="..\WebAPI\WebAPI.csproj" />
     </ItemGroup>
 
 </Project>
