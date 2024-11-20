@@ -42,4 +42,34 @@ public class UsersController : ControllerBase
              return StatusCode(500, e.Message);
         }
     }
+    // For now these are just placeholders, until changes are made
+    /*
+    [HttpGet]
+    public async Task<ActionResult<IQueryable<UserDto>>> GetAllUsers()
+    {
+        // Todo be implemented with getmany() 
+        
+    }
+
+    [HttpPost]
+    public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserDto createUserDto)
+    {
+        // Todo AddAsync() 
+        
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<UserDto>> UpdateUser([FromRoute] int id, [FromBody] UpdateUserDto updateUserDto)
+    {
+        // Todo with UpdateAsync() 
+        
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteUser([FromRoute] int id)
+    {
+        // Todo  with DeleteAsync() 
+        
+    }
+    */
 }
