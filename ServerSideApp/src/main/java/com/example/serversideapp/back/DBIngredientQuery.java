@@ -16,8 +16,8 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
         //Goes through all ingredients in the database and adds them to the ans arraylist
         try (Connection connection = getConnected()) {
             PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient");
-            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date;");
-            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date");
+            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
+            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,8 +38,8 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
             psUpdateIngredient.executeUpdate();
             //Done with updating, now get total again
             PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient WHERE ingredientid = ?");
-            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date;");
-            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date");
+            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
+            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             psIngredients.setInt(1, ingredientId);
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates).getFirst();
         }

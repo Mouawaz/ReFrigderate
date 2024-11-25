@@ -4,14 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Update proto files, start java implemenation">
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Login implementation done (?)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/UserLocal.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/UserLocal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/User.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/User.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,7 +16,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="11635" />
+    <option name="totalTimeSeconds" value="13320" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
@@ -180,7 +177,7 @@
       <workItem from="1732115459041" duration="65000" />
       <workItem from="1732521671656" duration="1405000" />
       <workItem from="1732523528853" duration="1533000" />
-      <workItem from="1732525401736" duration="4199000" />
+      <workItem from="1732525401736" duration="6799000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
       <option name="closed" value="true" />
@@ -206,7 +203,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732527588364</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Login implementation done (?)">
+      <option name="closed" value="true" />
+      <created>1732529912074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529912074</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +221,7 @@
     <MESSAGE value="try to fix weird merge issues :)" />
     <MESSAGE value="Implemented ingredientUpdate functionality" />
     <MESSAGE value="Update proto files, start java implemenation" />
-    <option name="LAST_COMMIT_MESSAGE" value="Update proto files, start java implemenation" />
+    <MESSAGE value="Login implementation done (?)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login implementation done (?)" />
   </component>
 </project>

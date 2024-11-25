@@ -34,13 +34,22 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
 
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
+        int redAmount = 5;
+        int yellowAmount = 10;
+        int redTime = 0;
+        int yellowTime = 7;
+        //in the future to be defined by the user, and read from the DB
         Date todaysDate = new Date();
         int days = (int)TimeUnit.MILLISECONDS.toDays(local.getExpirationDate().getTime() - todaysDate.getTime());
+        int amountWarning = local.getAmount() <= yellowAmount ? (local.getAmount() <= redAmount ? 3 : 2) : 1;
+        int timeWarning = days <= yellowTime ? (days <= redTime ? 3 : 2) : 1;
         return IngredientOuterClass.Ingredient.newBuilder()
                 .setId(local.getId())
                 .setName(local.getName())
                 .setCost(local.getCost())
                 .setAmount(local.getAmount())
-                .setDaysUntilBad(days).build();
+                .setDaysUntilBad(days)
+                .setAmountStatus(amountWarning)
+                .setExpirationStatus(timeWarning).build();
     }
 }
