@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {}
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {}
   },
   "projects": {
-    "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {
+    "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj",
+        "projectUniqueName": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj",
         "projectName": "APIContracts",
-        "projectPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj",
-        "packagesPath": "C:\\Users\\duzyw\\.nuget\\packages\\",
-        "outputPath": "C:\\Projects\\ReFrigderate\\ReFridgerate\\APIContracts\\obj\\",
+        "projectPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\APIContracts.csproj",
+        "packagesPath": "C:\\Users\\1stof\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\1stof\\IdeaProjects\\ReFrigderate\\ReFridgerate\\APIContracts\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\duzyw\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\1stof\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"

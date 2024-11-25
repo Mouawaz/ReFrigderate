@@ -13,6 +13,6 @@ message LoginResponse {
   string fullName = 3;
 }
 
-service LoginService{
+service UserService{
   rpc AttemptLogin(LoginRequest) returns (LoginResponse);
 }

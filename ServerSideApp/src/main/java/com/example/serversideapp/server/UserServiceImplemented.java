@@ -1,11 +1,11 @@
 package com.example.serversideapp.server;
 
-import Server.LoginServiceGrpc;
+import Server.UserServiceGrpc;
 import Server.User;
 import com.example.serversideapp.middle.UserManager;
 import io.grpc.stub.StreamObserver;
 
-public class UserServiceImplemented extends LoginServiceGrpc.LoginServiceImplBase {
+public class UserServiceImplemented extends UserServiceGrpc.UserServiceImplBase {
     private UserManager userManager;
 
     public UserServiceImplemented(UserManager userManager) {

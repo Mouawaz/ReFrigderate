@@ -40,7 +40,8 @@ public class IngredientClient : IIngredientClientManager
 
     public IQueryable<IngredientDto> GetAllIngredients()
     {
-        IQueryable<Ingredient> ingredients = ingredientService.GetAllIngredients(new Empty()).Messages.AsQueryable();
+        Entities.Empty  empty = new Entities.Empty();
+        IQueryable<Ingredient> ingredients = ingredientService.GetAllIngredients(empty).Messages.AsQueryable();
         List<IngredientDto> ingredientDtos = new();
         foreach (Ingredient ingredient in ingredients)
         {

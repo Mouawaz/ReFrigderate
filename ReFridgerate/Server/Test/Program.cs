@@ -1,4 +1,5 @@
 ﻿using APIContracts.IngridientDtos;
+using APIContracts.UserDtos;
 using BusinessLayer;
 using Entities;
 using GrpcClient;
@@ -8,10 +9,12 @@ using WebAPI.Controllers;
 
 IIngredientRepository repository = new IngredientLogic(); 
 IngredientController controller = new IngredientController(repository);
-Client client = new Client();
+IUserRepository userRepository = new UserLogic();
+AuthController authController = new AuthController(userRepository);
+UserClient userClient = new UserClient();
 IngredientClient ingredientClient = new IngredientClient();
 //ingredientClient.GetAllIngredients();
-UpdateIngredientDto dto = new()
+/*UpdateIngredientDto dto = new()
 {
     Name = "Carrots",
     Amount = 100,
@@ -22,7 +25,14 @@ UpdateIngredientDto dto = new()
     
     
 };
-var result = controller.UpdateIngredient(1, dto).Result;
+var result = controller.UpdateIngredient(1, dto).Result;*/
+
+LoginDto loginDto = new()
+{
+    email = "jdoe@example.com",
+    password = "password123"
+};
+var result = await authController.CheckUser(loginDto);
 Console.WriteLine(result);
 
 //Console.WriteLine(await client.GetSingleAsync(2)); 

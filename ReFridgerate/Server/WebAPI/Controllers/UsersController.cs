@@ -26,7 +26,6 @@ public class UsersController : ControllerBase
             User user = await userRepo.GetSingleAsync(id);
             UserDto dto = new UserDto()
             {
-                UserId = user.Userid,
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
                 Email = user.Email,
@@ -42,7 +41,7 @@ public class UsersController : ControllerBase
              return StatusCode(500, e.Message);
         }
     }
-    // For now these are just placeholders, until changes are made
+     //For now these are just placeholders, until changes are made
     /*
     [HttpGet]
     public async Task<ActionResult<IQueryable<UserDto>>> GetAllUsers()
