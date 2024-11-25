@@ -11,7 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IUserRepository, Client>();
+builder.Services.AddScoped<IUserRepository, UserLogic>();
 builder.Services.AddScoped<IIngredientRepository, IngredientLogic>();
 
 var app = builder.Build();

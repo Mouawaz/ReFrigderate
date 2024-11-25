@@ -1,13 +1,33 @@
 syntax = "proto3";
-// .proto files are used for the gRPC structure of the data and the services.
-//  both sides agree on the data format...i think.
 
 option java_package = "Server";
-option csharp_namespace = "Entities";
 
 
-message UserIdRequest {
-  string userid = 1;
+message Empty{}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message CreateUserRequest {
+  string email = 1;
+  string password = 2;
+  string firstname = 3;
+  string lastname = 4;
+  string dateOfBirth = 5;
+  string sex = 6;
+  string phoneNumber = 7;
+}
+
+message LoginResponse {
+  bool success = 1;
+  int32 userId = 2;
+  string fullName = 3;
+}
+
+message AllUsersResponse{ //Many 'Ingredient' messages | basically an array list?
+  repeated User messages = 1;
 }
 
 message User {
@@ -19,11 +39,10 @@ message User {
   string dateOfBirth = 6;
   string sex = 7;
   string phoneNumber = 8;
-}
+  }
 
-service UserService {
-  rpc GetUser(UserIdRequest) returns (User); // Defines a gRPC service that is then compiled into the protobuf
+service UserService{
+  rpc AttemptLogin(LoginRequest) returns (LoginResponse);
+  rpc GetAllUsers(Empty) returns (AllUsersResponse);
+  rpc AddUser(CreateUserRequest) returns (LoginResponse);
 }
-// then you create the logic in the server class and database operations
-// For the server here, this User.proto file is compiled into Java (or c#) using the Protobuf compiler .
-// It allows clients to request user details by providing a user ID fx

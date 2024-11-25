@@ -1,3 +1,4 @@
+using APIContracts.UserDtos;
 using Entities;
 namespace RepositoryContracts;
 
@@ -8,4 +9,5 @@ public interface IUserRepository
    // Task DeleteAsync(int id);
     Task<User> GetSingleAsync(int id);
    // IQueryable<User> GetMany();
+   Task<LoginResponseDto> LoginAsync(LoginDto loginDto);
 }
