@@ -7,7 +7,7 @@ import io.grpc.stub.StreamObserver;
 
 public class IngredientServiceImplemented extends IngredientServiceGrpc.IngredientServiceImplBase {
 
-    GeneralIngredientsManager generalIngredientsManager;
+    private GeneralIngredientsManager generalIngredientsManager;
     public IngredientServiceImplemented(GeneralIngredientsManager generalIngredientsManager){
         this.generalIngredientsManager = generalIngredientsManager;
     }

@@ -4,22 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="try to fix weird merge issues :)">
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Login implementation done (?)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBQuery.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +16,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="5951" />
+    <option name="totalTimeSeconds" value="13320" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -56,38 +53,40 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Database Script.databaseScript.sql.executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ServerSideApp [clean].executor&quot;: &quot;Run&quot;,
-    &quot;Maven.ServerSideApp [compile].executor&quot;: &quot;Run&quot;,
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;Spring Boot.ServerSideAppApplication (1).executor&quot;: &quot;Run&quot;,
-    &quot;Spring Boot.ServerSideAppApplication.executor&quot;: &quot;Run&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/1stof/IdeaProjects/ReFrigderate&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Database Script.databaseScript.sql.executor": "Run",
+    "Maven.ServerSideApp [clean,compile].executor": "Run",
+    "Maven.ServerSideApp [clean].executor": "Run",
+    "Maven.ServerSideApp [compile].executor": "Run",
+    "Maven.ServerSideApp [validate].executor": "Run",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "Spring Boot.ServerSideAppApplication (1).executor": "Run",
+    "Spring Boot.ServerSideAppApplication.executor": "Run",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Projects/ReFrigderate",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;RunConfigurationTargetLRU&quot;: [
-      &quot;f5595383-9bda-4976-84d3-a742cd1627f5&quot;
+  "keyToStringList": {
+    "RunConfigurationTargetLRU": [
+      "f5595383-9bda-4976-84d3-a742cd1627f5"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="service" />
@@ -99,6 +98,7 @@
       <command value="mvn compile" />
       <command value="?" />
       <command value="cd.." />
+      <command value="mvn clean compile" />
     </option>
   </component>
   <component name="RunManager" selected="Spring Boot.ServerSideAppApplication (1)">
@@ -170,7 +170,14 @@
       <workItem from="1731317609182" duration="3387000" />
       <workItem from="1731486694851" duration="1281000" />
       <workItem from="1731673880526" duration="1626000" />
-      <workItem from="1731759927317" duration="8670000" />
+      <workItem from="1731759927317" duration="8916000" />
+      <workItem from="1731919837883" duration="6496000" />
+      <workItem from="1731958435227" duration="2006000" />
+      <workItem from="1732105331599" duration="19000" />
+      <workItem from="1732115459041" duration="65000" />
+      <workItem from="1732521671656" duration="1405000" />
+      <workItem from="1732523528853" duration="1533000" />
+      <workItem from="1732525401736" duration="6799000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
       <option name="closed" value="true" />
@@ -180,7 +187,31 @@
       <option name="project" value="LOCAL" />
       <updated>1731786129953</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implemented ingredientUpdate functionality">
+      <option name="closed" value="true" />
+      <created>1731787605478</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731787605478</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Update proto files, start java implemenation">
+      <option name="closed" value="true" />
+      <created>1732527588364</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1732527588364</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Login implementation done (?)">
+      <option name="closed" value="true" />
+      <created>1732529912074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732529912074</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +219,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="try to fix weird merge issues :)" />
-    <option name="LAST_COMMIT_MESSAGE" value="try to fix weird merge issues :)" />
+    <MESSAGE value="Implemented ingredientUpdate functionality" />
+    <MESSAGE value="Update proto files, start java implemenation" />
+    <MESSAGE value="Login implementation done (?)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Login implementation done (?)" />
   </component>
 </project>
