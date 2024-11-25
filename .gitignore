@@ -1277,3 +1277,10 @@ ReFridgerate/Server/WebAPI/obj/rider.project.restore.info
 /ReFridgerate/Server/RepositoryContracts/obj
 /ReFridgerate/Server/Test/obj
 /ReFridgerate/Server/WebAPI/obj
+ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java
+ReFridgerate/APIContracts/obj/rider.project.model.nuget.info
+ReFridgerate/APIContracts/obj/project.packagespec.json
+ReFridgerate/APIContracts/obj/project.nuget.cache
+ReFridgerate/APIContracts/obj/project.assets.json
+ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props
+ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json
