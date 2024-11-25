@@ -10,6 +10,7 @@ import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import com.example.serversideapp.back.DBIngredientQuery;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import Server.User;
 
 @SpringBootApplication
 public class ServerSideAppApplication {
