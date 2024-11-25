@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Login implementation done (?)">
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Updated the ingredient to hopefully include the old ingredient as well as having the proper warnings">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -16,7 +14,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="13320" />
+    <option name="totalTimeSeconds" value="13788" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
@@ -177,7 +175,7 @@
       <workItem from="1732115459041" duration="65000" />
       <workItem from="1732521671656" duration="1405000" />
       <workItem from="1732523528853" duration="1533000" />
-      <workItem from="1732525401736" duration="6799000" />
+      <workItem from="1732525401736" duration="8166000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
       <option name="closed" value="true" />
@@ -211,7 +209,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732529912074</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Updated the ingredient to hopefully include the old ingredient as well as having the proper warnings">
+      <option name="closed" value="true" />
+      <created>1732532546177</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732532546177</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -222,6 +228,7 @@
     <MESSAGE value="Implemented ingredientUpdate functionality" />
     <MESSAGE value="Update proto files, start java implemenation" />
     <MESSAGE value="Login implementation done (?)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login implementation done (?)" />
+    <MESSAGE value="Updated the ingredient to hopefully include the old ingredient as well as having the proper warnings" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated the ingredient to hopefully include the old ingredient as well as having the proper warnings" />
   </component>
 </project>
