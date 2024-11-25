@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DBIngredientQuery implements DBIngredientManager {
+public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager {
     public DBIngredientQuery() {
     }
 
@@ -60,6 +60,7 @@ public class DBIngredientQuery implements DBIngredientManager {
         }
         return minDate;
     }
+    //TODO: rework the get to actually work lmao
     private ArrayList<IngredientLocal> getListOfIngredient(ResultSet rsIngredients, PreparedStatement psBatches, PreparedStatement psDates) throws SQLException {
         ArrayList<IngredientLocal> ans = new ArrayList<>();
         while (rsIngredients.next()) {
@@ -74,10 +75,5 @@ public class DBIngredientQuery implements DBIngredientManager {
                     findRecentDate(psDates.executeQuery())));
         }
         return ans;
-    }
-
-    private Connection getConnected() throws SQLException {
-        return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/postgres", "postgres", "1234");
     }
 }

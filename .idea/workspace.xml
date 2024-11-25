@@ -4,22 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="try to fix weird merge issues :)">
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Implemented ingredientUpdate functionality">
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBGeneral.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManagerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/UserLocal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/User.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/DB/databaseScript.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/databaseScript.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBQuery.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/GeneralIngredientsManagerImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/IngredientServiceImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Ingredient.proto" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,11 +27,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="5951" />
+    <option name="totalTimeSeconds" value="9742" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
     <option name="naggedAbout" value="1" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,6 +69,7 @@
     &quot;Database Script.databaseScript.sql.executor&quot;: &quot;Run&quot;,
     &quot;Maven.ServerSideApp [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.ServerSideApp [compile].executor&quot;: &quot;Run&quot;,
+    &quot;Maven.ServerSideApp [validate].executor&quot;: &quot;Run&quot;,
     &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
     &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
     &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
@@ -70,7 +79,7 @@
     &quot;Spring Boot.ServerSideAppApplication.executor&quot;: &quot;Run&quot;,
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/1stof/IdeaProjects/ReFrigderate&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Projects/ReFrigderate&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
@@ -170,7 +179,14 @@
       <workItem from="1731317609182" duration="3387000" />
       <workItem from="1731486694851" duration="1281000" />
       <workItem from="1731673880526" duration="1626000" />
-      <workItem from="1731759927317" duration="8670000" />
+      <workItem from="1731759927317" duration="8916000" />
+      <workItem from="1731919837883" duration="6496000" />
+      <workItem from="1731958435227" duration="2006000" />
+      <workItem from="1732105331599" duration="19000" />
+      <workItem from="1732115459041" duration="65000" />
+      <workItem from="1732521671656" duration="1405000" />
+      <workItem from="1732523528853" duration="1533000" />
+      <workItem from="1732525401736" duration="1949000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
       <option name="closed" value="true" />
@@ -180,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731786129953</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Implemented ingredientUpdate functionality">
+      <option name="closed" value="true" />
+      <created>1731787605478</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1731787605478</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -188,6 +212,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="try to fix weird merge issues :)" />
-    <option name="LAST_COMMIT_MESSAGE" value="try to fix weird merge issues :)" />
+    <MESSAGE value="Implemented ingredientUpdate functionality" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implemented ingredientUpdate functionality" />
   </component>
 </project>

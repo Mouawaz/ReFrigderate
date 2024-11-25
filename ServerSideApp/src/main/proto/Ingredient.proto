@@ -14,6 +14,7 @@ message Ingredient {
   int32 amount = 4;
   int32 daysUntilBad = 5;
   int32 stockStatus = 6;
+  //Design the stockStatus info
 }
 
 message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?

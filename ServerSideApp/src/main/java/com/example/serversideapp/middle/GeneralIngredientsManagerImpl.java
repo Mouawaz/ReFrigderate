@@ -31,6 +31,7 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
         IngredientLocal local = dbIngredientManager.UpdateIngredient(request.getId(), request.getDifference(), request.getDaysUntilBad()); //IngredientId, quantity, expirationDate
         return parseFromLocal(local);
     }
+
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
         Date todaysDate = new Date();

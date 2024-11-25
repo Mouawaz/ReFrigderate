@@ -25,7 +25,7 @@ DROP FUNCTION IF EXISTS check_and_clear_old_inventory() CASCADE;
 DROP TRIGGER IF EXISTS auto_clear_old_inventory ON refridgerate.inventory CASCADE;
 SET datestyle TO 'ISO, DMY';
 create TABLE "user"(
-                       userID INT PRIMARY KEY,
+                       userID SERIAL PRIMARY KEY,
                        name VARCHAR(100),
                        email VARCHAR(100),
                        password     varchar(255) not null,
@@ -45,7 +45,7 @@ create TABLE Chef (
 );
 
 create TABLE Waiter (
-                        waiterID SERIAL PRIMARY KEY,
+                        waiterID INT PRIMARY KEY,
                         tableAssignment VARCHAR(50),
                         shiftSchedule VARCHAR(50),
                         FOREIGN KEY (waiterID) REFERENCES refridgerate."user"(userID)
@@ -84,6 +84,7 @@ CREATE TABLE Inventory (
                            quantity INT,
                            date DATE,
                            expirationDate DATE,
+                           reasonForRemoval varchar(30),
                            FOREIGN KEY (ingredientID) REFERENCES Ingredient(ingredientID),
                            FOREIGN KEY (chefID) REFERENCES Chef(chefID)
 );
