@@ -61,19 +61,45 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
         return minDate;
     }
     //TODO: rework the get to actually work lmao
+    //NOTE: Provisional code for testing frontend
     private ArrayList<IngredientLocal> getListOfIngredient(ResultSet rsIngredients, PreparedStatement psBatches, PreparedStatement psDates) throws SQLException {
         ArrayList<IngredientLocal> ans = new ArrayList<>();
+
         while (rsIngredients.next()) {
-            psBatches.setInt(1, rsIngredients.getInt(1));
-            psDates.setInt(1, rsIngredients.getInt(1));
-            ResultSet rsBatches = psBatches.executeQuery();
-            rsBatches.next(); //Read through all and count
-            ans.add(new IngredientLocal(rsIngredients.getInt(1),
-                    rsIngredients.getString(2),
-                    rsIngredients.getFloat(3),
-                    rsBatches.getInt(1),
-                    findRecentDate(psDates.executeQuery())));
+            try {
+                int ingredientID = rsIngredients.getInt("ingredientID");
+                String name = rsIngredients.getString("name");
+
+                float cost;
+                try {
+                    cost = rsIngredients.getFloat("cost");
+                    if (rsIngredients.wasNull()) {
+                        cost = 0.0f; // Default for NULL
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Invalid cost value for ingredient ID " + ingredientID + ": " + e.getMessage());
+                    cost = 0.0f; // Default for errors
+                }
+
+                psBatches.setInt(1, ingredientID);
+                psDates.setInt(1, ingredientID);
+
+                ResultSet rsBatches = psBatches.executeQuery();
+                int batchSum = rsBatches.next() ? rsBatches.getInt(1) : 0;
+                
+                ResultSet rsDates = psDates.executeQuery();
+                Date recentDate = rsDates.next() ? findRecentDate(rsDates) : null;
+
+                ans.add(new IngredientLocal(ingredientID, name, cost, batchSum, recentDate));
+            } catch (SQLException e) {
+                System.err.println("Error processing ingredient: " + e.getMessage());
+            }
         }
+
         return ans;
     }
+
+
+
+
 }

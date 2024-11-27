@@ -27,10 +27,9 @@ IngredientClient ingredientClient = new IngredientClient();
 };
 var result = controller.UpdateIngredient(1, dto).Result;*/
 
-LoginDto loginDto = new()
+LoginDto loginDto = new("jdoe@example.com","password123")
 {
-    email = "jdoe@example.com",
-    password = "password123"
+
 };
 var result = await authController.CheckUser(loginDto);
 Console.WriteLine(result);

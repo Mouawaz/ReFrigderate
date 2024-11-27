@@ -197,7 +197,6 @@ VALUES (1, 'Full'),
 
 INSERT INTO Ingredient (ingredientID, name, cost)
 VALUES
---                                                                                          (0, 'Test', 0),
 (DEFAULT, 'Tomato', 0.50),
 (DEFAULT, 'Cheese', 2.00);
 

@@ -1,6 +1,8 @@
 using BlazorApp.Components.Services;
 using BlazorApp1.Components;
+using BlazorApp1.Components.Pages.Auth;
 using BlazorApp1.Services;
+using Microsoft.AspNetCore.Components.Authorization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +14,10 @@ builder.Services.AddScoped(sp => new HttpClient
 {
     BaseAddress = new Uri("http://localhost:5180")
 });
+
 builder.Services.AddScoped<IUserService, HttpUserService>();
 builder.Services.AddScoped<IIngredientService, HttpIngredientService>();
-
+builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthProvider>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,7 +29,6 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseStaticFiles();
 app.UseAntiforgery();
 
