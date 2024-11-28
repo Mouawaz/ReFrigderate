@@ -13,7 +13,14 @@ message Ingredient {
   float cost = 3;
   int32 amount = 4;
   int32 daysUntilBad = 5;
-  int32 stockStatus = 6;
+  int32 amountStatus = 6;
+  // 1 -> Everything is ok!
+  // 2 -> Ingredient amount medium (yellow)
+  // 3 -> Ingredient amount low (red)
+  int32 expirationStatus = 7;
+  // 1 -> Everything is ok!
+  // 2 -> Ingredient about to go bad (yellow)
+  // 3 -> Ingredient has went bad (red)
 }
 
 message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?

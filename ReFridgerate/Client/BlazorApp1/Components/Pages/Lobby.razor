@@ -1,53 +1,59 @@
-@page "/"
+@page "/lobby"
 @inject IJSRuntime JSRuntime
 @using APIContracts.IngridientDtos
 @using BlazorApp.Components.Services
 @using BlazorApp1.Services
 @inject IIngredientService IngredientService
+@inject NavigationManager NavMgr
 
 <link href="css/lobby.css?version=0.1" rel="stylesheet" />
-<div class="page-container">
-    <div class="header">
-        <h1>Ingredients</h1>
-        <div class="header-controls">
-            <div class="search-box">
-                <img class="ingredientt" src="Images/search.png" alt="search"/>
-                <input type="text" placeholder="Search..." 
-                       @bind-value="searchText" 
-                       @bind-value:event="oninput"
-                       @onkeyup="FilterIngredients"/>
-            </div>
-        </div>
-    </div>
 
-    <div class="items-grid">
-        @foreach (var ingredient in filteredIngredients)
-        {
-            <div class="item-card">
-                <div class="item-metadata">
-                    <div class="meta-item">@ingredient.DaysUntilBad</div>
-                    <div class="meta-item">@ingredient.Amount</div>
-                    <div class="notification-bell">
-                        <i>🔔</i>
-                        <span class="glyphicon glyphicon-bell"></span>
+
+        <div class="page-container">
+            <div class="header">
+                <h1>Ingredients</h1>
+                <div class="header-controls">
+                    <div class="search-box">
+                        <img class="ingredientt" src="Images/search.png" alt="search"/>
+                        <input type="text" placeholder="Search..." 
+                               @bind-value="searchText" 
+                               @bind-value:event="oninput"
+                               @onkeyup="FilterIngredients"/>
                     </div>
                 </div>
-
-                <div class="item-image">
-                    <div class="placeholder-image">❌</div>
-                </div>
-
-                <div class="item-name">
-                    @ingredient.Name
-                </div>
-
-                <div class="item-actions">
-                    <Button Icon="editing.png" Text="Edit"></Button>
-                </div>
             </div>
-        }
-    </div>
-</div>
+
+            <div class="items-grid">
+                @foreach (var ingredient in filteredIngredients)
+                {
+                    <div class="item-card">
+                        <div class="item-metadata">
+                            <div class="meta-item">@ingredient.DaysUntilBad</div>
+                            <div class="meta-item">@ingredient.Amount</div>
+                            <div class="notification-bell">
+                                <i>🔔</i>
+                                <span class="glyphicon glyphicon-bell"></span>
+                            </div>
+                        </div>
+
+                        <div class="item-image">
+                            <div class="placeholder-image">❌</div>
+                        </div>
+
+                        <div class="item-name">
+                            @ingredient.Name
+                        </div>
+
+                        <div class="item-actions">
+                            <Button Icon="editing.png" Text="Edit"></Button>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+
+<button @onclick='() => NavMgr.NavigateTo("login")'>go to login</button>
+
 
 @code {
     private string searchText = "";

@@ -1,0 +1,70 @@
+@page "/"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Identity.Data
+@inject AuthenticationStateProvider AuthProvider
+@inject NavigationManager navMgr
+<link href="css/LoginStyle.css?version=0.1" rel="stylesheet"/>
+
+<h3>Login</h3>
+
+<AuthorizeView>
+    <NotAuthorized>
+        <div class="login-container">
+            <div class="login-box">
+                <h1>ReFridgerate</h1>
+                <form>
+                    <div class="form-group">
+                        <label for="email">
+                            @*<img src="Images/Mail.png" style="width: 70%; left: -10px" >*@
+                        </label>
+                        <input id="email" type="email" placeholder="Email"/>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password">
+                            <i class="fa-lock"></i>
+                        </label>
+                        <input id="password" type="password" placeholder="Password"/>
+                        <button type="button" class="toggle-password">
+                            <i class="fa-eye"></i>
+                        </button>
+                    </div>
+
+                    <button type="submit" class="login-button">Log In</button>
+
+                    <div class="extras">
+                        <a href="/forgot-password">Forgot password?</a>
+                        <p>
+                            Don't have an account?
+                            <a href="/signup">Sign up</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </NotAuthorized>
+    <Authorized>
+        <h3>Hello</h3>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+    private string email;
+    private string password;
+    private string errorLabel;
+    
+    private async Task LoginAsync()
+    {
+        try
+        {
+            await ((SimpleAuthProvider)AuthProvider).Login(email,password);
+            navMgr.NavigateTo("/lobby");
+        }
+        catch (Exception e)
+        {
+            errorLabel = $"Error: {e.Message}";
+            StateHasChanged();
+        }
+    }
+     
+}

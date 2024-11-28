@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DBIngredientQuery implements DBIngredientManager {
+public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager {
     public DBIngredientQuery() {
     }
 
@@ -16,8 +16,8 @@ public class DBIngredientQuery implements DBIngredientManager {
         //Goes through all ingredients in the database and adds them to the ans arraylist
         try (Connection connection = getConnected()) {
             PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient");
-            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date;");
-            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date");
+            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
+            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,8 +38,8 @@ public class DBIngredientQuery implements DBIngredientManager {
             psUpdateIngredient.executeUpdate();
             //Done with updating, now get total again
             PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient WHERE ingredientid = ?");
-            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date;");
-            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ? AND expirationdate > now()::date");
+            PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
+            PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             psIngredients.setInt(1, ingredientId);
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates).getFirst();
         }
@@ -60,24 +60,46 @@ public class DBIngredientQuery implements DBIngredientManager {
         }
         return minDate;
     }
+    //TODO: rework the get to actually work lmao
+    //NOTE: Provisional code for testing frontend
     private ArrayList<IngredientLocal> getListOfIngredient(ResultSet rsIngredients, PreparedStatement psBatches, PreparedStatement psDates) throws SQLException {
         ArrayList<IngredientLocal> ans = new ArrayList<>();
+
         while (rsIngredients.next()) {
-            psBatches.setInt(1, rsIngredients.getInt(1));
-            psDates.setInt(1, rsIngredients.getInt(1));
-            ResultSet rsBatches = psBatches.executeQuery();
-            rsBatches.next(); //Read through all and count
-            ans.add(new IngredientLocal(rsIngredients.getInt(1),
-                    rsIngredients.getString(2),
-                    rsIngredients.getFloat(3),
-                    rsBatches.getInt(1),
-                    findRecentDate(psDates.executeQuery())));
+            try {
+                int ingredientID = rsIngredients.getInt("ingredientID");
+                String name = rsIngredients.getString("name");
+
+                float cost;
+                try {
+                    cost = rsIngredients.getFloat("cost");
+                    if (rsIngredients.wasNull()) {
+                        cost = 0.0f; // Default for NULL
+                    }
+                } catch (SQLException e) {
+                    System.err.println("Invalid cost value for ingredient ID " + ingredientID + ": " + e.getMessage());
+                    cost = 0.0f; // Default for errors
+                }
+
+                psBatches.setInt(1, ingredientID);
+                psDates.setInt(1, ingredientID);
+
+                ResultSet rsBatches = psBatches.executeQuery();
+                int batchSum = rsBatches.next() ? rsBatches.getInt(1) : 0;
+                
+                ResultSet rsDates = psDates.executeQuery();
+                Date recentDate = rsDates.next() ? findRecentDate(rsDates) : null;
+
+                ans.add(new IngredientLocal(ingredientID, name, cost, batchSum, recentDate));
+            } catch (SQLException e) {
+                System.err.println("Error processing ingredient: " + e.getMessage());
+            }
         }
+
         return ans;
     }
 
-    private Connection getConnected() throws SQLException {
-        return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/postgres", "postgres", "1234");
-    }
+
+
+
 }

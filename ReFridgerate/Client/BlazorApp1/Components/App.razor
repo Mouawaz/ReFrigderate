@@ -1,6 +1,10 @@
-﻿<!DOCTYPE html>
-<html lang="en">
+﻿
+@using BlazorApp1.Components.Layout
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.Web
 
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -11,10 +15,9 @@
     <link rel="icon" type="image/png" href="favicon.png"/>
     <HeadOutlet @rendermode="InteractiveServer"/>
 </head>
-
 <body>
-<Routes @rendermode="InteractiveServer"/>
+<p>Hello Test</p>
+ <Routes @rendermode="InteractiveServer"/> 
 <script src="_framework/blazor.web.js"></script>
 </body>
-
 </html>

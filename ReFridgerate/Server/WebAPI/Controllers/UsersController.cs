@@ -2,12 +2,12 @@ using APIContracts.UserDtos;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using RepositoryContracts;
+using System.Linq;
 
 namespace WebAPI.Controllers;
 
 [ApiController]
 [Route("[controller]")]
-
 public class UsersController : ControllerBase
 {
     private readonly IUserRepository userRepo;
@@ -16,7 +16,6 @@ public class UsersController : ControllerBase
     {
         this.userRepo = userRepo;
     }
-    
 
     [HttpGet("{id}")]
     public async Task<ActionResult<UserDto>> GetSingleUser([FromRoute] int id)
@@ -24,9 +23,12 @@ public class UsersController : ControllerBase
         try
         {
             User user = await userRepo.GetSingleAsync(id);
+            if (user == null)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
             UserDto dto = new UserDto()
             {
-                UserId = user.Userid,
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
                 Email = user.Email,
@@ -39,37 +41,90 @@ public class UsersController : ControllerBase
         catch (Exception e)
         {
             Console.WriteLine(e);
-             return StatusCode(500, e.Message);
+            return StatusCode(500, e.Message);
         }
     }
-    // For now these are just placeholders, until changes are made
-    /*
+
     [HttpGet]
-    public async Task<ActionResult<IQueryable<UserDto>>> GetAllUsers()
+    public ActionResult<IQueryable<UserDto>> GetAllUsers()
     {
-        // Todo be implemented with getmany() 
-        
+        try
+        {
+            var users = userRepo.GetMultiple();
+            var userDtos = users.Select(user => new UserDto
+            {
+                FirstName = user.Firstname,
+                LastName = user.Lastname,
+                Email = user.Email,
+                DateOfBirth = user.DateOfBirth,
+                PhoneNumber = user.PhoneNumber,
+                Sex = user.Sex
+            });
+            return Ok(userDtos);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
     }
 
-    [HttpPost]
+   /* [HttpPost]
     public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserDto createUserDto)
     {
-        // Todo AddAsync() 
-        
-    }
+        try
+        {
+            var user = new User
+            {
+                Firstname = createUserDto.FirstName,
+                Lastname = createUserDto.LastName,
+                Email = createUserDto.Email,
+                DateOfBirth = createUserDto.DateOfBirth,
+                PhoneNumber = createUserDto.PhoneNumber,
+                Sex = createUserDto.Sex,
+                Password = createUserDto.Password // Assuming CreateUserDto includes a Password field
+            };
 
-    [HttpPut("{id}")]
-    public async Task<ActionResult<UserDto>> UpdateUser([FromRoute] int id, [FromBody] UpdateUserDto updateUserDto)
-    {
-        // Todo with UpdateAsync() 
-        
-    }
+            var createdUser = await userRepo.AddAsync(user);
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult> DeleteUser([FromRoute] int id)
+            var userDto = new UserDto
+            {
+                FirstName = createdUser.Firstname,
+                LastName = createdUser.Lastname,
+                Email = createdUser.Email,
+                DateOfBirth = createdUser.DateOfBirth,
+                PhoneNumber = createdUser.PhoneNumber,
+                Sex = createdUser.Sex
+            };
+
+            return CreatedAtAction(nameof(GetSingleUser), new { id = createdUser.Id }, userDto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }*/
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginDto loginDto)
     {
-        // Todo  with DeleteAsync() 
-        
+        try
+        {
+            var loginResponse = await userRepo.LoginAsync(loginDto);
+            if (loginResponse.Success)
+            {
+                return Ok(loginResponse);
+            }
+            else
+            {
+                return Unauthorized(loginResponse);
+            }
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
     }
-    */
 }

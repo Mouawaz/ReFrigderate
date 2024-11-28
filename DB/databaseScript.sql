@@ -24,187 +24,231 @@ Drop function if exists trigger_clear_old_inventory() Cascade;
 DROP FUNCTION IF EXISTS check_and_clear_old_inventory() CASCADE;
 DROP TRIGGER IF EXISTS auto_clear_old_inventory ON refridgerate.inventory CASCADE;
 SET datestyle TO 'ISO, DMY';
-create TABLE "user"(
-                       userID INT PRIMARY KEY,
-                       name VARCHAR(100),
-                       email VARCHAR(100),
-                       password     varchar(255) not null,
-                       firstname    varchar(255),
-                       lastname     varchar(255),
-                       dateofbirth  date,
-                       sex          char,
-                       phonenumber  varchar(20)
+
+
+CREATE TABLE Fridge
+(
+    fridgeID SERIAL PRIMARY KEY,
+    name VARCHAR(100)
+);
+
+create TABLE "user"
+(
+    fridgeID    INT REFERENCES Fridge (fridgeID),
+    userID      SERIAL PRIMARY KEY,
+    name        VARCHAR(100),
+    email       VARCHAR(100),
+    password    varchar(255) not null,
+    firstname   varchar(255),
+    lastname    varchar(255),
+    dateofbirth date,
+    sex         char,
+    phonenumber varchar(20)
 );
 
 
-create TABLE Chef (
-                      chefID INT PRIMARY KEY,
-                      position VARCHAR(50),
-                      shiftSchedule VARCHAR(50),
-                      FOREIGN KEY (chefID) REFERENCES refridgerate."user"(userID)
+create TABLE Chef
+(
+    fridgeID      INT REFERENCES Fridge (fridgeID),
+    chefID        INT PRIMARY KEY,
+    position      VARCHAR(50),
+    shiftSchedule VARCHAR(50),
+    FOREIGN KEY (chefID) REFERENCES refridgerate."user" (userID)
 );
 
-create TABLE Waiter (
-                        waiterID SERIAL PRIMARY KEY,
-                        tableAssignment VARCHAR(50),
-                        shiftSchedule VARCHAR(50),
-                        FOREIGN KEY (waiterID) REFERENCES refridgerate."user"(userID)
+create TABLE Waiter
+(
+    fridgeID        INT REFERENCES Fridge (fridgeID),
+    waiterID        Int PRIMARY KEY,
+    tableAssignment VARCHAR(50),
+    shiftSchedule   VARCHAR(50),
+    FOREIGN KEY (waiterID) REFERENCES refridgerate."user" (userID)
 );
 
-create TABLE Owner (
-                       ownerID INT PRIMARY KEY,
-                       AccessToReport VARCHAR(20),
-                       FOREIGN KEY (ownerID) REFERENCES refridgerate."user"(userID)
+create TABLE Owner
+(
+    fridgeID       INT REFERENCES Fridge (fridgeID),
+    ownerID        INT PRIMARY KEY,
+    AccessToReport VARCHAR(20),
+    FOREIGN KEY (ownerID) REFERENCES refridgerate."user" (userID)
 );
 
 CREATE TYPE report_type AS ENUM ('Inventory', 'Performance');
 
-CREATE TABLE Report (
-                        reportID SERIAL PRIMARY KEY,
-                        type report_type,
-                        data TEXT,
-                        creationDate DATE,
-                        ownerID INT,
-                        FOREIGN KEY (ownerID) REFERENCES Owner(ownerID)
+CREATE TABLE Report
+(
+    fridgeID     INT REFERENCES Fridge (fridgeID),
+    reportID     SERIAL PRIMARY KEY,
+    type         report_type,
+    data         TEXT,
+    creationDate DATE,
+    ownerID      INT,
+    FOREIGN KEY (ownerID) REFERENCES Owner (ownerID)
 );
 
 
-create TABLE Ingredient (
-                            ingredientID SERIAL PRIMARY KEY,
-                            name VARCHAR(100),
-                            cost DECIMAL(10, 2)
+create TABLE Ingredient
+(
+    fridgeID     INT REFERENCES Fridge (fridgeID),
+    ingredientID SERIAL PRIMARY KEY,
+    name         VARCHAR(100),
+    cost         DECIMAL(10, 2)
 );
 
 CREATE TYPE action_type AS ENUM ('Add', 'Subtract');
-CREATE TABLE Inventory (
-                           InventoryID SERIAL PRIMARY KEY,
-                           ingredientID INT,
-                           chefID INT,
-                           actionType action_type,
-                           quantity INT,
-                           date DATE,
-                           expirationDate DATE,
-                           FOREIGN KEY (ingredientID) REFERENCES Ingredient(ingredientID),
-                           FOREIGN KEY (chefID) REFERENCES Chef(chefID)
+CREATE TABLE Inventory
+(
+    fridgeID       INT REFERENCES Fridge (fridgeID),
+    InventoryID    SERIAL PRIMARY KEY,
+    ingredientID   INT,
+    chefID         INT,
+    actionType     action_type,
+    quantity       INT,
+    date           DATE,
+    expirationDate DATE,
+    reasonForRemoval varchar(30),
+    FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID),
+    FOREIGN KEY (chefID) REFERENCES Chef (chefID)
 );
 
 CREATE TYPE threshold_type AS ENUM ('Low Stock', 'Expiration');
 
-CREATE TABLE Alert (
-                       alertID INT PRIMARY KEY,
-                       transactionID INT,
-                       thresholdType threshold_type,
-                       status VARCHAR(50),
-                       FOREIGN KEY (transactionID) REFERENCES Inventory(InventoryID)
+CREATE TABLE Alert
+(
+    fridgeID      INT REFERENCES Fridge (fridgeID),
+    alertID       INT PRIMARY KEY,
+    transactionID INT,
+    thresholdType threshold_type,
+    status        VARCHAR(50),
+    FOREIGN KEY (transactionID) REFERENCES Inventory (InventoryID)
 );
 
 
-create TABLE Recipe (
-                        recipeID SERIAL PRIMARY KEY,
-                        name VARCHAR(100),
-                        instructions TEXT,
-                        modificationsAllowed BOOLEAN,
-                        chefID INT,
-                        FOREIGN KEY (chefID) REFERENCES Chef(chefID)
+create TABLE Recipe
+(
+    fridgeID             INT REFERENCES Fridge (fridgeID),
+    recipeID             SERIAL PRIMARY KEY,
+    name                 VARCHAR(100),
+    instructions         TEXT,
+    modificationsAllowed BOOLEAN,
+    chefID               INT,
+    FOREIGN KEY (chefID) REFERENCES Chef (chefID)
 );
 
 CREATE TYPE menu_status AS ENUM ('Available', 'Unavailable');
 
-CREATE TABLE Menu (
-                      menuID SERIAL PRIMARY KEY,
-                      name VARCHAR(100),
-                      status menu_status
+CREATE TABLE Menu
+(
+    fridgeID INT REFERENCES Fridge (fridgeID),
+    menuID   SERIAL PRIMARY KEY,
+    name     VARCHAR(100),
+    status   menu_status
 );
 
-create TABLE RecipeIngredient (
-                                  recipeID INT,
-                                  ingredientID INT,
-                                  quantityNeeded INT,
-                                  PRIMARY KEY (recipeID, ingredientID),
-                                  FOREIGN KEY (recipeID) REFERENCES Recipe(recipeID),
-                                  FOREIGN KEY (ingredientID) REFERENCES Ingredient(ingredientID)
+create TABLE RecipeIngredient
+(
+    fridgeID       INT REFERENCES Fridge (fridgeID),
+    recipeID       INT,
+    ingredientID   INT,
+    quantityNeeded INT,
+    PRIMARY KEY (recipeID, ingredientID),
+    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID),
+    FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID)
 );
 
 
-create TABLE MenuRecipe (
-                            menuID INT,
-                            recipeID INT,
-                            PRIMARY KEY (menuID, recipeID),
-                            FOREIGN KEY (menuID) REFERENCES Menu(menuID),
-                            FOREIGN KEY (recipeID) REFERENCES Recipe(recipeID)
+create TABLE MenuRecipe
+(
+    fridgeID INT REFERENCES Fridge (fridgeID),
+    menuID   INT,
+    recipeID INT,
+    PRIMARY KEY (menuID, recipeID),
+    FOREIGN KEY (menuID) REFERENCES Menu (menuID),
+    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID)
 );
 
-INSERT INTO "user" (userID, name, email, password, firstname, lastname, dateofbirth, sex, phonenumber) VALUES
-                                                                                                           (1, 'jdoe', 'jdoe@example.com', 'password123', 'John', 'Doe', '15-06-1985', 'M', '1234567890'),
-                                                                                                           (2, 'asmith', 'asmith@example.com', 'password456', 'Alice', 'Smith', '23-11-1990', 'F', '0987654321');
 
 
-INSERT INTO Chef (chefID, position, shiftSchedule) VALUES
-                                                       (1, 'Head Chef', 'Monday-Friday'),
-                                                       (2, 'Sous Chef', 'Wednesday-Sunday');
 
 
-INSERT INTO Waiter (waiterID, tableAssignment, shiftSchedule) VALUES
-                                                                  (1, 'Table 1-5', 'Tuesday-Saturday'),
-                                                                  (2, 'Table 6-10', 'Friday-Tuesday');
+INSERT INTO Fridge (name,fridgeID)
+VALUES ('ReTard', DEFAULT);
 
 
-INSERT INTO Owner (ownerID, AccessToReport) VALUES
-                                                (1, 'Full'),
-                                                (2, 'Limited');
+INSERT INTO "user" (userID, name, email, password, firstname, lastname, dateofbirth, sex, phonenumber)
+VALUES (1, 'jdoe', 'jdoe@example.com', 'password123', 'John', 'Doe', '15-06-1985', 'M', '1234567890'),
+       (2, 'asmith', 'asmith@example.com', 'password456', 'Alice', 'Smith', '23-11-1990', 'F', '0987654321');
 
 
-INSERT INTO Ingredient (ingredientID, name, cost) VALUES
---                                                                                          (0, 'Test', 0),
-                                                                                         (DEFAULT, 'Tomato', 0.50),
-                                                                                         (DEFAULT, 'Cheese', 2.00);
+INSERT INTO Chef (chefID, position, shiftSchedule)
+VALUES (1, 'Head Chef', 'Monday-Friday'),
+       (2, 'Sous Chef', 'Wednesday-Sunday');
 
 
-INSERT INTO Report (reportID, type, data, creationDate, ownerID) VALUES
-                                                                     (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
-                                                                     (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
+INSERT INTO Waiter (waiterID, tableAssignment, shiftSchedule)
+VALUES (1, 'Table 1-5', 'Tuesday-Saturday'),
+       (2, 'Table 6-10', 'Friday-Tuesday');
 
 
-INSERT INTO Inventory (InventoryID, ingredientID, chefID, actionType, quantity, date, expirationDate) VALUES
-                                                                                                          (DEFAULT, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
-                                                                                                          (DEFAULT, 1, 1, 'Add', 40, '2024-10-25', '2024-12-05'),
-                                                                                                          (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-11-10'),
-                                                                                                          (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-09', '2024-11-09'),
-                                                                                                          (DEFAULT, 2, 2, 'Add', 20, '2024-11-05', '2024-11-25'),
-                                                                                                          (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-05', '2024-11-25'),
-                                                                                                          (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-12-01');
+INSERT INTO Owner (ownerID, AccessToReport)
+VALUES (1, 'Full'),
+       (2, 'Limited');
 
 
-INSERT INTO Alert (alertID, transactionID, thresholdType, status) VALUES
-                                                                      (1, 1, 'Low Stock', 'Pending'),
-                                                                      (2, 2, 'Expiration', 'Resolved');
+INSERT INTO Ingredient (ingredientID, name, cost)
+VALUES
+(DEFAULT, 'Tomato', 0.50),
+(DEFAULT, 'Cheese', 2.00);
 
 
-INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID) VALUES
-                                                                                    (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1),
-                                                                                    (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2);
+INSERT INTO Report (reportID, type, data, creationDate, ownerID)
+VALUES (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
+       (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
 
 
-INSERT INTO Menu (menuID, name, status) VALUES
-                                            (DEFAULT, 'Lunch Menu', 'Available'),
-                                            (DEFAULT, 'Dinner Menu', 'Unavailable');
+INSERT INTO Inventory (InventoryID, ingredientID, chefID, actionType, quantity, date, expirationDate)
+VALUES (DEFAULT, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
+       (DEFAULT, 1, 1, 'Add', 40, '2024-10-25', '2024-12-05'),
+       (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-11-10'),
+       (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-09', '2024-11-09'),
+       (DEFAULT, 2, 2, 'Add', 20, '2024-11-05', '2024-11-25'),
+       (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-05', '2024-11-25'),
+       (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-12-01');
 
 
-INSERT INTO RecipeIngredient (recipeID, ingredientID, quantityNeeded) VALUES
-                                                                          (1, 1, 3),  -- 3 tomatoes needed for Tomato Soup
-                                                                          (2, 2, 1);  -- 1 cheese needed for Cheese Omelet
+INSERT INTO Alert (alertID, transactionID, thresholdType, status)
+VALUES (1, 1, 'Low Stock', 'Pending'),
+       (2, 2, 'Expiration', 'Resolved');
+
+
+INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID)
+VALUES (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1),
+       (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2);
+
+
+INSERT INTO Menu (menuID, name, status)
+VALUES (DEFAULT, 'Lunch Menu', 'Available'),
+       (DEFAULT, 'Dinner Menu', 'Unavailable');
+
+
+INSERT INTO RecipeIngredient (recipeID, ingredientID, quantityNeeded)
+VALUES (1, 1, 3), -- 3 tomatoes needed for Tomato Soup
+       (2, 2, 1);
+-- 1 cheese needed for Cheese Omelet
 
 -- Insert dummy data into MenuRecipe table
-INSERT INTO MenuRecipe (menuID, recipeID) VALUES
-                                              (1, 1),  -- Tomato Soup on Lunch Menu
-                                              (2, 2);  -- Cheese Omelet on Dinner Menu
+INSERT INTO MenuRecipe (menuID, recipeID)
+VALUES (1, 1), -- Tomato Soup on Lunch Menu
+       (2, 2); -- Cheese Omelet on Dinner Menu
 
 
 CREATE OR REPLACE FUNCTION clear_old_inventory()
-    RETURNS void AS $$
+    RETURNS void AS
+$$
 BEGIN
 
-    DELETE FROM Inventory
+    DELETE
+    FROM Inventory
     WHERE date < (CURRENT_DATE - INTERVAL '3 months');
 
 
@@ -212,15 +256,18 @@ END;
 $$ LANGUAGE plpgsql;
 
 CREATE OR REPLACE FUNCTION check_and_clear_old_inventory()
-    RETURNS TRIGGER AS $$
+    RETURNS TRIGGER AS
+$$
 BEGIN
-    DELETE FROM refridgerate.inventory
+    DELETE
+    FROM refridgerate.inventory
     WHERE date < (CURRENT_DATE - INTERVAL '3 months');
 
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
 CREATE TRIGGER auto_clear_old_inventory
-    AFTER INSERT OR UPDATE ON refridgerate.inventory
+    AFTER INSERT OR UPDATE
+    ON refridgerate.inventory
     FOR EACH STATEMENT
 EXECUTE FUNCTION check_and_clear_old_inventory();
