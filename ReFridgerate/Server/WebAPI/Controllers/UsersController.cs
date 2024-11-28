@@ -23,6 +23,10 @@ public class UsersController : ControllerBase
         try
         {
             User user = await userRepo.GetSingleAsync(id);
+            if (user == null)
+            {
+                return NotFound($"User with ID {id} not found.");
+            }
             UserDto dto = new UserDto()
             {
                 FirstName = user.Firstname,
@@ -65,15 +69,11 @@ public class UsersController : ControllerBase
         }
     }
 
-    [HttpPost]
-    public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserDto createUserDto)
-    [HttpPost]
+   /* [HttpPost]
     public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         try
         {
-            // new User  from the CreateUserDto
-            //  the data from the DTO to our database entity
             var user = new User
             {
                 Firstname = createUserDto.FirstName,
@@ -81,17 +81,12 @@ public class UsersController : ControllerBase
                 Email = createUserDto.Email,
                 DateOfBirth = createUserDto.DateOfBirth,
                 PhoneNumber = createUserDto.PhoneNumber,
-                Sex = createUserDto.Sex
-                // do we need some sort of password here?
-
+                Sex = createUserDto.Sex,
+                Password = createUserDto.Password // Assuming CreateUserDto includes a Password field
             };
-
-
 
             var createdUser = await userRepo.AddAsync(user);
 
-
-            // This is what we'll return to the client
             var userDto = new UserDto
             {
                 FirstName = createdUser.Firstname,
@@ -102,8 +97,29 @@ public class UsersController : ControllerBase
                 Sex = createdUser.Sex
             };
 
-
             return CreatedAtAction(nameof(GetSingleUser), new { id = createdUser.Id }, userDto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }*/
+
+    [HttpPost("login")]
+    public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginDto loginDto)
+    {
+        try
+        {
+            var loginResponse = await userRepo.LoginAsync(loginDto);
+            if (loginResponse.Success)
+            {
+                return Ok(loginResponse);
+            }
+            else
+            {
+                return Unauthorized(loginResponse);
+            }
         }
         catch (Exception e)
         {
