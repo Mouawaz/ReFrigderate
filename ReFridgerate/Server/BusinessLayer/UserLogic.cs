@@ -18,7 +18,12 @@ public class UserLogic : IUserRepository
     {
         throw new NotImplementedException();
     }*/
-    
+
+    public IQueryable<User> GetMultiple()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
     {
         if (!loginDto.email.Contains("@") && loginDto.password.Contains("."))
@@ -36,6 +41,11 @@ public class UserLogic : IUserRepository
         
         return await clientManager.LoginAsync(loginDto);
         
+    }
+
+    public Task<User> AddAsync(User user)
+    {
+        throw new NotImplementedException();
     }
 
     public Task<User> GetSingleAsync(int id)

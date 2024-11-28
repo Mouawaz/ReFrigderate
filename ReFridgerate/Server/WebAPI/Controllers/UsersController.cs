@@ -112,7 +112,7 @@ public class UsersController : ControllerBase
         try
         {
             var loginResponse = await userRepo.LoginAsync(loginDto);
-            if (loginResponse.Success)
+            if (loginResponse.success)
             {
                 return Ok(loginResponse);
             }
