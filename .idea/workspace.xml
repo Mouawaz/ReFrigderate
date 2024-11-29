@@ -7,7 +7,7 @@
     <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Login implementation done (?)">
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/UserDtos/UserDto.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/UserDtos/UserDto.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/.idea/.idea.ReFridgerate C# server/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/.idea/.idea.ReFridgerate C# server/.idea/indexLayout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" afterDir="false" />
@@ -15,17 +15,11 @@
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Home.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Home.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/Entities.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/Entities.csproj" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Entities/protos/User.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Entities/protos/User.proto" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/Client.cs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/IngredientClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/GrpcClient/IngredientClient.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/IUserRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/RepositoryContracts/IUserRepository.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/Test/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/Test/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/Controllers/UsersController.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Server/WebAPI/Program.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/User.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/User.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/App.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/Login.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/Login.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/SimpleAuthProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/SimpleAuthProvider.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Lobby.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Lobby.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +27,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="13320" />
+    <option name="totalTimeSeconds" value="13947" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
@@ -195,6 +189,7 @@
       <workItem from="1732521671656" duration="1405000" />
       <workItem from="1732523528853" duration="1533000" />
       <workItem from="1732525401736" duration="6799000" />
+      <workItem from="1732884355444" duration="3466000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
       <option name="closed" value="true" />

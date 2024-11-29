@@ -8,21 +8,22 @@
 
 <link href="css/lobby.css?version=0.1" rel="stylesheet" />
 
-
+<AuthorizeView>
+    <Authorized>
         <div class="page-container">
             <div class="header">
                 <h1>Ingredients</h1>
                 <div class="header-controls">
                     <div class="search-box">
                         <img class="ingredientt" src="Images/search.png" alt="search"/>
-                        <input type="text" placeholder="Search..." 
-                               @bind-value="searchText" 
+                        <input type="text" placeholder="Search..."
+                               @bind-value="searchText"
                                @bind-value:event="oninput"
                                @onkeyup="FilterIngredients"/>
                     </div>
                 </div>
             </div>
-
+        
             <div class="items-grid">
                 @foreach (var ingredient in filteredIngredients)
                 {
@@ -35,15 +36,15 @@
                                 <span class="glyphicon glyphicon-bell"></span>
                             </div>
                         </div>
-
+        
                         <div class="item-image">
                             <div class="placeholder-image">❌</div>
                         </div>
-
+        
                         <div class="item-name">
                             @ingredient.Name
                         </div>
-
+        
                         <div class="item-actions">
                             <Button Icon="editing.png" Text="Edit"></Button>
                         </div>
@@ -51,8 +52,11 @@
                 }
             </div>
         </div>
-
-<button @onclick='() => NavMgr.NavigateTo("login")'>go to login</button>
+    </Authorized>
+    <NotAuthorized>
+        <button @onclick='() => NavMgr.NavigateTo("login")'>go to login</button>
+    </NotAuthorized>
+</AuthorizeView>
 
 
 @code {

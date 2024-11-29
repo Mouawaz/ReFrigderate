@@ -3,6 +3,7 @@
 @using Microsoft.AspNetCore.Identity.Data
 @inject AuthenticationStateProvider AuthProvider
 @inject NavigationManager navMgr
+@rendermode InteractiveServer
 <link href="css/LoginStyle.css?version=0.1" rel="stylesheet"/>
 
 <h3>Login</h3>
@@ -17,29 +18,28 @@
                         <label for="email">
                             @*<img src="Images/Mail.png" style="width: 70%; left: -10px" >*@
                         </label>
-                        <input id="email" type="email" placeholder="Email"/>
+                        <input id="email" @bind="email" type="email" placeholder="Email"/>
                     </div>
 
                     <div class="form-group">
                         <label for="password">
                             <i class="fa-lock"></i>
                         </label>
-                        <input id="password" type="password" placeholder="Password"/>
+                        <input id="password" @bind="password" type="password" placeholder="Password"/>
                         <button type="button" class="toggle-password">
                             <i class="fa-eye"></i>
                         </button>
                     </div>
 
-                    <button type="submit" class="login-button">Log In</button>
-
                     <div class="extras">
-                        <a href="/forgot-password">Forgot password?</a>
+                        <a href="/lobby">Forgot password?</a>
                         <p>
                             Don't have an account?
                             <a href="/signup">Sign up</a>
                         </p>
                     </div>
                 </form>
+                <button @onclick="HandleLoginReq" class="login-button">Log In</button>
             </div>
         </div>
     </NotAuthorized>
@@ -49,9 +49,13 @@
 </AuthorizeView>
 
 @code {
-    private string email;
-    private string password;
+    private string email = "jdoe@example.com";
+    private string password = "password123";
     private string errorLabel;
+    
+    private async Task HandleLoginReq() {
+        await LoginAsync();
+    }
     
     private async Task LoginAsync()
     {
@@ -62,6 +66,7 @@
         }
         catch (Exception e)
         {
+            Console.WriteLine(e.Message);
             errorLabel = $"Error: {e.Message}";
             StateHasChanged();
         }

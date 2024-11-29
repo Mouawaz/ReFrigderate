@@ -7,7 +7,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager {
+public class DBIngredientQuery extends DBGeneral implements DBIngredientManager {
     public DBIngredientQuery() {
     }
 
@@ -27,7 +27,7 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
     @Override
     public IngredientLocal UpdateIngredient(int ingredientId, int quantity, int daysUntilBad) {
         Date todaysDate = new Date();
-        try(Connection connection = getConnected()){
+        try (Connection connection = getConnected()) {
             PreparedStatement psUpdateIngredient = connection.prepareStatement("INSERT INTO refridgerate.inventory VALUES (DEFAULT, ?, ?, CAST(? AS refridgerate.action_type), ?, CAST(? AS DATE), CAST(? AS DATE));");
             psUpdateIngredient.setInt(1, ingredientId);//IngredientId
             psUpdateIngredient.setInt(2, 1);//chefId, for now stuck at 1
@@ -42,8 +42,7 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
             PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             psIngredients.setInt(1, ingredientId);
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates).getFirst();
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -60,6 +59,7 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
         }
         return minDate;
     }
+
     //TODO: rework the get to actually work lmao
     //NOTE: Provisional code for testing frontend
     private ArrayList<IngredientLocal> getListOfIngredient(ResultSet rsIngredients, PreparedStatement psBatches, PreparedStatement psDates) throws SQLException {
@@ -69,24 +69,11 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
             try {
                 int ingredientID = rsIngredients.getInt("ingredientID");
                 String name = rsIngredients.getString("name");
-
-                float cost;
-                try {
-                    cost = rsIngredients.getFloat("cost");
-                    if (rsIngredients.wasNull()) {
-                        cost = 0.0f; // Default for NULL
-                    }
-                } catch (SQLException e) {
-                    System.err.println("Invalid cost value for ingredient ID " + ingredientID + ": " + e.getMessage());
-                    cost = 0.0f; // Default for errors
-                }
-
+                float cost = rsIngredients.wasNull() ? rsIngredients.getFloat("cost") : 0.0f;
                 psBatches.setInt(1, ingredientID);
                 psDates.setInt(1, ingredientID);
-
                 ResultSet rsBatches = psBatches.executeQuery();
                 int batchSum = rsBatches.next() ? rsBatches.getInt(1) : 0;
-                
                 ResultSet rsDates = psDates.executeQuery();
                 Date recentDate = rsDates.next() ? findRecentDate(rsDates) : null;
 
@@ -98,8 +85,6 @@ public class DBIngredientQuery extends DBGeneral  implements DBIngredientManager
 
         return ans;
     }
-
-
 
 
 }
