@@ -33,5 +33,23 @@ namespace BlazorApp.Components.Services
         {
             throw new NotImplementedException();
         }
+        
+        public async Task<IngredientDto> UpdateIngredientAsync(int id, UpdateIngredientDto updateIngredient)
+        {
+            HttpResponseMessage httpResponse = await client.PutAsJsonAsync($"ingredient/{id}", updateIngredient);
+
+            if (!httpResponse.IsSuccessStatusCode)
+            {
+                string errorResponse = await httpResponse.Content.ReadAsStringAsync();
+                throw new Exception(errorResponse);
+            }
+
+            string response = await httpResponse.Content.ReadAsStringAsync();
+
+            return JsonSerializer.Deserialize<IngredientDto>(response, new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            })!;
+        }
     }
 }

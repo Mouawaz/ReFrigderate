@@ -1,0 +1,45 @@
+<img src="@GetImageSource()" alt="@Name" width="@GetDimensions().Width" height="@GetDimensions().Height" @attributes="AdditionalAttributes" />
+
+@code {
+    [Parameter]
+    public string? Src { get; set; } 
+
+    [Parameter]
+    public string? Name { get; set; } 
+
+    [Parameter]
+    public string Size { get; set; } = "medium"; 
+
+    [Parameter(CaptureUnmatchedValues = true)]
+    public Dictionary<string, object>? AdditionalAttributes { get; set; } 
+
+    private readonly Dictionary<string, string> ingredientIcons = new()
+    {
+        { "tomato", "Images/tomato.png" },
+        { "cheese", "Images/cheese.png" },
+        { "milk", "Images/milk.png" },
+        { "butter", "Images/butter.png" }
+    };
+
+    private string GetImageSource()
+    {
+        if (!string.IsNullOrEmpty(Src))
+        {
+            return Src;
+        }
+        else if (!string.IsNullOrEmpty(Name) && ingredientIcons.ContainsKey(Name.ToLower()))
+        {
+            return ingredientIcons[Name.ToLower()];
+        }
+
+        return "Images/default.png"; // Fallback image
+    }
+
+    private (int Width, int Height) GetDimensions() => Size.ToLower() switch
+    {
+        "small" => (16, 19),
+        "medium" => (60, 60),
+        "large" => (120, 120),
+        _ => (60, 60)
+    };
+}

@@ -1,13 +1,27 @@
-<button class="custom-button" @onclick="OnClick">
+<button class="custom-button @GetButtonClasses()" @onclick="OnClick">
     @if (!string.IsNullOrEmpty(Icon))
     {
-    <img class="button-icon" src="Images/@Icon" alt="@Icon" />
+        <img class="button-icon" src="Images/@Icon" alt="@Icon" />
     }
-    <span>@Text</span>
+    @if (ChildContent != null)
+    {
+        @ChildContent
+    }
+    else if (!string.IsNullOrEmpty(Text))
+    {
+        <span>@Text</span>
+    }
 </button>
 
 @code {
-[Parameter] public string Icon { get; set; } 
-[Parameter] public string Text { get; set; } 
-[Parameter] public EventCallback OnClick { get; set; } 
+    [Parameter] public string Icon { get; set; }
+    [Parameter] public string Text { get; set; }
+    [Parameter] public RenderFragment ChildContent { get; set; }
+    [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
+    [Parameter] public bool Secondary { get; set; } = false;
+
+    private string GetButtonClasses()
+    {
+        return Secondary ? "custom-button-secondary" : "custom-button-primary";
+    }
 }

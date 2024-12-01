@@ -4,65 +4,182 @@
 @using BlazorApp.Components.Services
 @using BlazorApp1.Services
 @inject IIngredientService IngredientService
-@inject NavigationManager NavMgr
 
 <link href="css/lobby.css?version=0.1" rel="stylesheet" />
 
-<AuthorizeView>
-    <Authorized>
-        <div class="page-container">
-            <div class="header">
-                <h1>Ingredients</h1>
-                <div class="header-controls">
-                    <div class="search-box">
-                        <img class="ingredientt" src="Images/search.png" alt="search"/>
-                        <input type="text" placeholder="Search..."
-                               @bind-value="searchText"
-                               @bind-value:event="oninput"
-                               @onkeyup="FilterIngredients"/>
-                    </div>
-                </div>
-            </div>
-        
-            <div class="items-grid">
-                @foreach (var ingredient in filteredIngredients)
-                {
-                    <div class="item-card">
-                        <div class="item-metadata">
-                            <div class="meta-item">@ingredient.DaysUntilBad</div>
-                            <div class="meta-item">@ingredient.Amount</div>
-                            <div class="notification-bell">
-                                <i>🔔</i>
-                                <span class="glyphicon glyphicon-bell"></span>
-                            </div>
-                        </div>
-        
-                        <div class="item-image">
-                            <div class="placeholder-image">❌</div>
-                        </div>
-        
-                        <div class="item-name">
-                            @ingredient.Name
-                        </div>
-        
-                        <div class="item-actions">
-                            <Button Icon="editing.png" Text="Edit"></Button>
-                        </div>
-                    </div>
-                }
+<div class="page-container">
+    <div class="header">
+        <h1>Ingredients</h1>
+        <div class="header-controls">
+            <div class="search-box">
+                <img class="ingredientt" src="Images/search.png" alt="search" />
+                <input type="text"
+                       placeholder="Search..."
+                       @bind-value="searchText"
+                       @bind-value:event="oninput"
+                       @onkeyup="FilterIngredients" />
             </div>
         </div>
-    </Authorized>
-    <NotAuthorized>
-        <button @onclick='() => NavMgr.NavigateTo("login")'>go to login</button>
-    </NotAuthorized>
-</AuthorizeView>
+    </div>
 
+    <div class="items-grid">
+        @foreach (var ingredient in filteredIngredients)
+        {
+            <div class="item-card">
+                <div class="item-metadata">
+                    <div class="meta-item">
+                        <Icon class="me-2" Src="Images/time.png" Size="small" />
+                        @ingredient.DaysUntilBad
+                    </div>
+                    <div class="meta-item">
+                        <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
+                        @ingredient.Amount
+                    </div>
+                    <div class="notification-bell">
+                        <Icon Src="Images/notification.png" Size="small" />
+                        <span class="glyphicon glyphicon-bell"></span>
+                    </div>
+                </div>
+
+                <div class="item-image">
+                    <Icon Name="@ingredient.Name" Size="medium" />
+                </div>
+
+                <div class="item-name">
+                    @ingredient.Name
+                </div>
+
+                <div class="item-actions">
+                    <Button Icon="editing.png"
+                            Text="Edit"
+                            OnClick="() => OpenModal(ingredient)">
+                    </Button>
+                </div>
+            </div>
+        }
+    </div>
+
+    <Tooltip Tip="This is a tooltip!">
+        <button>hello</button>
+    </Tooltip>
+</div>
+
+<!-- Ingredient Details Modal -->
+<Modal @ref="detailsModal" Title="Ingredient Details">
+    <ChildContent>
+        @if (selectedIngredient != null)
+        { 
+           <TabControl OnTabChanged="HandleTabChange">
+    <TabPage Text="Add">
+        <InputRadioGroup @bind-Value="SelectedOptionAdd" class="custom-radio-group">
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputRadio class="form-check-input" Value="1" />
+                    <label class="form-check-label">Add a certain amount</label>
+                </div>
+                <input type="text"
+                       class="form-control mt-2 no-border"
+                       placeholder="Enter amount"
+                       disabled="@(!IsOption1Selected)"
+                       @bind="Option1Value" />
+            </div>
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputRadio class="form-check-input" Value="2" />
+                    <label class="form-check-label">Enter the total amount</label>
+                </div>
+                <input type="text"
+                       class="form-control mt-2 no-border"
+                       placeholder="Enter total amount"
+                       disabled="@(!IsOption2Selected)"
+                       @bind="Option2Value" />
+            </div>
+        </InputRadioGroup>
+    </TabPage>
+
+    <TabPage Text="Remove">
+        <InputRadioGroup @bind-Value="SelectedOptionRemove" class="custom-radio-group">
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputRadio class="form-check-input" Value="3" />
+                    <label class="form-check-label">Remove a certain amount</label>
+                </div>
+                <input type="text"
+                       class="form-control mt-2 no-border"
+                       placeholder="Enter amount"
+                       disabled="@(!IsOption3Selected)"
+                       @bind="Option3Value" />
+            </div>
+            <div class="mb-3">
+                <div class="form-check">
+                    <InputRadio class="form-check-input" Value="4" />
+                    <label class="form-check-label">Enter the total amount</label>
+                </div>
+                <input type="text"
+                       class="form-control mt-2 no-border"
+                       placeholder="Enter total amount"
+                       disabled="@(!IsOption4Selected)"
+                       @bind="Option4Value" />
+            </div>
+        </InputRadioGroup>
+    </TabPage>
+</TabControl>
+
+        }
+        
+    </ChildContent>
+    <FooterContent>
+        <Button Text="Close" Secondary OnClick="detailsModal.Close" />
+        <Button Text="Apply Changes" OnClick="ApplyStockChanges"/>
+    </FooterContent>
+</Modal>
 
 @code {
     private string searchText = "";
     private List<IngredientDto> ingredients = new();
     private List<IngredientDto> filteredIngredients = new();
+    private IngredientDto selectedIngredient;
+    private Modal detailsModal;
+
+    private int selectedOptionAdd;
+    public int SelectedOptionAdd
+    {
+        get => selectedOptionAdd;
+        set
+        {
+            selectedOptionAdd = value;
+            ResetAddInputs();
+        }
+    }
+
+    private int selectedOptionRemove;
+    public int SelectedOptionRemove
+    {
+        get => selectedOptionRemove;
+        set
+        {
+            selectedOptionRemove = value;
+            ResetRemoveInputs();
+        }
+    }
+
+    private string Option1Value { get; set; }
+    private string Option2Value { get; set; }
+    private string Option3Value { get; set; }
+    private string Option4Value { get; set; }
+
+    private bool IsOption1Selected => SelectedOptionAdd == 1;
+    private bool IsOption2Selected => SelectedOptionAdd == 2;
+    private bool IsOption3Selected => SelectedOptionRemove == 3;
+    private bool IsOption4Selected => SelectedOptionRemove == 4;
+    
+    private string currentTab = "Add"; // Default tab
+
+    private void HandleTabChange(TabPage activePage)
+    {
+        ResetAddInputs();
+        ResetRemoveInputs();
+    }
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,7 +190,7 @@
         }
         catch (Exception e)
         {
-            Console.WriteLine($"Error fetching ingredients: {e.Message} ");
+            Console.WriteLine($"Error fetching ingredients: {e.Message}");
             throw;
         }
     }
@@ -90,5 +207,95 @@
                 .Where(i => i.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
         }
+    }
+
+    private void OpenModal(IngredientDto ingredient)
+    {
+        selectedIngredient = ingredient;
+        detailsModal.Open();
+    }
+
+    private async Task UpdateIngredientStock(IngredientDto ingredient, int newStockStatus, bool isSubtraction)
+    {
+        try
+        {
+            var updateIngredient = new UpdateIngredientDto
+            {
+                Name = ingredient.Name,
+                DateOfExpiration = DateTime.UtcNow.AddDays(ingredient.DaysUntilBad).ToString("d/M/yyyy"),
+                Amount = ingredient.Amount,
+                Cost = ingredient.Cost,
+                Difference = Math.Abs(newStockStatus - ingredient.Amount),
+                Substraction = isSubtraction
+            };
+
+            IngredientDto updatedIngredient = await IngredientService.UpdateIngredientAsync(ingredient.Id, updateIngredient);
+
+            var index = ingredients.FindIndex(i => i.Id == updatedIngredient.Id);
+            if (index != -1)
+            {
+                ingredients[index] = updatedIngredient;
+                FilterIngredients();
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating ingredient: {ex.Message}");
+        }
+    }
+
+    private async Task ApplyStockChanges()
+    {
+        if (selectedIngredient != null)
+        {
+            int newStockStatus = 0;
+            bool isSubtraction = false;
+
+            if (SelectedOptionAdd == 1 && int.TryParse(Option1Value, out int addAmount))
+            {
+                newStockStatus = selectedIngredient.Amount + addAmount;
+                isSubtraction = false;
+                Console.WriteLine($"Adding {addAmount} to current stock. New stock status: {newStockStatus}. Subtraction = {isSubtraction}");
+            }
+            else if (SelectedOptionAdd == 2 && int.TryParse(Option2Value, out int totalStock))
+            {
+                newStockStatus = totalStock;
+                isSubtraction = newStockStatus < selectedIngredient.Amount;
+                Console.WriteLine($"Setting total stock to {totalStock}. New stock status: {newStockStatus}. Subtraction = {isSubtraction}");
+            }
+            else if (SelectedOptionRemove == 3 && int.TryParse(Option3Value, out int removeAmount))
+            {
+                newStockStatus = selectedIngredient.Amount - removeAmount;
+                isSubtraction = true;
+                Console.WriteLine($"Removing {removeAmount} from current stock. New stock status: {newStockStatus}. Subtraction = {isSubtraction}");
+            }
+            else if (SelectedOptionRemove == 4 && int.TryParse(Option4Value, out int newTotalStock))
+            {
+                newStockStatus = newTotalStock;
+                isSubtraction = newTotalStock < selectedIngredient.Amount;
+                Console.WriteLine($"Setting total stock to {newTotalStock}. New stock status: {newStockStatus}. Subtraction = {isSubtraction}");
+            }
+            else
+            {
+                Console.WriteLine("Invalid input.");
+                return;
+            }
+
+            await UpdateIngredientStock(selectedIngredient, newStockStatus, isSubtraction);
+        }
+
+        detailsModal.Close();
+    }
+
+    private void ResetAddInputs()
+    {
+        Option1Value = string.Empty;
+        Option2Value = string.Empty;
+    }
+
+    private void ResetRemoveInputs()
+    {
+        Option3Value = string.Empty;
+        Option4Value = string.Empty;
     }
 }

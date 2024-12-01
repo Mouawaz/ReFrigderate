@@ -23,3 +23,13 @@
     display: inline-block;
     vertical-align: middle;
 }
+
+.custom-button-secondary {
+    background-color: #e2e6ea; 
+    color: #495057;
+}
+
+.custom-button-secondary:hover {
+    background-color: #d6d8db; 
+    color: #343a40; 
+}

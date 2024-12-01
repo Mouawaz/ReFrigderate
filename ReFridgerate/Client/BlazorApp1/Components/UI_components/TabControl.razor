@@ -1,0 +1,45 @@
+<div class="custom-tab-control">
+    <div class="custom-tab-buttons">
+        @foreach (TabPage tabPage in Pages)
+        {
+            <button type="button"
+                    class="custom-tab-button @(tabPage == ActivePage ? "active" : "")"
+                    @onclick=@(() => ActivatePage(tabPage))>
+                @tabPage.Text
+            </button>
+        }
+    </div>
+</div>
+<CascadingValue Value="this">
+    @ChildContent
+</CascadingValue>
+
+@code {
+    [Parameter]
+    public RenderFragment ChildContent { get; set; }
+
+    [Parameter]
+    public EventCallback<TabPage> OnTabChanged { get; set; } 
+
+    public TabPage ActivePage { get; set; }
+    private List<TabPage> Pages { get; set; } = new List<TabPage>();
+
+    internal void AddPage(TabPage tabPage)
+    {
+        Pages.Add(tabPage);
+        if (Pages.Count == 1)
+        {
+            ActivePage = tabPage;
+        }
+        StateHasChanged();
+    }
+
+    private async void ActivatePage(TabPage page)
+    {
+        if (ActivePage != page)
+        {
+            ActivePage = page;
+            await OnTabChanged.InvokeAsync(page); 
+        }
+    }
+}
