@@ -19,10 +19,6 @@ public class IngredientLogic : IIngredientRepository
     {
         DateTime today = DateTime.Today.Date;
         DateTime givenDate;
-        if (userInfo.Amount < 0)
-        {
-             throw new ArgumentException("Amount cannot be negative");
-        }
         try
         {
              givenDate = DateTime.ParseExact(userInfo.DateOfExpiration, "d/M/yyyy", CultureInfo.InvariantCulture);
@@ -36,14 +32,9 @@ public class IngredientLogic : IIngredientRepository
         IngredientDto ingredient = new()
         {
             Id = id,
-            Name = userInfo.Name,
-            Amount = userInfo.Amount,
-            Cost = userInfo.Cost,
             DaysUntilBad = (givenDate - today).Days,
-            
-                
         };
-        return  clientManager.UpdateIngredient(ingredient, difference);
+        return  clientManager.UpdateIngredient(ingredient, difference * (userInfo.Substraction == true ? -1 : 1));
     }
 
     public IQueryable<IngredientDto> GetAllIngredients()
