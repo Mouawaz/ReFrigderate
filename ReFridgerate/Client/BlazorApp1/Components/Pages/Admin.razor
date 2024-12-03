@@ -1,0 +1,174 @@
+@page "/admin"
+@using BlazorApp1.Services
+
+<div class="container mx-auto p-4">
+    <h1 class="text-2xl font-bold mb-4">User Management</h1>
+
+    <div class="mb-4">
+        <input
+            type="text"
+            class="w-full p-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+            placeholder="Search users"
+            @bind-value="searchTerm"
+            @bind-value:event="oninput"
+            @onkeyup="FilterUsers"/>
+    </div>
+
+    <div class="bg-white shadow-md rounded-lg overflow-hidden">
+        <table class="w-full">
+            <thead class="bg-gray-100 border-b">
+            <tr>
+                <th class="p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">First Name</th>
+                <th class="p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Name</th>
+                <th class="p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
+                <th class="p-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+            @foreach (var user in filteredUsers)
+            {
+                <tr class="hover:bg-gray-50 transition-colors duration-200">
+                    <td class="p-3">@user.FirstName</td>
+                    <td class="p-3">@user.LastName</td>
+                    <td class="p-3">@user.Email</td>
+                    <td class="p-3">
+                        <select
+                            class="w-full p-1 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            value="@user.Role"
+                            @onchange="@(e => ChangeUserRole(user, e.Value.ToString()))">
+                            <option value="User">User</option>
+                            <option value="Chef">Chef</option>
+                            <option value="Server">Server</option>
+                            <option value="Admin">Admin</option>
+                        </select>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mt-4 flex justify-end">
+        <Button Text="Update role"
+                OnClick="() => UpdateAllUserRoles()">
+            //please implement disable button if roleChanged
+        </Button>
+    </div>
+</div>
+
+@code {
+    public class UserDto
+    {
+        public Guid Id { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string Role { get; set; }
+        public string OriginalRole { get; set; }
+        public bool RoleChanged => Role != OriginalRole;
+    }
+
+    private List<UserDto> users = new()
+    {
+        new UserDto
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "John",
+            LastName = "Doe",
+            Email = "john.doe@example.com",
+            Role = "User",
+            OriginalRole = "User"
+        },
+        new UserDto
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "Jane",
+            LastName = "Smith",
+            Email = "jane.smith@example.com",
+            Role = "Admin",
+            OriginalRole = "Admin"
+        },
+        new UserDto
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "Michael",
+            LastName = "Johnson",
+            Email = "michael.johnson@example.com",
+            Role = "Chef",
+            OriginalRole = "Chef"
+        },
+        new UserDto
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "Emily",
+            LastName = "Brown",
+            Email = "emily.brown@example.com",
+            Role = "Server",
+            OriginalRole = "Server"
+        },
+        new UserDto
+        {
+            Id = Guid.NewGuid(),
+            FirstName = "David",
+            LastName = "Wilson",
+            Email = "david.wilson@example.com",
+            Role = "Admin",
+            OriginalRole = "Admin"
+        }
+    };
+
+    private List<UserDto> filteredUsers = new();
+    private string searchTerm = string.Empty;
+
+    protected override Task OnInitializedAsync()
+    {
+        filteredUsers = new List<UserDto>(users);
+        return Task.CompletedTask;
+    }
+
+    private void FilterUsers()
+    {
+        if (string.IsNullOrWhiteSpace(searchTerm))
+        {
+            filteredUsers = new List<UserDto>(users);
+        }
+        else
+        {
+            filteredUsers = users
+                .Where(u =>
+                    u.FirstName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    u.LastName.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    u.Email.Contains(searchTerm, StringComparison.OrdinalIgnoreCase) ||
+                    u.Role.Contains(searchTerm, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+        }
+    }
+
+    private void ChangeUserRole(UserDto user, string newRole)
+    {
+        user.Role = newRole;
+        StateHasChanged();
+    }
+
+    private void UpdateAllUserRoles()
+    {
+        foreach (var changedUser in users.Where(u => u.RoleChanged))
+        {
+            changedUser.OriginalRole = changedUser.Role;
+        }
+        FilterUsers();
+    }
+
+    private bool HasChanges()
+    {
+        return users.Any(u => u.RoleChanged);
+    }
+
+    private string GetUpdateButtonClass()
+    {
+        string baseClass = "px-4 py-2 rounded-md transition-colors duration-200";
+        return HasChanges() 
+            ? $"{baseClass} bg-blue-500 text-white hover:bg-blue-600" 
+            : $"{baseClass} bg-gray-300 text-gray-500 cursor-not-allowed";
+    }
+}
