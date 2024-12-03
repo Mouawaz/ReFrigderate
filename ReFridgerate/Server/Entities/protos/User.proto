@@ -17,6 +17,9 @@ message CreateUserRequest {
   string lastname = 4;
 
 }
+message UserRequest{
+  int32 userId = 1;
+}
 
 message LoginResponse {
   bool success = 1;
@@ -35,9 +38,16 @@ message User {
   string firstname = 4;
   string lastname = 5;
   }
-
+message SingleUserResponse{
+  int32 userid = 1;
+  string email = 2;
+  string firstname = 3;
+  string lastname = 4;
+}
 service UserService{
   rpc AttemptLogin(LoginRequest) returns (LoginResponse);
   rpc GetAllUsers(Empty) returns (AllUsersResponse);
   rpc AddUser(CreateUserRequest) returns (LoginResponse);
+  rpc GetSingleUser(UserRequest) returns (User);
+
 }
