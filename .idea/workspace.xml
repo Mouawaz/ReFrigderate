@@ -5,21 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Login implementation done (?)">
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBRecipeManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBRecipeQuery.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/RecipeManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/RecipeManagerImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/RecipeServiceImplemented.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/RecipeLocal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/SimplifiedIngredientLocal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Recipe.proto" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/.idea/.idea.ReFridgerate C# server/.idea/indexLayout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/.idea/.idea.ReFridgerate C# server/.idea/indexLayout.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.assets.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/project.packagespec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/rider.project.model.nuget.info" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/App.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/App.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/Login.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/Login.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/SimpleAuthProvider.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/SimpleAuthProvider.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Lobby.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Lobby.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBIngredientQuery.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +22,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="13947" />
+    <option name="totalTimeSeconds" value="19217" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />

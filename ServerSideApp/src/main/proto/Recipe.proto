@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+option java_package = "Server";
+
+message EmptyRecep {}
+
+message SimplifiedIngredient {
+  int32 ingredientId = 1;
+  string ingredientName = 2;
+  int32 ingredientQuantity = 3;
+  float ingredientCost = 4;
+}
+
+message Recipe {
+  int32 id = 1;
+  string name = 2;
+  string instruction = 3;
+  repeated SimplifiedIngredient messages = 4;
+}
+
+message AllRecipesResponse {
+  repeated Recipe recipes = 1;
+}
+
+service RecipeService{
+  rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
+}
