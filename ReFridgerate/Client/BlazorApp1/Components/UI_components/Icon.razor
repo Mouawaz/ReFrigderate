@@ -38,6 +38,7 @@
     private (int Width, int Height) GetDimensions() => Size.ToLower() switch
     {
         "small" => (16, 19),
+        "mini" => (30, 30),
         "medium" => (60, 60),
         "large" => (120, 120),
         _ => (60, 60)

@@ -28,17 +28,21 @@
             {
                 <div class="item-card">
                     <div class="item-metadata">
-                        <div class="meta-item">
+                        <div class="meta-item @GetStatusClass(ingredient.ExpirationStatus)">
                             <Icon class="me-2" Src="Images/time.png" Size="small" />
                             @ingredient.DaysUntilBad
                         </div>
-                        <div class="meta-item">
+                        <div class="meta-item @GetStatusClass(ingredient.StockStatus)">
                             <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
                             @ingredient.Amount
                         </div>
                         <div class="notification-bell">
-                            <Icon Src="Images/notification.png" Size="small" />
-                            <span class="glyphicon glyphicon-bell"></span>
+                            @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                            ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                            {
+                                <Icon Src="Images/notification.png" Size="mini" />
+                                <span class="glyphicon glyphicon-bell"></span>
+                            }
                         </div>
                     </div>
 
@@ -297,4 +301,15 @@
         Option3Value = string.Empty;
         Option4Value = string.Empty;
     }
+    
+    private string GetStatusClass(int status)
+    {
+        return status switch
+        {
+            3 => "status-critical", 
+            2 => "status-warning",  
+            _ => "status-normal"  
+        };
+    }
+
 }
