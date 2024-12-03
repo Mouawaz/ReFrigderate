@@ -48,6 +48,6 @@ service UserService{
   rpc AttemptLogin(LoginRequest) returns (LoginResponse);
   rpc GetAllUsers(Empty) returns (AllUsersResponse);
   rpc AddUser(CreateUserRequest) returns (LoginResponse);
-  rpc GetSingleUser(UserRequest) returns (User);
+  rpc GetSingleUser(UserRequest) returns (SingleUserResponse);
 
 }
