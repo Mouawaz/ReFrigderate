@@ -29,12 +29,10 @@ public class UsersController : ControllerBase
             }
             UserDto dto = new UserDto()
             {
+                Id = user.Userid,
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
                 Email = user.Email,
-                DateOfBirth = user.DateOfBirth,
-                PhoneNumber = user.PhoneNumber,
-                Sex = user.Sex
             };
             return dto;
         }
@@ -53,12 +51,10 @@ public class UsersController : ControllerBase
             var users = userRepo.GetMultiple();
             var userDtos = users.Select(user => new UserDto
             {
+                Id = user.Userid,
                 FirstName = user.Firstname,
                 LastName = user.Lastname,
                 Email = user.Email,
-                DateOfBirth = user.DateOfBirth,
-                PhoneNumber = user.PhoneNumber,
-                Sex = user.Sex
             });
             return Ok(userDtos);
         }
@@ -69,42 +65,23 @@ public class UsersController : ControllerBase
         }
     }
 
-   /* [HttpPost]
-    public async Task<ActionResult<UserDto>> CreateUser([FromBody] CreateUserDto createUserDto)
+    [HttpPost]
+    public async Task<ActionResult<LoginResponseDto>> CreateUser([FromBody] CreateUserDto createUserDto)
     {
         try
         {
-            var user = new User
-            {
-                Firstname = createUserDto.FirstName,
-                Lastname = createUserDto.LastName,
-                Email = createUserDto.Email,
-                DateOfBirth = createUserDto.DateOfBirth,
-                PhoneNumber = createUserDto.PhoneNumber,
-                Sex = createUserDto.Sex,
-                Password = createUserDto.Password // Assuming CreateUserDto includes a Password field
-            };
+            
 
-            var createdUser = await userRepo.AddAsync(user);
+            LoginResponseDto createdUser = await userRepo.AddAsync(createUserDto);
 
-            var userDto = new UserDto
-            {
-                FirstName = createdUser.Firstname,
-                LastName = createdUser.Lastname,
-                Email = createdUser.Email,
-                DateOfBirth = createdUser.DateOfBirth,
-                PhoneNumber = createdUser.PhoneNumber,
-                Sex = createdUser.Sex
-            };
-
-            return CreatedAtAction(nameof(GetSingleUser), new { id = createdUser.Id }, userDto);
+            return CreatedAtAction(nameof(GetSingleUser), new { id = createdUser.userId }, createUserDto);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
-    }*/
+    }
 
     [HttpPost("login")]
     public async Task<ActionResult<LoginResponseDto>> Login([FromBody] LoginDto loginDto)

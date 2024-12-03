@@ -7,9 +7,9 @@ using RepositoryContracts;
 using WebAPI;
 using WebAPI.Controllers;
 
-IIngredientRepository repository = new IngredientLogic(); 
+IIngredientRepository repository = new IngredientLogic(new IngredientClient()); 
 IngredientController controller = new IngredientController(repository);
-IUserRepository userRepository = new UserLogic();
+IUserRepository userRepository = new UserLogic(new UserClient());
 AuthController authController = new AuthController(userRepository);
 UserClient userClient = new UserClient();
 IngredientClient ingredientClient = new IngredientClient();

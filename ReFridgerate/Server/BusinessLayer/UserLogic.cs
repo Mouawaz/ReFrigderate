@@ -10,9 +10,9 @@ public class UserLogic : IUserRepository
     
     public readonly IUserClientManager clientManager;
 
-    public UserLogic()
+    public UserLogic(IUserClientManager clientManager)
     {
-        this.clientManager = new UserClient();
+        this.clientManager = clientManager;
     }
     /*public Task<User> GetSingleAsync(int id)
     {
@@ -26,7 +26,12 @@ public class UserLogic : IUserRepository
 
     public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
     {
-        if (!loginDto.email.Contains("@") && loginDto.password.Contains("."))
+        if (loginDto.email == null || loginDto.password == null)
+        {
+            throw new ArgumentException("Fields cannot be empty");
+            
+        }
+        else if (!loginDto.email.Contains("@") && loginDto.password.Contains("."))
         {
             throw new  ArgumentException("Invalid email");
         }
@@ -43,9 +48,19 @@ public class UserLogic : IUserRepository
         
     }
 
-    public Task<User> AddAsync(User user)
+    public async Task<LoginResponseDto> AddAsync(CreateUserDto userDto)
     {
-        throw new NotImplementedException();
+        if (userDto.FirstName == null || userDto.LastName == null || userDto.Email == null || userDto.Password == null)
+        {
+            throw new ArgumentException("Fields cannot be empty");
+            
+        }
+
+        if (userDto.FirstName.Any(char.IsDigit ) || userDto.LastName.Any(char.IsDigit))
+        {
+            throw new ArgumentException("First and Last name cannot contain digits");
+        }
+        return await clientManager.AddAsync(userDto);
     }
 
     public Task<User> GetSingleAsync(int id)

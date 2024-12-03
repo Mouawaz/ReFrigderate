@@ -10,9 +10,9 @@ public class IngredientLogic : IIngredientRepository
 {
     public readonly IIngredientClientManager clientManager;
 
-    public IngredientLogic()
+    public IngredientLogic(IIngredientClientManager clientManager)
     {
-        this.clientManager = new IngredientClient();
+        this.clientManager = clientManager;
     }
 
     public async Task<IngredientDto> UpdateAsync(int id, UpdateIngredientDto userInfo, int difference)

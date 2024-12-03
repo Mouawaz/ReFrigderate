@@ -5,7 +5,7 @@ namespace RepositoryContracts;
 
 public interface IUserRepository
 {
-    Task<User> AddAsync(User user);
+    Task<LoginResponseDto> AddAsync(CreateUserDto createUserDto);
     Task<User> GetSingleAsync(int id);
     IQueryable<User> GetMultiple();
     Task<LoginResponseDto> LoginAsync(LoginDto loginDto);

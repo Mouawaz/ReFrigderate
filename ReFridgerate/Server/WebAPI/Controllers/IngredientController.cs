@@ -52,8 +52,8 @@ public class IngredientController : ControllerBase
         {
             IQueryable<IngredientDto> ingredients =
                 ingredientRepo.GetAllIngredients();
-            IQueryable<IngredientDto> filteredIngredients = ingredients.Where(ingredients => ingredients.StockStatus == 3);
-            return Results.Ok(ingredients);
+            List<IngredientDto> filteredIngredients = ingredients.OrderByDescending(i => i.StockStatus).ThenByDescending(i => i.ExpirationStatus).ToList();
+            return Results.Ok(filteredIngredients);
         }
         catch (Exception e)
         {

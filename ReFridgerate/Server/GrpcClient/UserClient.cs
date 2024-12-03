@@ -35,7 +35,27 @@ public class UserClient : IUserClientManager
             Email = loginDto.email
         };
         
-        LoginResponse loginResponse =  userService.AttemptLogin(loginRequest);
+        LoginResponse loginResponse = await userService.AttemptLoginAsync(loginRequest);
+
+        LoginResponseDto loginResponseDto = new()
+        {
+            success = loginResponse.Success,
+            userId = loginResponse.UserId,
+            fullName = loginResponse.FullName,
+        };
+        return loginResponseDto;
+    }
+
+    public async Task<LoginResponseDto> AddAsync(CreateUserDto userDto)
+    {
+        CreateUserRequest request = new()
+        {
+            Email = userDto.Email,
+            Firstname = userDto.FirstName,
+            Lastname = userDto.LastName,
+            Password = userDto.Password
+        };
+        LoginResponse loginResponse = await userService.AddUserAsync(request);
 
         LoginResponseDto loginResponseDto = new()
         {

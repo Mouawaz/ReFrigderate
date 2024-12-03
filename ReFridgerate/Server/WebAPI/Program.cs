@@ -14,6 +14,9 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IUserRepository, UserLogic>();
 builder.Services.AddScoped<IIngredientRepository, IngredientLogic>();
 
+builder.Services.AddScoped<IIngredientClientManager, IngredientClient>();
+builder.Services.AddScoped<IUserClientManager, UserClient>();
+
 var app = builder.Build();
 
 app.MapControllers();

@@ -15,9 +15,7 @@ message CreateUserRequest {
   string password = 2;
   string firstname = 3;
   string lastname = 4;
-  string dateOfBirth = 5;
-  string sex = 6;
-  string phoneNumber = 7;
+
 }
 
 message LoginResponse {
@@ -31,14 +29,11 @@ message AllUsersResponse{ //Many 'Ingredient' messages | basically an array list
 }
 
 message User {
-  string userid = 1;
+  int32 userid = 1;
   string email = 2;
   string password = 3;
   string firstname = 4;
   string lastname = 5;
-  string dateOfBirth = 6;
-  string sex = 7;
-  string phoneNumber = 8;
   }
 
 service UserService{
