@@ -13,9 +13,12 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddScoped<IUserRepository, UserLogic>();
 builder.Services.AddScoped<IIngredientRepository, IngredientLogic>();
+builder.Services.AddScoped<IRecipeRepository, RecipeLogic>();
+
 
 builder.Services.AddScoped<IIngredientClientManager, IngredientClient>();
 builder.Services.AddScoped<IUserClientManager, UserClient>();
+builder.Services.AddScoped<IRecipeClientManager, RecipeClient>();
 
 var app = builder.Build();
 

@@ -32,9 +32,6 @@ LoginDto loginDto = new()
     email = "jdoe@example.com",
     password = "password123"
 };
-{
-
-};
 var result = await authController.CheckUser(loginDto);
 Console.WriteLine(result);
 
