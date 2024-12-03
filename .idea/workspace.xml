@@ -4,16 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Login implementation done (?)">
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBRecipeManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBRecipeQuery.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/RecipeManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/RecipeManagerImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/RecipeServiceImplemented.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/RecipeLocal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/shared/SimplifiedIngredientLocal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Recipe.proto" afterDir="false" />
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Recipe java stuff">
+      <change afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Recipe.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Layout/MainLayout.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Layout/MainLayout.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Layout/NavMenu.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Layout/NavMenu.razor" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/Login.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Auth/Login.razor" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -22,7 +19,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="19217" />
+    <option name="totalTimeSeconds" value="19644" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
@@ -218,17 +215,38 @@
       <option name="project" value="LOCAL" />
       <updated>1732529912074</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Recipe java stuff">
+      <option name="closed" value="true" />
+      <created>1733217980635</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1733217980636</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="try to fix weird merge issues :)" />
     <MESSAGE value="Implemented ingredientUpdate functionality" />
     <MESSAGE value="Update proto files, start java implemenation" />
     <MESSAGE value="Login implementation done (?)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login implementation done (?)" />
+    <MESSAGE value="oops" />
+    <MESSAGE value="Recipe java stuff" />
+    <option name="LAST_COMMIT_MESSAGE" value="Recipe java stuff" />
   </component>
 </project>

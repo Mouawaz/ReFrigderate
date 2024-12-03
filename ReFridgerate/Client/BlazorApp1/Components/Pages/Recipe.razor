@@ -1,0 +1,21 @@
+@page "/recipe"
+@using APIContracts.IngridientDtos
+@using BlazorApp.Components.Services
+@using BlazorApp1.Services
+@inject IIngredientService IngredientService
+
+<h3>Recipes</h3>
+<AuthorizeView>
+    <Authorized>
+        <div class="modal-footer">
+            <Button></Button>
+        </div>
+    </Authorized>
+    <NotAuthorized>
+
+    </NotAuthorized>
+</AuthorizeView>
+
+@code {
+
+}
