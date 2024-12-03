@@ -14,14 +14,7 @@ public class UserManagerImpl implements UserManager{
     @Override
     public User.LoginResponse AttemptLogin(User.LoginRequest loginRequest) {
         UserLocal attemptedUser = dbUserManager.getUserByName(loginRequest.getEmail());
-        if (attemptedUser == null){
-            return User.LoginResponse.newBuilder()
-                    .setSuccess(false)
-                    .setUserId(-1)
-                    .setFullName("N/A")
-                    .build();
-        }
-        if (attemptedUser.getPassword().equals(loginRequest.getPassword())) {
+        if (attemptedUser != null && attemptedUser.getPassword().equals(loginRequest.getPassword())) {
             return User.LoginResponse.newBuilder()
                     .setSuccess(true)
                     .setUserId(attemptedUser.getId())
@@ -33,4 +26,5 @@ public class UserManagerImpl implements UserManager{
                 .setFullName("N/A")
                 .build();
     }
+
 }

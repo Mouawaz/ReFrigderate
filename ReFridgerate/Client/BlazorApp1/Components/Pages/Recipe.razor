@@ -7,15 +7,84 @@
 <h3>Recipes</h3>
 <AuthorizeView>
     <Authorized>
-        <div class="modal-footer">
-            <Button></Button>
+        <div class="page-container">
+            <div class="modal-footer">
+                <Button Icon="Add.png"
+                        Text="Add new"
+                        OnClick="() => OpenModal()"></Button>
+            </div>
         </div>
+        <Modal @ref="addRecipeModal" Title="Create recipe">
+            <ChildContent>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="mt-2">Name: </label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text"
+                               class="form-control mt-1 no-border"
+                               placeholder="Enter name"
+                               @bind="recipeName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="mt-2">Instructions: </label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text"
+                               class="form-control mt-1 no-border"
+                               placeholder="Enter instructions"
+                               @bind="recipeInstructions" />
+                    </div>
+                </div>
+                <div>
+                    <label>Choose ingredients:</label>
+                    <div class="row m-2">
+                        <div class="col-11">
+                            <select class="p-1">
+                                <option selected>Choose an ingredient</option>
+                                @foreach (IngredientDto dto in _ingredientList) {
+                                    <option>@dto.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-1">
+                            <Button Icon="Add.png"></Button>
+                        </div>
+                    </div>
+                </div>
+            </ChildContent>
+            <FooterContent>
+                <Button Text="Close" Secondary OnClick="addRecipeModal.Close" />
+                <Button Text="Add" OnClick="() => AddRecipe()"/>
+            </FooterContent>
+        </Modal>
     </Authorized>
     <NotAuthorized>
-
+    
     </NotAuthorized>
 </AuthorizeView>
 
 @code {
-
+    private string recipeName { get; set; }
+    private string recipeInstructions { get; set; }
+    private Modal addRecipeModal;
+    private List<IngredientDto> _ingredientList = new();
+    private void OpenModal() {
+        addRecipeModal.Open();
+    }
+    private void AddRecipe() {
+        Console.WriteLine("I've attempted to add a recipe but its not implemented yet");
+        addRecipeModal.Close();
+    }
+    protected async override Task OnInitializedAsync() {
+        try {
+            _ingredientList = await IngredientService.GetIngredientsAsync();
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
 }

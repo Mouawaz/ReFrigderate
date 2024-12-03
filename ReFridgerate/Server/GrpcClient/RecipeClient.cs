@@ -1,4 +1,3 @@
-using APIContracts.RecipeDtos;
 using Grpc.Net.Client;
 
 namespace GrpcClient;
@@ -15,7 +14,7 @@ public class RecipeClient : IRecipeClientManager
     public IQueryable<Recipe> GetAllRecipes()
     {
 
-        EmptyRecep empty = new EmptyRecep();
+        EmptyRecep empty = new ();
         IQueryable<Recipe> recipes =
             recipeService.GetAllRecipes(empty).Recipes.AsQueryable();
         return recipes.AsQueryable();

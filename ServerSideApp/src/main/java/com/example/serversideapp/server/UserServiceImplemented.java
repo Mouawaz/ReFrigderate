@@ -24,4 +24,9 @@ public class UserServiceImplemented extends UserServiceGrpc.UserServiceImplBase 
             responseObserver.onError(new Throwable("Something went wrong :("));
         }
     }
+
+    @Override
+    public void addUser(User.CreateUserRequest request, StreamObserver<User.LoginResponse> responseObserver) {
+
+      }
 }

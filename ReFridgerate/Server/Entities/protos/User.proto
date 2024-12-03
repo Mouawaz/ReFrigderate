@@ -15,7 +15,6 @@ message CreateUserRequest {
   string password = 2;
   string firstname = 3;
   string lastname = 4;
-
 }
 message UserRequest{
   int32 userId = 1;
@@ -49,5 +48,4 @@ service UserService{
   rpc GetAllUsers(Empty) returns (AllUsersResponse);
   rpc AddUser(CreateUserRequest) returns (LoginResponse);
   rpc GetSingleUser(UserRequest) returns (SingleUserResponse);
-
 }
