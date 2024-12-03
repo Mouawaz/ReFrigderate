@@ -19,7 +19,11 @@ public class SimpleAuthProvider : AuthenticationStateProvider {
     public async Task Login(string email, string password) {
         HttpResponseMessage response = await httpClient.PostAsJsonAsync(
             "Auth",
-            new LoginDto(email, password));
+            new LoginDto()
+            {
+                email = email,
+                password = password
+            });
         string content = await response.Content.ReadAsStringAsync();
         Console.WriteLine("a");
         if (!response.IsSuccessStatusCode) {

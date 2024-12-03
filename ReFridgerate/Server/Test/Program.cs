@@ -27,7 +27,11 @@ IngredientClient ingredientClient = new IngredientClient();
 };
 var result = controller.UpdateIngredient(1, dto).Result;*/
 
-LoginDto loginDto = new("jdoe@example.com","password123")
+LoginDto loginDto = new()
+{
+    email = "jdoe@example.com",
+    password = "password123"
+};
 {
 
 };
