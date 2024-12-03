@@ -8,4 +8,5 @@ public class IngredientDto
     public int Amount {get; set;}
     public int DaysUntilBad {get; set;}
     public int StockStatus {get; set;}
+    public int ExpirationStatus {get; set;}
 }

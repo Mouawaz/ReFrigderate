@@ -50,7 +50,9 @@ public class IngredientController : ControllerBase
     {
         try
         {
-            IQueryable<IngredientDto> ingredients = ingredientRepo.GetAllIngredients();
+            IQueryable<IngredientDto> ingredients =
+                ingredientRepo.GetAllIngredients();
+            IQueryable<IngredientDto> filteredIngredients = ingredients.Where(ingredients => ingredients.StockStatus == 3);
             return Results.Ok(ingredients);
         }
         catch (Exception e)

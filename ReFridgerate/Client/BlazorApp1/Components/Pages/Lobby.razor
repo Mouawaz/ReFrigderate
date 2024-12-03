@@ -7,132 +7,134 @@
 
 <link href="css/lobby.css?version=0.1" rel="stylesheet" />
 
-<div class="page-container">
-    <div class="header">
-        <h1>Ingredients</h1>
-        <div class="header-controls">
-            <div class="search-box">
-                <img class="ingredientt" src="Images/search.png" alt="search" />
-                <input type="text"
-                       placeholder="Search..."
-                       @bind-value="searchText"
-                       @bind-value:event="oninput"
-                       @onkeyup="FilterIngredients" />
+<AuthorizeView>
+    <div class="page-container">
+        <div class="header">
+            <h1>Ingredients</h1>
+            <div class="header-controls">
+                <div class="search-box">
+                    <img class="ingredientt" src="Images/search.png" alt="search" />
+                    <input type="text"
+                           placeholder="Search..."
+                           @bind-value="searchText"
+                           @bind-value:event="oninput"
+                           @onkeyup="FilterIngredients" />
+                </div>
             </div>
         </div>
+
+        <div class="items-grid">
+            @foreach (var ingredient in filteredIngredients)
+            {
+                <div class="item-card">
+                    <div class="item-metadata">
+                        <div class="meta-item">
+                            <Icon class="me-2" Src="Images/time.png" Size="small" />
+                            @ingredient.DaysUntilBad
+                        </div>
+                        <div class="meta-item">
+                            <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
+                            @ingredient.Amount
+                        </div>
+                        <div class="notification-bell">
+                            <Icon Src="Images/notification.png" Size="small" />
+                            <span class="glyphicon glyphicon-bell"></span>
+                        </div>
+                    </div>
+
+                    <div class="item-image">
+                        <Icon Name="@ingredient.Name" Size="medium" />
+                    </div>
+
+                    <div class="item-name">
+                        @ingredient.Name
+                    </div>
+
+                    <div class="item-actions">
+                        <Button Icon="editing.png"
+                                Text="Edit"
+                                OnClick="() => OpenModal(ingredient)">
+                        </Button>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <Tooltip Tip="This is a tooltip!">
+            <button>hello</button>
+        </Tooltip>
     </div>
 
-    <div class="items-grid">
-        @foreach (var ingredient in filteredIngredients)
-        {
-            <div class="item-card">
-                <div class="item-metadata">
-                    <div class="meta-item">
-                        <Icon class="me-2" Src="Images/time.png" Size="small" />
-                        @ingredient.DaysUntilBad
-                    </div>
-                    <div class="meta-item">
-                        <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
-                        @ingredient.Amount
-                    </div>
-                    <div class="notification-bell">
-                        <Icon Src="Images/notification.png" Size="small" />
-                        <span class="glyphicon glyphicon-bell"></span>
-                    </div>
-                </div>
+    <!-- Ingredient Details Modal -->
+    <Modal @ref="detailsModal" Title="Ingredient Details">
+        <ChildContent>
+            @if (selectedIngredient != null)
+            { 
+                <TabControl OnTabChanged="HandleTabChange">
+                    <TabPage Text="Add">
+                        <InputRadioGroup @bind-Value="SelectedOptionAdd" class="custom-radio-group">
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <InputRadio class="form-check-input" Value="1" />
+                                    <label class="form-check-label">Add a certain amount</label>
+                                </div>
+                                <input type="text"
+                                       class="form-control mt-2 no-border"
+                                       placeholder="Enter amount"
+                                       disabled="@(!IsOption1Selected)"
+                                       @bind="Option1Value" />
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <InputRadio class="form-check-input" Value="2" />
+                                    <label class="form-check-label">Enter the total amount</label>
+                                </div>
+                                <input type="text"
+                                       class="form-control mt-2 no-border"
+                                       placeholder="Enter total amount"
+                                       disabled="@(!IsOption2Selected)"
+                                       @bind="Option2Value" />
+                            </div>
+                        </InputRadioGroup>
+                    </TabPage>
 
-                <div class="item-image">
-                    <Icon Name="@ingredient.Name" Size="medium" />
-                </div>
+                    <TabPage Text="Remove">
+                        <InputRadioGroup @bind-Value="SelectedOptionRemove" class="custom-radio-group">
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <InputRadio class="form-check-input" Value="3" />
+                                    <label class="form-check-label">Remove a certain amount</label>
+                                </div>
+                                <input type="text"
+                                       class="form-control mt-2 no-border"
+                                       placeholder="Enter amount"
+                                       disabled="@(!IsOption3Selected)"
+                                       @bind="Option3Value" />
+                            </div>
+                            <div class="mb-3">
+                                <div class="form-check">
+                                    <InputRadio class="form-check-input" Value="4" />
+                                    <label class="form-check-label">Enter the total amount</label>
+                                </div>
+                                <input type="text"
+                                       class="form-control mt-2 no-border"
+                                       placeholder="Enter total amount"
+                                       disabled="@(!IsOption4Selected)"
+                                       @bind="Option4Value" />
+                            </div>
+                        </InputRadioGroup>
+                    </TabPage>
+                </TabControl>
 
-                <div class="item-name">
-                    @ingredient.Name
-                </div>
-
-                <div class="item-actions">
-                    <Button Icon="editing.png"
-                            Text="Edit"
-                            OnClick="() => OpenModal(ingredient)">
-                    </Button>
-                </div>
-            </div>
-        }
-    </div>
-
-    <Tooltip Tip="This is a tooltip!">
-        <button>hello</button>
-    </Tooltip>
-</div>
-
-<!-- Ingredient Details Modal -->
-<Modal @ref="detailsModal" Title="Ingredient Details">
-    <ChildContent>
-        @if (selectedIngredient != null)
-        { 
-           <TabControl OnTabChanged="HandleTabChange">
-    <TabPage Text="Add">
-        <InputRadioGroup @bind-Value="SelectedOptionAdd" class="custom-radio-group">
-            <div class="mb-3">
-                <div class="form-check">
-                    <InputRadio class="form-check-input" Value="1" />
-                    <label class="form-check-label">Add a certain amount</label>
-                </div>
-                <input type="text"
-                       class="form-control mt-2 no-border"
-                       placeholder="Enter amount"
-                       disabled="@(!IsOption1Selected)"
-                       @bind="Option1Value" />
-            </div>
-            <div class="mb-3">
-                <div class="form-check">
-                    <InputRadio class="form-check-input" Value="2" />
-                    <label class="form-check-label">Enter the total amount</label>
-                </div>
-                <input type="text"
-                       class="form-control mt-2 no-border"
-                       placeholder="Enter total amount"
-                       disabled="@(!IsOption2Selected)"
-                       @bind="Option2Value" />
-            </div>
-        </InputRadioGroup>
-    </TabPage>
-
-    <TabPage Text="Remove">
-        <InputRadioGroup @bind-Value="SelectedOptionRemove" class="custom-radio-group">
-            <div class="mb-3">
-                <div class="form-check">
-                    <InputRadio class="form-check-input" Value="3" />
-                    <label class="form-check-label">Remove a certain amount</label>
-                </div>
-                <input type="text"
-                       class="form-control mt-2 no-border"
-                       placeholder="Enter amount"
-                       disabled="@(!IsOption3Selected)"
-                       @bind="Option3Value" />
-            </div>
-            <div class="mb-3">
-                <div class="form-check">
-                    <InputRadio class="form-check-input" Value="4" />
-                    <label class="form-check-label">Enter the total amount</label>
-                </div>
-                <input type="text"
-                       class="form-control mt-2 no-border"
-                       placeholder="Enter total amount"
-                       disabled="@(!IsOption4Selected)"
-                       @bind="Option4Value" />
-            </div>
-        </InputRadioGroup>
-    </TabPage>
-</TabControl>
-
-        }
+            }
         
-    </ChildContent>
-    <FooterContent>
-        <Button Text="Close" Secondary OnClick="detailsModal.Close" />
-        <Button Text="Apply Changes" OnClick="ApplyStockChanges"/>
-    </FooterContent>
-</Modal>
+        </ChildContent>
+        <FooterContent>
+            <Button Text="Close" Secondary OnClick="detailsModal.Close" />
+            <Button Text="Apply Changes" OnClick="ApplyStockChanges"/>
+        </FooterContent>
+    </Modal>
+</AuthorizeView>
 
 @code {
     private string searchText = "";
@@ -221,10 +223,7 @@
         {
             var updateIngredient = new UpdateIngredientDto
             {
-                Name = ingredient.Name,
                 DateOfExpiration = DateTime.UtcNow.AddDays(ingredient.DaysUntilBad).ToString("d/M/yyyy"),
-                Amount = ingredient.Amount,
-                Cost = ingredient.Cost,
                 Difference = Math.Abs(newStockStatus - ingredient.Amount),
                 Substraction = isSubtraction
             };

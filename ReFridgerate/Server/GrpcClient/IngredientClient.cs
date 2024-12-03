@@ -53,6 +53,7 @@ public class IngredientClient : IIngredientClientManager
                 Amount = ingredient.Amount,
                 DaysUntilBad = ingredient.DaysUntilBad,
                 StockStatus = ingredient.StockStatus,
+                ExpirationStatus = ingredient.ExpirationStatus,
 
             };
             ingredientDtos.Add(dto);
