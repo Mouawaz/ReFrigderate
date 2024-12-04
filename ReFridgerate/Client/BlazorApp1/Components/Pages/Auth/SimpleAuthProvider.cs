@@ -6,84 +6,78 @@ using Microsoft.AspNetCore.Components.Server.ProtectedBrowserStorage;
 
 namespace BlazorApp1.Components.Pages.Auth;
 
-public class SimpleAuthProvider : AuthenticationStateProvider {
-    private readonly HttpClient httpClient;
+public class SimpleAuthProvider : AuthenticationStateProvider 
+{
+    private readonly HttpClient _httpClient;
     private readonly ProtectedLocalStorage _protectedLocalStorage;
-    private ClaimsPrincipal currentClaimsPrincipal;
+    private ClaimsPrincipal _currentUser = new(new ClaimsIdentity());
 
-    public SimpleAuthProvider(HttpClient httpClient, ProtectedLocalStorage protectedLocalStorage) {
-        this.httpClient = httpClient;
+    public SimpleAuthProvider(HttpClient httpClient, ProtectedLocalStorage protectedLocalStorage) 
+    {
+        _httpClient = httpClient;
         _protectedLocalStorage = protectedLocalStorage;
     }
 
-    public async Task Login(string email, string password) {
-        HttpResponseMessage response = await httpClient.PostAsJsonAsync(
-            "Auth",
-            new LoginDto()
-            {
-                email = email,
-                password = password
-            });
-        string content = await response.Content.ReadAsStringAsync();
-        Console.WriteLine("a");
-        if (!response.IsSuccessStatusCode) {
-            Console.WriteLine("a1");
-            throw new Exception(content);
+    public async Task Login(string email, string password) 
+    {
+        var response = await _httpClient.PostAsJsonAsync("Auth", new LoginDto 
+        {
+            email = email,
+            password = password
+        });
+
+        if (!response.IsSuccessStatusCode) 
+        {
+            throw new Exception(await response.Content.ReadAsStringAsync());
         }
-        Console.WriteLine("b");
-        LoginResponseDto loginResponseDto = JsonSerializer.Deserialize<LoginResponseDto>(content, new JsonSerializerOptions {
-            PropertyNameCaseInsensitive = true
-        })!;
 
-        // Store login information in protected local storage
-        // await _protectedLocalStorage.SetAsync("userLogin", userDto);
-        Console.WriteLine("c");
-        List<Claim> claims = new List<Claim>() {
-            new Claim(ClaimTypes.Email, email),
-            new Claim(ClaimTypes.Name, loginResponseDto.fullName) // Using email as name
-        };
-        Console.WriteLine("d");
-        ClaimsIdentity identity = new ClaimsIdentity(claims, "apiauth");
-        Console.WriteLine("e");
-        currentClaimsPrincipal = new ClaimsPrincipal(identity);
-        Console.WriteLine("f");
-        NotifyAuthenticationStateChanged(
-            Task.FromResult(new AuthenticationState(currentClaimsPrincipal))
-        );
+        var loginResponse = JsonSerializer.Deserialize<LoginResponseDto>(
+            await response.Content.ReadAsStringAsync(), 
+            new JsonSerializerOptions { PropertyNameCaseInsensitive = true }
+        )!;
+
+        await _protectedLocalStorage.SetAsync("userLogin", loginResponse);
+
+        _currentUser = CreateClaimsPrincipal(loginResponse);
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
     }
 
-    public async Task Logout() {
-        // Remove stored login information
+    public async Task Logout() 
+    {
         await _protectedLocalStorage.DeleteAsync("userLogin");
-
-        currentClaimsPrincipal = new(new ClaimsIdentity());
-        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(currentClaimsPrincipal)));
+        _currentUser = new ClaimsPrincipal(new ClaimsIdentity());
+        NotifyAuthenticationStateChanged(Task.FromResult(new AuthenticationState(_currentUser)));
     }
 
-    public override async Task<AuthenticationState> GetAuthenticationStateAsync() {
-        // try {
-        //     // Try to retrieve stored login information
-        //     var storedLogin = await _protectedLocalStorage.GetAsync<LoginDto>("userLogin");
-        //     return new AuthenticationState(currentClaimsPrincipal);
-        //     if (storedLogin.Success && storedLogin.Value != null)
-        //     {
-        //         var claims = new List<Claim>
-        //         {
-        //             new Claim(ClaimTypes.Email, storedLogin.Value.email),
-        //             new Claim(ClaimTypes.Name, storedLogin.Value.email)
-        //         };
-        //     
-        //         var identity = new ClaimsIdentity(claims, "apiauth");
-        //         currentClaimsPrincipal = new ClaimsPrincipal(identity);
-        //     
-        //         return new AuthenticationState(currentClaimsPrincipal);
-        //     }
-        // }
-        // catch {
-        //     // In case of any error, return unauthenticated state
-        //     Console.WriteLine("diuwahiuadwiu");
-        //     return new AuthenticationState(new ClaimsPrincipal());
-        // }
-        return new AuthenticationState(currentClaimsPrincipal ?? new());
+    public override async Task<AuthenticationState> GetAuthenticationStateAsync() 
+    {
+        try 
+        {
+            var storedLogin = await _protectedLocalStorage.GetAsync<LoginResponseDto>("userLogin");
+            
+            if (storedLogin.Success && storedLogin.Value != null)
+            {
+                _currentUser = CreateClaimsPrincipal(storedLogin.Value);
+                return new AuthenticationState(_currentUser);
+            }
+        }
+        catch 
+        {
+            // Log error if needed
+        }
+
+        return new AuthenticationState(_currentUser);
+    }
+
+    private ClaimsPrincipal CreateClaimsPrincipal(LoginResponseDto loginResponse)
+    {
+        var claims = new List<Claim>
+        {
+            new Claim(ClaimTypes.Email, loginResponse.fullName),
+            new Claim(ClaimTypes.Name, loginResponse.fullName)
+        };
+        
+        var identity = new ClaimsIdentity(claims, "apiauth");
+        return new ClaimsPrincipal(identity);
     }
 }

@@ -1,4 +1,6 @@
 @page "/"
+@using System.Security.Claims
+@using Microsoft.AspNetCore.Authentication.Cookies
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity.Data
 @inject AuthenticationStateProvider AuthProvider
@@ -57,9 +59,13 @@
 
     private async Task HandleLoginReq()
     {
+    
         await LoginAsync();
+        
     }
-
+    
+    
+    
     private async Task LoginAsync()
     {
         try
