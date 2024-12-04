@@ -29,7 +29,7 @@ SET datestyle TO 'ISO, DMY';
 CREATE TABLE Fridge
 (
     fridgeID SERIAL PRIMARY KEY,
-    name VARCHAR(100)
+    name     VARCHAR(100)
 );
 
 create TABLE "user"
@@ -39,10 +39,6 @@ create TABLE "user"
     name        VARCHAR(100),
     email       VARCHAR(100),
     password    varchar(255) not null,
-    firstname   varchar(255),
-    lastname    varchar(255),
-    dateofbirth date,
-    sex         char,
     phonenumber varchar(20)
 );
 
@@ -98,14 +94,14 @@ create TABLE Ingredient
 CREATE TYPE action_type AS ENUM ('Add', 'Subtract');
 CREATE TABLE Inventory
 (
-    fridgeID       INT REFERENCES Fridge (fridgeID),
-    InventoryID    SERIAL PRIMARY KEY,
-    ingredientID   INT,
-    chefID         INT,
-    actionType     action_type,
-    quantity       INT,
-    date           DATE,
-    expirationDate DATE,
+    fridgeID         INT REFERENCES Fridge (fridgeID),
+    InventoryID      SERIAL PRIMARY KEY,
+    ingredientID     INT,
+    chefID           INT,
+    actionType       action_type,
+    quantity         INT,
+    date             DATE,
+    expirationDate   DATE,
     reasonForRemoval varchar(30),
     FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID),
     FOREIGN KEY (chefID) REFERENCES Chef (chefID)
@@ -123,6 +119,7 @@ CREATE TABLE Alert
     FOREIGN KEY (transactionID) REFERENCES Inventory (InventoryID)
 );
 
+CREATE TYPE meal_course AS ENUM ('Starter', 'Main', 'Dessert');
 
 create TABLE Recipe
 (
@@ -132,6 +129,7 @@ create TABLE Recipe
     instructions         TEXT,
     modificationsAllowed BOOLEAN,
     chefID               INT,
+    type                 meal_course,
     FOREIGN KEY (chefID) REFERENCES Chef (chefID)
 );
 
@@ -169,15 +167,13 @@ create TABLE MenuRecipe
 
 
 
-
-
-INSERT INTO Fridge (name,fridgeID)
+INSERT INTO Fridge (name, fridgeID)
 VALUES ('ReTard', DEFAULT);
 
 
-INSERT INTO "user" (userID, name, email, password, firstname, lastname, dateofbirth, sex, phonenumber)
-VALUES (1, 'jdoe', 'jdoe@example.com', 'password123', 'John', 'Doe', '15-06-1985', 'M', '1234567890'),
-       (2, 'asmith', 'asmith@example.com', 'password456', 'Alice', 'Smith', '23-11-1990', 'F', '0987654321');
+INSERT INTO "user" (userID, name, email, password, phonenumber)
+VALUES (1, 'jdoe', 'jdoe@example.com', 'password123', '1234567890'),
+       (2, 'asmith', 'asmith@example.com', 'password456', '0987654321');
 
 
 INSERT INTO Chef (chefID, position, shiftSchedule)
@@ -196,9 +192,8 @@ VALUES (1, 'Full'),
 
 
 INSERT INTO Ingredient (ingredientID, name, cost)
-VALUES
-(DEFAULT, 'Tomato', 0.50),
-(DEFAULT, 'Cheese', 2.00);
+VALUES (DEFAULT, 'Tomato', 0.50),
+       (DEFAULT, 'Cheese', 2.00);
 
 
 INSERT INTO Report (reportID, type, data, creationDate, ownerID)
@@ -221,9 +216,12 @@ VALUES (1, 1, 'Low Stock', 'Pending'),
        (2, 2, 'Expiration', 'Resolved');
 
 
-INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID)
-VALUES (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1),
-       (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2);
+INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID, type)
+VALUES (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1, 'Starter'),
+       (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2, 'Starter'),
+       (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2, 'Main'),
+       (DEFAULT, 'Gateaux marcel', 'bake chocolate mousse at 160 for 40 minutes', FALSE, 1, 'Dessert'),
+       (DEFAULT, 'Creme Brulee', 'Emulsify eggs in the cream ', TRUE, 2, 'Dessert');
 
 
 INSERT INTO Menu (menuID, name, status)
