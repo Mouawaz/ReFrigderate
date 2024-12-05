@@ -6,7 +6,6 @@ import com.example.serversideapp.shared.RecipeLocal;
 import com.example.serversideapp.shared.SimplifiedIngredientLocal;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class RecipeManagerImpl implements RecipeManager {
     private DBRecipeManager dbRecipeManager;
@@ -26,28 +25,26 @@ public class RecipeManagerImpl implements RecipeManager {
 
     @Override
     public RecipeOuterClass.Recipe createRecipe(RecipeOuterClass.CreateRecipeRequest request) {
-        // Convert ingredients from protobuf to local using ArrayList
         ArrayList<SimplifiedIngredientLocal> ingredientLocals = new ArrayList<>();
         for (RecipeOuterClass.SimplifiedIngredient ingredient : request.getIngredientsList()) {
             ingredientLocals.add(new SimplifiedIngredientLocal(
                     ingredient.getIngredientId(),
                     ingredient.getIngredientName(),
-                    ingredient.getIngredientQuantity(),
-                    (int) ingredient.getIngredientCost()
+                    ingredient.getQuantity(),
+                    0
             ));
         }
-
 
         RecipeLocal newRecipeLocal = new RecipeLocal(
                 0,
                 request.getName(),
-                request.getInstruction(),
+                request.getInstructions(),
+                request.getType(),
+                request.getCreatorId(),
                 ingredientLocals
         );
 
         RecipeLocal savedRecipe = dbRecipeManager.CreateRecipe(newRecipeLocal);
-
-
         return parseFromLocal(savedRecipe);
     }
 
@@ -63,8 +60,12 @@ public class RecipeManagerImpl implements RecipeManager {
             existingRecipe.setName(request.getName());
         }
 
-        if (request.hasInstruction()) {
-            existingRecipe.setInstructions(request.getInstruction());
+        if (request.hasInstructions()) {
+            existingRecipe.setInstructions(request.getInstructions());
+        }
+
+        if (request.hasType()) {
+            existingRecipe.setType(request.getType());
         }
 
         ArrayList<SimplifiedIngredientLocal> ingredientLocals = new ArrayList<>();
@@ -72,15 +73,13 @@ public class RecipeManagerImpl implements RecipeManager {
             ingredientLocals.add(new SimplifiedIngredientLocal(
                     ingredient.getIngredientId(),
                     ingredient.getIngredientName(),
-                    ingredient.getIngredientQuantity(),
-                    (int) ingredient.getIngredientCost()
+                    ingredient.getQuantity(),
+                    0
             ));
         }
         existingRecipe.setIngredientUsed(ingredientLocals);
 
-
         RecipeLocal updatedRecipe = dbRecipeManager.UpdateRecipe(existingRecipe);
-
         return parseFromLocal(updatedRecipe);
     }
 
@@ -93,14 +92,16 @@ public class RecipeManagerImpl implements RecipeManager {
         RecipeOuterClass.Recipe.Builder builder = RecipeOuterClass.Recipe.newBuilder()
                 .setId(local.getId())
                 .setName(local.getName())
-                .setInstruction(local.getInstructions());
+                .setInstructions(local.getInstructions())
+                .setType(local.getType())
+                .setCreatorId(local.getCreatorId());
 
         for (SimplifiedIngredientLocal sil : local.getIngredientUsed()){
             builder.addIngredients(RecipeOuterClass.SimplifiedIngredient.newBuilder()
                     .setIngredientId(sil.getId())
-                    .setIngredientCost((float) sil.getCost())
                     .setIngredientName(sil.getName())
-                    .setIngredientQuantity(sil.getQuantity()).build());
+                    .setQuantity(sil.getQuantity())
+                    .build());
         }
         return builder.build();
     }

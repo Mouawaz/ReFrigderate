@@ -2,35 +2,37 @@ syntax = "proto3";
 
 option java_package = "Server";
 
-
 message EmptyRecep {}
 
 message SimplifiedIngredient {
   int32 ingredientId = 1;
   string ingredientName = 2;
-  int32 ingredientQuantity = 3;
-  float ingredientCost = 4;
+  int32 quantity = 3;
 }
 
 message Recipe {
   int32 id = 1;
   string name = 2;
-  string instruction = 3;
-  repeated SimplifiedIngredient ingredients = 4;
+  string instructions = 3;
+  string type = 4;
+  int32 creatorId = 5;
+  repeated SimplifiedIngredient ingredients = 6;
 }
-
 
 message CreateRecipeRequest {
   string name = 1;
-  string instruction = 2;
-  repeated SimplifiedIngredient ingredients = 3;
+  string instructions = 2;
+  string type = 3;
+  int32 creatorId = 4;
+  repeated SimplifiedIngredient ingredients = 5;
 }
 
 message UpdateRecipeRequest {
   int32 id = 1;
   optional string name = 2;
-  optional string instruction = 3;
-  repeated SimplifiedIngredient ingredients = 4;
+  optional string instructions = 3;
+  optional string type = 4;
+  repeated SimplifiedIngredient ingredients = 5;
 }
 
 message DeleteRecipeRequest {
@@ -48,12 +50,8 @@ message AllRecipesResponse {
 }
 
 service RecipeService {
-
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
-
   rpc CreateRecipe(CreateRecipeRequest) returns (RecipeResponse);
-
   rpc UpdateRecipe(UpdateRecipeRequest) returns (RecipeResponse);
-
   rpc DeleteRecipe(DeleteRecipeRequest) returns (RecipeResponse);
 }
