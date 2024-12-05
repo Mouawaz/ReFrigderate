@@ -18,6 +18,11 @@ public class IngredientLogic : IIngredientRepository
     public async Task<IngredientDto> UpdateAsync(int id, UpdateIngredientDto ingredientInfo, int difference)
     {
         DateTime today = DateTime.Today.Date;
+        if (ingredientInfo.amount.Equals(null) || ingredientInfo.Difference.Equals(null) ||
+            ingredientInfo.Difference.Equals(null))
+        {
+            throw new ArgumentException("Data cannot be empty");
+        }
         if (ingredientInfo.Substraction && ingredientInfo.amount < ingredientInfo.Difference)
         {
             throw new ArgumentException("The ingredient amount is less than the substraction amount");
@@ -36,7 +41,7 @@ public class IngredientLogic : IIngredientRepository
         IngredientDto ingredient = new()
         {
             Id = id,
-            //DaysUntilBad = (givenDate - today).Days,
+            DaysUntilBad = (ingredientInfo.Substraction == true ? 0 : (givenDate - today).Days),
         };
         return  clientManager.UpdateIngredient(ingredient, difference * (ingredientInfo.Substraction == true ? -1 : 1));
     }
