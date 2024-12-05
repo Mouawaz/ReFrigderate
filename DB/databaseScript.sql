@@ -36,7 +36,8 @@ create TABLE "user"
 (
     fridgeID    INT REFERENCES Fridge (fridgeID),
     userID      SERIAL PRIMARY KEY,
-    name        VARCHAR(100),
+    firstname        VARCHAR(100),
+    lastname    VARCHAR(100),
     email       VARCHAR(100),
     password    varchar(255) not null,
     role        varchar(20)
@@ -171,9 +172,9 @@ INSERT INTO Fridge (name, fridgeID)
 VALUES ('ReTard', DEFAULT);
 
 
-INSERT INTO "user" (userID, name, email, password, phonenumber, role)
-VALUES (1, 'jdoe', 'jdoe@example.com', 'password123', 'Commis chef'),
-       (2, 'asmith', 'asmith@example.com', 'password456', 'porter');
+INSERT INTO "user" (userID, firstname, lastname, email, password, role)
+VALUES (1, 'Jhon', 'Doe', 'jdoe@example.com', 'password123', 'Commis chef'),
+       (2, 'Amantha', 'Smith', 'asmith@example.com', 'password456', 'porter');
 
 
 INSERT INTO Chef (chefID, position, shiftSchedule)
@@ -231,8 +232,8 @@ VALUES (DEFAULT, 'Lunch Menu', 'Available'),
 
 INSERT INTO RecipeIngredient (recipeID, ingredientID, quantityNeeded)
 VALUES (1, 1, 3), -- 3 tomatoes needed for Tomato Soup
-       (2, 2, 1);
--- 1 cheese needed for Cheese Omelet
+       (2, 2, 1), -- 1 cheese and 5 tomatoes needed for Cheese Omelet
+       (2, 1, 5);
 
 -- Insert dummy data into MenuRecipe table
 INSERT INTO MenuRecipe (menuID, recipeID)

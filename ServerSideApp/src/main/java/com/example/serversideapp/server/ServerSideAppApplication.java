@@ -13,8 +13,12 @@ import Server.User;
 @SpringBootApplication
 public class ServerSideAppApplication {
     public static void main(String[] args) {
-//        RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
-//        System.out.println(recipeManager.GetAllRecipes());
+//        UserManager userManager = new UserManagerImpl(new DBUserQuery());
+//        System.out.println(userManager.AddUser(User.CreateUserRequest.newBuilder()
+//                .setEmail("DPKK@example.com")
+//                .setFirstname("Kurcze")
+//                .setLastname("Blade")
+//                .setPassword("2137").build()));
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

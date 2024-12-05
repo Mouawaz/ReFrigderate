@@ -4,20 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Quick ServerSideAppApplication fix">
-      <change afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/wwwroot/Images/add.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f5595383-9bda-4976-84d3-a742cd1627f5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f5595383-9bda-4976-84d3-a742cd1627f5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/f5595383-9bda-4976-84d3-a742cd1627f5/storage_v2/_src_/database/postgres.edMnLQ/schema/refridgerate.2PLkgQ.zip" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/f5595383-9bda-4976-84d3-a742cd1627f5/storage_v2/_src_/database/postgres.edMnLQ/schema/refridgerate.2PLkgQ.zip" afterDir="false" />
+    <list default="true" id="5d0bf81b-aa16-48a3-beb6-79e32a346806" name="Changes" comment="Misc fixes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/DB/databaseScript.sql" beforeDir="false" afterPath="$PROJECT_DIR$/DB/databaseScript.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Admin.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Admin.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Recipe.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/Pages/Recipe.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/UI_components/TextField.razor" beforeDir="false" afterPath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/Components/UI_components/TextField.razor" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ReFridgerate/Client/BlazorApp1/wwwroot/Images/Add.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBGeneral.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBGeneral.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserQuery.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/back/DBUserQuery.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/RecipeServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/RecipeServiceImplemented.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Recipe.proto" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/proto/Recipe.proto" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManagerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/middle/UserManagerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/ServerSideAppApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" beforeDir="false" afterPath="$PROJECT_DIR$/ServerSideApp/src/main/java/com/example/serversideapp/server/UserServiceImplemented.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +20,7 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DarkyenusTimeTracker">
-    <option name="totalTimeSeconds" value="22420" />
+    <option name="totalTimeSeconds" value="24304" />
     <option name="idleThresholdMs" value="30000" />
     <option name="autoCountIdleSeconds" value="15" />
     <option name="gitIntegration" value="true" />
@@ -190,7 +185,7 @@
       <workItem from="1732525401736" duration="6799000" />
       <workItem from="1732884355444" duration="3466000" />
       <workItem from="1733327576060" duration="391000" />
-      <workItem from="1733386268762" duration="2848000" />
+      <workItem from="1733386268762" duration="5430000" />
     </task>
     <task id="LOCAL-00001" summary="try to fix weird merge issues :)">
       <option name="closed" value="true" />
@@ -240,7 +235,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733221456149</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Misc fixes">
+      <option name="closed" value="true" />
+      <created>1733390714208</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1733390714208</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,6 +268,7 @@
     <MESSAGE value="oops" />
     <MESSAGE value="Recipe java stuff" />
     <MESSAGE value="Quick ServerSideAppApplication fix" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quick ServerSideAppApplication fix" />
+    <MESSAGE value="Misc fixes" />
+    <option name="LAST_COMMIT_MESSAGE" value="Misc fixes" />
   </component>
 </project>
