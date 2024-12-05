@@ -15,13 +15,23 @@ message Recipe {
   int32 id = 1;
   string name = 2;
   string instruction = 3;
-  repeated SimplifiedIngredient messages = 4;
+  repeated SimplifiedIngredient ingredients = 4;
 }
 
 message AllRecipesResponse {
   repeated Recipe recipes = 1;
 }
-
+message RecipeIngredientBasic{
+  int32 IngredientId = 1;
+  string ingredientName = 2;
+}
+message RecipeCreationRequest{
+  string name = 1;
+  string instruction = 2;
+  repeated RecipeIngredientBasic ingredients = 3;
+}
 service RecipeService{
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
+  rpc CreateRecipe(RecipeCreationRequest) returns (Recipe);
+  rpc UpdateRecipe(Recipe) returns (Recipe);
 }
