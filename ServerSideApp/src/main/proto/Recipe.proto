@@ -16,13 +16,44 @@ message Recipe {
   int32 id = 1;
   string name = 2;
   string instruction = 3;
-  repeated SimplifiedIngredient messages = 4;
+  repeated SimplifiedIngredient ingredients = 4;
+}
+
+
+message CreateRecipeRequest {
+  string name = 1;
+  string instruction = 2;
+  repeated SimplifiedIngredient ingredients = 3;
+}
+
+message UpdateRecipeRequest {
+  int32 id = 1;
+  optional string name = 2;
+  optional string instruction = 3;
+  repeated SimplifiedIngredient ingredients = 4;
+}
+
+message DeleteRecipeRequest {
+  int32 id = 1;
+}
+
+message RecipeResponse {
+  bool success = 1;
+  string message = 2;
+  Recipe recipe = 3;
 }
 
 message AllRecipesResponse {
   repeated Recipe recipes = 1;
 }
 
-service RecipeService{
+service RecipeService {
+
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
+
+  rpc CreateRecipe(CreateRecipeRequest) returns (RecipeResponse);
+
+  rpc UpdateRecipe(UpdateRecipeRequest) returns (RecipeResponse);
+
+  rpc DeleteRecipe(DeleteRecipeRequest) returns (RecipeResponse);
 }

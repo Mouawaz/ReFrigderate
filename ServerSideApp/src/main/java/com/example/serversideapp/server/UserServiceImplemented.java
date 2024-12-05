@@ -17,16 +17,16 @@ public class UserServiceImplemented extends UserServiceGrpc.UserServiceImplBase 
         //request = {username, password}
         User.LoginResponse resp = userManager.AttemptLogin(request);
         responseObserver.onNext(resp);
-        if (resp.getSuccess()){
+        if (resp.getSuccess()) {
             responseObserver.onCompleted();
-        }
-        else {
+        } else {
             responseObserver.onError(new Throwable("Something went wrong :("));
         }
     }
 
     @Override
     public void addUser(User.CreateUserRequest request, StreamObserver<User.LoginResponse> responseObserver) {
+<<<<<<< Updated upstream
         User.LoginResponse resp = userManager.AddUser(request);
         responseObserver.onNext(resp);
         if (resp.getSuccess()){
@@ -36,4 +36,8 @@ public class UserServiceImplemented extends UserServiceGrpc.UserServiceImplBase 
             responseObserver.onError(new Throwable("Something went wrong :("));
         }
       }
+=======
+
+    }
+>>>>>>> Stashed changes
 }
