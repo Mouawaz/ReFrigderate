@@ -21,10 +21,14 @@ message Recipe {
 message AllRecipesResponse {
   repeated Recipe recipes = 1;
 }
+message RecipeIngredientBasic{
+  int32 IngredientId = 1;
+  string ingredientName = 2;
+}
 message RecipeCreationRequest{
   string name = 1;
   string instruction = 2;
-  repeated SimplifiedIngredient ingredients = 3;
+  repeated RecipeIngredientBasic ingredients = 3;
 }
 service RecipeService{
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
