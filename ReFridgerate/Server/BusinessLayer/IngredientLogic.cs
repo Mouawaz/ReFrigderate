@@ -15,13 +15,17 @@ public class IngredientLogic : IIngredientRepository
         this.clientManager = clientManager;
     }
 
-    public async Task<IngredientDto> UpdateAsync(int id, UpdateIngredientDto userInfo, int difference)
+    public async Task<IngredientDto> UpdateAsync(int id, UpdateIngredientDto ingredientInfo, int difference)
     {
         DateTime today = DateTime.Today.Date;
+        if (ingredientInfo.Substraction && ingredientInfo.amount < ingredientInfo.Difference)
+        {
+            throw new ArgumentException("The ingredient amount is less than the substraction amount");
+        }
         DateTime givenDate;
         try
         {
-             givenDate = DateTime.ParseExact(userInfo.DateOfExpiration, "d/M/yyyy", CultureInfo.InvariantCulture);
+             givenDate = DateTime.ParseExact(ingredientInfo.DateOfExpiration, "d/M/yyyy", CultureInfo.InvariantCulture);
         }
         catch (Exception e)
         {
@@ -32,9 +36,9 @@ public class IngredientLogic : IIngredientRepository
         IngredientDto ingredient = new()
         {
             Id = id,
-            DaysUntilBad = (givenDate - today).Days,
+            //DaysUntilBad = (givenDate - today).Days,
         };
-        return  clientManager.UpdateIngredient(ingredient, difference * (userInfo.Substraction == true ? -1 : 1));
+        return  clientManager.UpdateIngredient(ingredient, difference * (ingredientInfo.Substraction == true ? -1 : 1));
     }
 
     public IQueryable<IngredientDto> GetAllIngredients()
