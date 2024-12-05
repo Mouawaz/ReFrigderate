@@ -15,7 +15,9 @@ message Recipe {
   int32 id = 1;
   string name = 2;
   string instruction = 3;
-  repeated SimplifiedIngredient ingredients = 4;
+  string type = 4;
+  int32 creatorId = 5;
+  repeated SimplifiedIngredient ingredients = 6;
 }
 
 message AllRecipesResponse {
@@ -24,6 +26,7 @@ message AllRecipesResponse {
 message RecipeIngredientBasic{
   int32 IngredientId = 1;
   string ingredientName = 2;
+  int32 quantity = 3;
 }
 message RecipeCreationRequest{
   string name = 1;

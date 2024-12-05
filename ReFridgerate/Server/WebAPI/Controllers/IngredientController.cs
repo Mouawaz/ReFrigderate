@@ -52,8 +52,24 @@ public class IngredientController : ControllerBase
         {
             IQueryable<IngredientDto> ingredients =
                 ingredientRepo.GetAllIngredients();
-            List<IngredientDto> filteredIngredients = ingredients.OrderByDescending(i => i.StockStatus).ThenByDescending(i => i.ExpirationStatus).ToList();
-            return Results.Ok(filteredIngredients);
+           // List<IngredientDto> filteredIngredients = ingredients.OrderByDescending(i => i.StockStatus).ThenByDescending(i => i.ExpirationStatus).ToList();
+           IEnumerable<IngredientDto> filteredIngredients =
+               ingredients.Where(i => i.StockStatus == 3).ToList();
+           filteredIngredients = filteredIngredients.Union(ingredients
+               .Where(i => i.ExpirationStatus == 3).ToList());
+           
+           filteredIngredients = filteredIngredients.Union(ingredients
+               .Where(i => i.StockStatus == 2).ToList());
+           
+           filteredIngredients = filteredIngredients.Union(ingredients
+               .Where(i => i.ExpirationStatus == 2).ToList());
+           
+           filteredIngredients = filteredIngredients.Union(ingredients
+               .Where(i => i.StockStatus == 1).ToList());
+           
+           filteredIngredients = filteredIngredients.Union(ingredients
+               .Where(i => i.ExpirationStatus == 1).ToList());
+           return Results.Ok(filteredIngredients);
         }
         catch (Exception e)
         {

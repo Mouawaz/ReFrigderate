@@ -1,3 +1,4 @@
+using APIContracts.RecipeDtos;
 using Grpc.Net.Client;
 
 namespace GrpcClient;
@@ -18,5 +19,26 @@ public class RecipeClient : IRecipeClientManager
         IQueryable<Recipe> recipes =
             recipeService.GetAllRecipes(empty).Recipes.AsQueryable();
         return recipes.AsQueryable();
+    }
+
+    public async Task<Recipe> AddAsync(CreateRecipeDto recipeDto)
+    {
+        RecipeCreationRequest request = new()
+        {
+            Name = recipeDto.name,
+            Instruction = recipeDto.instructions,
+            Ingredients = { recipeDto.ingredients.AsQueryable().Select(ingredient => new RecipeIngredientBasic()
+            {
+                IngredientId = ingredient.IngredientId,
+                IngredientName = ingredient.IngredientName,
+                Quantity = ingredient.Quantity
+            }) }
+        };
+        return await recipeService.CreateRecipeAsync(request);
+    }
+
+    public async Task<Recipe> UpdateUserAsync(Recipe recipe)
+    {
+        return await recipeService.UpdateRecipeAsync(recipe);
     }
 }

@@ -1,5 +1,6 @@
 using APIContracts;
 using APIContracts.IngridientDtos;
+using APIContracts.RecipeDtos;
 using Entities;
 using Grpc.Core;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -35,5 +36,30 @@ public class RecipeController : ControllerBase
             Console.WriteLine(e);
             return Results.BadRequest(e.Message);
         }
+    }
+    [HttpPost]
+    public async Task<ActionResult<Recipe>> CreateRecipe([FromBody]  CreateRecipeDto createRecipeDto )
+    {
+        try
+        {
+            
+
+            Recipe recipe = await recipeRepo.AddAsync(createRecipeDto);
+
+            return Created("Recipe", recipe);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Recipe>> UpdateUser(
+        [FromRoute] Recipe recipe)
+    {
+       Recipe updatedRecipe = await recipeRepo.UpdateAsync(recipe);
+       return Ok(updatedRecipe);
     }
 }
