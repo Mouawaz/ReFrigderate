@@ -19,9 +19,7 @@ public class RecipeServiceImplemented extends RecipeServiceGrpc.RecipeServiceImp
         responseObserver.onCompleted();
     }
 
-<<<<<<< Updated upstream
-}
-=======
+
     @Override
     public void createRecipe(RecipeOuterClass.CreateRecipeRequest request, StreamObserver<RecipeOuterClass.RecipeResponse> responseObserver) {
         RecipeOuterClass.Recipe recipe = recipeManager.createRecipe(request);
@@ -54,4 +52,4 @@ public class RecipeServiceImplemented extends RecipeServiceGrpc.RecipeServiceImp
         responseObserver.onCompleted();
     }
 }
->>>>>>> Stashed changes
+

@@ -10,20 +10,17 @@ import Server.User;
 @SpringBootApplication
 public class ServerSideAppApplication {
     public static void main(String[] args) {
-<<<<<<< Updated upstream
+
 //        UserManager userManager = new UserManagerImpl(new DBUserQuery());
 //        System.out.println(userManager.AddUser(User.CreateUserRequest.newBuilder()
 //                .setEmail("DPKK@example.com")
 //                .setFirstname("Kurcze")
 //                .setLastname("Blade")
 //                .setPassword("2137").build()));
-=======
-//        RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
-//        recipeManager.createRecipe(RecipeOuterClass.CreateRecipeRequest.newBuilder().build("ASs","Gas", Server.Recip));
-//        System.out.println(recipeManager.GetAllRecipes());
 
 
->>>>>>> Stashed changes
+
+
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

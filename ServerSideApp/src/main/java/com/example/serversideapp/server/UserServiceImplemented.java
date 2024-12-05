@@ -26,18 +26,16 @@ public class UserServiceImplemented extends UserServiceGrpc.UserServiceImplBase 
 
     @Override
     public void addUser(User.CreateUserRequest request, StreamObserver<User.LoginResponse> responseObserver) {
-<<<<<<< Updated upstream
+
         User.LoginResponse resp = userManager.AddUser(request);
         responseObserver.onNext(resp);
-        if (resp.getSuccess()){
+        if (resp.getSuccess()) {
             responseObserver.onCompleted();
-        }
-        else {
+        } else {
             responseObserver.onError(new Throwable("Something went wrong :("));
         }
-      }
-=======
-
     }
->>>>>>> Stashed changes
+
+
 }
+
