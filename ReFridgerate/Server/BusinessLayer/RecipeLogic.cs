@@ -52,4 +52,14 @@ public class RecipeLogic : IRecipeRepository
         }
         return await clientManager.UpdateUserAsync(recipe);
     }
+
+    public async Task DeleteAsync(int id)
+    {
+        if (id.Equals(null) || id < 1)
+        {
+            throw new ArgumentException("Id cannot be null or negative");
+        }
+
+        await clientManager.DeleteRecipeAsync(id);
+    }
 }

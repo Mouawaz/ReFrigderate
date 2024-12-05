@@ -62,4 +62,19 @@ public class RecipeController : ControllerBase
        Recipe updatedRecipe = await recipeRepo.UpdateAsync(recipe);
        return Ok(updatedRecipe);
     }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> DeleteRecipe([FromRoute]int id)
+    {
+        try
+        {
+            await recipeRepo.DeleteAsync(id);
+            return NoContent();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return StatusCode(500, e.Message);
+        }
+    }
 }

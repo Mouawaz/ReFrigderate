@@ -31,10 +31,22 @@ message RecipeIngredientBasic{
 message RecipeCreationRequest{
   string name = 1;
   string instruction = 2;
-  repeated RecipeIngredientBasic ingredients = 3;
+  int32 creatorId = 3;
+  repeated RecipeIngredientBasic ingredients = 4;
 }
+message RecipeResponse {
+  bool success = 1;
+  string message = 2;
+  Recipe recipe = 3;
+}
+message DeleteRecipeRequest {
+  int32 id = 1;
+}
+
 service RecipeService{
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
-  rpc CreateRecipe(RecipeCreationRequest) returns (Recipe);
-  rpc UpdateRecipe(Recipe) returns (Recipe);
+  rpc CreateRecipe(RecipeCreationRequest) returns (RecipeResponse);
+  rpc UpdateRecipe(Recipe) returns (RecipeResponse);
+  rpc DeleteRecipe(DeleteRecipeRequest) returns (RecipeResponse);
+
 }

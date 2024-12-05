@@ -7,6 +7,7 @@ public interface IRecipeRepository
     IQueryable<Recipe> GetAllRecipes();
     Task<Recipe> AddAsync(CreateRecipeDto recipeDto);
     Task<Recipe> UpdateAsync(Recipe recipe);
+    Task DeleteAsync(int id);
 
 
 }

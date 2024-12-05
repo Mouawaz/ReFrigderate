@@ -34,11 +34,32 @@ public class RecipeClient : IRecipeClientManager
                 Quantity = ingredient.Quantity
             }) }
         };
-        return await recipeService.CreateRecipeAsync(request);
+        RecipeResponse response = await recipeService.CreateRecipeAsync(request);
+        if (!response.Success)
+        {
+            throw new Exception(response.Message);
+        }
+        return response.Recipe;
     }
 
     public async Task<Recipe> UpdateUserAsync(Recipe recipe)
     {
-        return await recipeService.UpdateRecipeAsync(recipe);
+        RecipeResponse response = await recipeService.UpdateRecipeAsync(recipe);
+        if (!response.Success)
+        {
+            throw new Exception(response.Message);
+        }
+        return response.Recipe;
+    }
+
+    public async Task DeleteRecipeAsync(int id)
+    {
+        DeleteRecipeRequest request = new() { Id = id };
+        RecipeResponse response = await recipeService.DeleteRecipeAsync(request);
+        if (!response.Success)
+        {
+            throw new Exception(response.Message);
+        }
+        return;
     }
 }
