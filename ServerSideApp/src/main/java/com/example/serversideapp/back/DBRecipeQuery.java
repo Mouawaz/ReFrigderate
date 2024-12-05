@@ -1,6 +1,5 @@
 package com.example.serversideapp.back;
 
-import Server.RecipeOuterClass;
 import com.example.serversideapp.shared.RecipeLocal;
 import com.example.serversideapp.shared.SimplifiedIngredientLocal;
 
@@ -16,20 +15,36 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
     public ArrayList<RecipeLocal> GetAllIngredients() {
         try(Connection connection = getConnected()){
             ArrayList<RecipeLocal> ans = new ArrayList<>();
-            PreparedStatement psRecipes = connection.prepareStatement("SELECT recipeid, name, instructions, modificationsallowed FROM refridgerate.recipe");
-            PreparedStatement psRecipeIngredients = connection.prepareStatement("SELECT quantityneeded, r.ingredientid, ingredient.name, ingredient.cost FROM refridgerate.recipe " +
-                    "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
-                    "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid=?;");
+            PreparedStatement psRecipes = connection.prepareStatement(
+                    "SELECT recipeid, name, instructions, type, chefid FROM refridgerate.recipe"
+            );
+            PreparedStatement psRecipeIngredients = connection.prepareStatement(
+                    "SELECT quantityneeded, r.ingredientid, ingredient.name FROM refridgerate.recipe " +
+                            "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
+                            "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid=?;"
+            );
             ResultSet rsRecipe = psRecipes.executeQuery();
             ArrayList<SimplifiedIngredientLocal> localIngredient;
             while (rsRecipe.next()){
-                localIngredient = new ArrayList<>(); //ArrayList for all of the ingredient in a given recipe
+                localIngredient = new ArrayList<>();
                 psRecipeIngredients.setInt(1, rsRecipe.getInt(1));
                 ResultSet rsRecipeIngredients = psRecipeIngredients.executeQuery();
                 while (rsRecipeIngredients.next()){
-                    localIngredient.add(new SimplifiedIngredientLocal(rsRecipeIngredients.getInt(2), rsRecipeIngredients.getString(3), rsRecipeIngredients.getFloat(4), rsRecipeIngredients.getInt(1)));
+                    localIngredient.add(new SimplifiedIngredientLocal(
+                            rsRecipeIngredients.getInt(2),
+                            rsRecipeIngredients.getString(3),
+                            rsRecipeIngredients.getInt(1),
+                            0
+                    ));
                 }
-                ans.add(new RecipeLocal(rsRecipe.getInt(1), rsRecipe.getString(2), rsRecipe.getString(3), localIngredient));
+                ans.add(new RecipeLocal(
+                        rsRecipe.getInt(1),
+                        rsRecipe.getString(2),
+                        rsRecipe.getString(3),
+                        rsRecipe.getString(4),
+                        rsRecipe.getInt(5),
+                        localIngredient
+                ));
             }
             return ans;
         }
@@ -46,10 +61,14 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
     @Override
     public RecipeLocal GetRecipe(int id) {
         try(Connection connection = getConnected()) {
-            PreparedStatement psRecipe = connection.prepareStatement("SELECT recipeid, name, instructions FROM refridgerate.recipe WHERE recipeid = ?");
-            PreparedStatement psRecipeIngredients = connection.prepareStatement("SELECT quantityneeded, r.ingredientid, ingredient.name, ingredient.cost FROM refridgerate.recipe " +
-                    "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
-                    "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid = ?");
+            PreparedStatement psRecipe = connection.prepareStatement(
+                    "SELECT recipeid, name, instructions, type, chefid FROM refridgerate.recipe WHERE recipeid = ?"
+            );
+            PreparedStatement psRecipeIngredients = connection.prepareStatement(
+                    "SELECT quantityneeded, r.ingredientid, ingredient.name FROM refridgerate.recipe " +
+                            "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
+                            "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid = ?"
+            );
 
             psRecipe.setInt(1, id);
             psRecipeIngredients.setInt(1, id);
@@ -64,8 +83,8 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                     localIngredient.add(new SimplifiedIngredientLocal(
                             rsRecipeIngredients.getInt(2),
                             rsRecipeIngredients.getString(3),
-                            rsRecipeIngredients.getFloat(4),
-                            rsRecipeIngredients.getInt(1)
+                            rsRecipeIngredients.getInt(1),
+                            0
                     ));
                 }
 
@@ -73,6 +92,8 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                         rsRecipe.getInt(1),
                         rsRecipe.getString(2),
                         rsRecipe.getString(3),
+                        rsRecipe.getString(4),
+                        rsRecipe.getInt(5),
                         localIngredient
                 );
             }
@@ -86,12 +107,14 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
     @Override
     public RecipeLocal CreateRecipe(RecipeLocal newRecipeLocal) {
         try(Connection connection = getConnected()) {
-            // Insert new recipe
             PreparedStatement psCreateRecipe = connection.prepareStatement(
-                    "INSERT INTO refridgerate.recipe (name, instructions) VALUES (?, ?) RETURNING recipeid");
+                    "INSERT INTO refridgerate.recipe (name, instructions, type, chefid) VALUES (?, ?, ?, ?) RETURNING recipeid"
+            );
 
             psCreateRecipe.setString(1, newRecipeLocal.getName());
             psCreateRecipe.setString(2, newRecipeLocal.getInstructions());
+            psCreateRecipe.setString(3, newRecipeLocal.getType());
+            psCreateRecipe.setInt(4, newRecipeLocal.getCreatorId());
 
             ResultSet rs = psCreateRecipe.executeQuery();
 
@@ -100,9 +123,9 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                 newRecipeId = rs.getInt(1);
             }
 
-            // Insert recipe ingredients
             PreparedStatement psInsertIngredient = connection.prepareStatement(
-                    "INSERT INTO refridgerate.RecipeIngredient (recipeid, ingredientid, quantityneeded) VALUES (?, ?, ?)");
+                    "INSERT INTO refridgerate.RecipeIngredient (recipeid, ingredientid, quantityneeded) VALUES (?, ?, ?)"
+            );
 
             for (SimplifiedIngredientLocal ingredient : newRecipeLocal.getIngredientUsed()) {
                 psInsertIngredient.setInt(1, newRecipeId);
@@ -111,7 +134,6 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                 psInsertIngredient.executeUpdate();
             }
 
-            // Return the newly created recipe
             return GetRecipe(newRecipeId);
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -121,24 +143,26 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
     @Override
     public RecipeLocal UpdateRecipe(RecipeLocal existingRecipe) {
         try(Connection connection = getConnected()) {
-            // Update recipe details
             PreparedStatement psUpdateRecipe = connection.prepareStatement(
-                    "UPDATE refridgerate.recipe SET name = ?, instructions = ? WHERE recipeid = ?");
+                    "UPDATE refridgerate.recipe SET name = ?, instructions = ?, type = ?, chefid = ? WHERE recipeid = ?"
+            );
 
             psUpdateRecipe.setString(1, existingRecipe.getName());
             psUpdateRecipe.setString(2, existingRecipe.getInstructions());
-            psUpdateRecipe.setInt(3, existingRecipe.getId());
+            psUpdateRecipe.setString(3, existingRecipe.getType());
+            psUpdateRecipe.setInt(4, existingRecipe.getCreatorId());
+            psUpdateRecipe.setInt(5, existingRecipe.getId());
             psUpdateRecipe.executeUpdate();
 
-            // Delete existing recipe ingredients
             PreparedStatement psDeleteIngredients = connection.prepareStatement(
-                    "DELETE FROM refridgerate.recipeingredient WHERE recipeid = ?");
+                    "DELETE FROM refridgerate.recipeingredient WHERE recipeid = ?"
+            );
             psDeleteIngredients.setInt(1, existingRecipe.getId());
             psDeleteIngredients.executeUpdate();
 
-            // Insert new recipe ingredients
             PreparedStatement psInsertIngredient = connection.prepareStatement(
-                    "INSERT INTO refridgerate.recipeingredient (recipeid, ingredientid, quantityneeded) VALUES (?, ?, ?)");
+                    "INSERT INTO refridgerate.recipeingredient (recipeid, ingredientid, quantityneeded) VALUES (?, ?, ?)"
+            );
 
             for (SimplifiedIngredientLocal ingredient : existingRecipe.getIngredientUsed()) {
                 psInsertIngredient.setInt(1, existingRecipe.getId());
@@ -147,7 +171,6 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                 psInsertIngredient.executeUpdate();
             }
 
-            // Return the updated recipe
             return GetRecipe(existingRecipe.getId());
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -157,15 +180,15 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
     @Override
     public boolean DeleteRecipe(int recipeId) {
         try(Connection connection = getConnected()) {
-            // First, delete associated recipe ingredients
             PreparedStatement psDeleteIngredients = connection.prepareStatement(
-                    "DELETE FROM refridgerate.recipeingredient WHERE recipeid = ?");
+                    "DELETE FROM refridgerate.recipeingredient WHERE recipeid = ?"
+            );
             psDeleteIngredients.setInt(1, recipeId);
             psDeleteIngredients.executeUpdate();
 
-            // Then delete the recipe itself
             PreparedStatement psDeleteRecipe = connection.prepareStatement(
-                    "DELETE FROM refridgerate.recipe WHERE recipeid = ?");
+                    "DELETE FROM refridgerate.recipe WHERE recipeid = ?"
+            );
             psDeleteRecipe.setInt(1, recipeId);
 
             int rowsAffected = psDeleteRecipe.executeUpdate();

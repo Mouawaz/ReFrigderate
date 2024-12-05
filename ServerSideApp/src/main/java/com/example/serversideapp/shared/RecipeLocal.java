@@ -15,9 +15,6 @@ public class RecipeLocal {
     private int creatorId;
     private ArrayList<SimplifiedIngredientLocal> ingredientUsed;
 
-    public RecipeLocal(int id, String name, String instructions, ArrayList<SimplifiedIngredientLocal> ingredientUsed) {
-        this(id, name, instructions, "", 0, ingredientUsed);
-    }
 
     public RecipeLocal(int id, String name, String instructions, String type, int creatorId, ArrayList<SimplifiedIngredientLocal> ingredientUsed) {
         this.id = id;
