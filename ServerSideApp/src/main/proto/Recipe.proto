@@ -2,6 +2,7 @@ syntax = "proto3";
 
 option java_package = "Server";
 
+
 message EmptyRecep {}
 
 message SimplifiedIngredient {

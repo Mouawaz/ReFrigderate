@@ -11,7 +11,7 @@ public class DBUserQuery extends DBGeneral implements DBUserManager{
     @Override
     public UserLocal getUserByName(String email) {
         try (Connection connection = getConnected()){
-            PreparedStatement psUser = connection.prepareStatement("SELECT userid, name, password, firstname, lastname FROM refridgerate.user WHERE email = ?");
+            PreparedStatement psUser = connection.prepareStatement("SELECT userid, email, password, firstname, lastname  FROM refridgerate.user WHERE email = ?");
             psUser.setString(1, email);
             ResultSet rsUser = psUser.executeQuery();
             if (!rsUser.next()){

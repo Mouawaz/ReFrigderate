@@ -17,4 +17,5 @@ public class RecipeServiceImplemented extends RecipeServiceGrpc.RecipeServiceImp
         responseObserver.onNext(recipeManager.GetAllRecipes());
         responseObserver.onCompleted();
     }
+
 }

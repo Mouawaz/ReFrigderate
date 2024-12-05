@@ -39,7 +39,6 @@ create TABLE "user"
     name        VARCHAR(100),
     email       VARCHAR(100),
     password    varchar(255) not null,
-    phonenumber varchar(20),
     role        varchar(20)
 );
 
@@ -173,8 +172,8 @@ VALUES ('ReTard', DEFAULT);
 
 
 INSERT INTO "user" (userID, name, email, password, phonenumber, role)
-VALUES (1, 'jdoe', 'jdoe@example.com', 'password123', '1234567890', 'Commis chef'),
-       (2, 'asmith', 'asmith@example.com', 'password456', '0987654321', 'porter');
+VALUES (1, 'jdoe', 'jdoe@example.com', 'password123', 'Commis chef'),
+       (2, 'asmith', 'asmith@example.com', 'password456', 'porter');
 
 
 INSERT INTO Chef (chefID, position, shiftSchedule)

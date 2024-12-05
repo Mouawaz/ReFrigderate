@@ -1,0 +1,115 @@
+Index: ServerSideApp/pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><project xmlns=\"http://maven.apache.org/POM/4.0.0\" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n         xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n    <modelVersion>4.0.0</modelVersion>\r\n\r\n    <parent>\r\n        <groupId>org.springframework.boot</groupId>\r\n        <artifactId>spring-boot-starter-parent</artifactId>\r\n        <version>3.3.5</version>\r\n        <relativePath/>\r\n    </parent>\r\n\r\n    <groupId>com.example</groupId>\r\n    <artifactId>ServerSideApp</artifactId>\r\n    <version>0.0.1-SNAPSHOT</version>\r\n    <name>ServerSideApp</name>\r\n\r\n    <properties>\r\n        <java.version>21</java.version>\r\n    </properties>\r\n\r\n    <dependencies>\r\n        <!-- Spring Boot Core Dependencies -->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter</artifactId>\r\n        </dependency>\r\n\r\n        <!-- Spring Data JPA for ORM and Database Management -->\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-data-jpa</artifactId>\r\n        </dependency>\r\n\r\n        <!-- PostgreSQL Driver -->\r\n        <dependency>\r\n            <groupId>org.postgresql</groupId>\r\n            <artifactId>postgresql</artifactId>\r\n            <scope>runtime</scope>\r\n            <version>42.7.4</version>\r\n        </dependency>\r\n\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-jdbc</artifactId>\r\n        </dependency>\r\n\r\n        <!-- Lombok code management -->\r\n        <dependency>\r\n            <groupId>org.projectlombok</groupId>\r\n            <artifactId>lombok</artifactId>\r\n            <optional>true</optional>\r\n            <version>1.18.34</version>\r\n        </dependency>\r\n\r\n\r\n        <dependency>\r\n            <groupId>org.springframework.boot</groupId>\r\n            <artifactId>spring-boot-starter-test</artifactId>\r\n            <scope>test</scope>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>org.junit.jupiter</groupId>\r\n            <artifactId>junit-jupiter</artifactId>\r\n            <version>5.8.2</version>\r\n            <scope>test</scope>\r\n        </dependency>\r\n\r\n        <!-- Protobuf for gRPC -->\r\n        <dependency>\r\n            <groupId>com.google.protobuf</groupId>\r\n            <artifactId>protobuf-java</artifactId>\r\n            <version>3.25.3</version>\r\n        </dependency>\r\n\r\n        <!-- gRPC Dependencies -->\r\n        <dependency>\r\n            <groupId>io.grpc</groupId>\r\n            <artifactId>grpc-netty</artifactId>\r\n            <version>1.66.0</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.grpc</groupId>\r\n            <artifactId>grpc-protobuf</artifactId>\r\n            <version>1.66.0</version>\r\n        </dependency>\r\n        <dependency>\r\n            <groupId>io.grpc</groupId>\r\n            <artifactId>grpc-stub</artifactId>\r\n            <version>1.66.0</version>\r\n        </dependency>\r\n    </dependencies>\r\n\r\n    <build>\r\n        <extensions>\r\n            <!-- os-maven-plugin -->\r\n            <extension>\r\n                <groupId>kr.motd.maven</groupId>\r\n                <artifactId>os-maven-plugin</artifactId>\r\n                <version>1.7.0</version>\r\n            </extension>\r\n        </extensions>\r\n\r\n        <plugins>\r\n            <!-- Spring Boot Plugin -->\r\n            <plugin>\r\n                <groupId>org.springframework.boot</groupId>\r\n                <artifactId>spring-boot-maven-plugin</artifactId>\r\n            </plugin>\r\n\r\n            <!-- Protobuf Maven Plugin Configuration -->\r\n            <plugin>\r\n                <groupId>org.xolstice.maven.plugins</groupId>\r\n                <artifactId>protobuf-maven-plugin</artifactId>\r\n                <version>0.6.1</version>\r\n                <configuration>\r\n                    <!--suppress UnresolvedMavenProperty -->\r\n                    <protocArtifact>com.google.protobuf:protoc:3.25.3:exe:${os.detected.classifier}</protocArtifact>\r\n                    <pluginId>grpc-java</pluginId>\r\n                    <!--suppress UnresolvedMavenProperty -->\r\n                    <pluginArtifact>io.grpc:protoc-gen-grpc-java:1.66.0:exe:${os.detected.classifier}</pluginArtifact>\r\n                    <protoSourceRoot>${project.basedir}/src/main/proto</protoSourceRoot>\r\n                    <outputDirectory>${project.build.directory}/generated-sources/protobuf</outputDirectory>\r\n                </configuration>\r\n                <executions>\r\n                    <execution>\r\n                        <goals>\r\n                            <goal>compile</goal>\r\n                            <goal>compile-custom</goal>\r\n                        </goals>\r\n                    </execution>\r\n                </executions>\r\n            </plugin>\r\n\r\n            <plugin>\r\n                <groupId>org.apache.maven.plugins</groupId>\r\n                <artifactId>maven-surefire-plugin</artifactId>\r\n                <version> 3.2.5</version>\r\n                <configuration>\r\n                    <skipTests>true</skipTests>\r\n                </configuration>\r\n            </plugin>\r\n        </plugins>\r\n    </build>\r\n</project>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ServerSideApp/pom.xml b/ServerSideApp/pom.xml
+--- a/ServerSideApp/pom.xml	(revision d64c5d9a2405050056785a13a6293b05dc0bdedc)
++++ b/ServerSideApp/pom.xml	(date 1730195034428)
+@@ -52,6 +52,12 @@
+             <version>1.18.34</version>
+         </dependency>
+ 
++        <!-- javax.annotation for Generated annotation -->
++        <dependency>
++            <groupId>javax.annotation</groupId>
++            <artifactId>javax.annotation-api</artifactId>
++            <version>1.3.2</version>
++        </dependency>
+ 
+         <dependency>
+             <groupId>org.springframework.boot</groupId>
+@@ -141,4 +147,4 @@
+             </plugin>
+         </plugins>
+     </build>
+-</project>
++</project>
+\ No newline at end of file
+Index: ServerSideApp/src/main/proto/User.proto
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>syntax = \"proto3\";\r\n\r\nmessage Users {\r\n  string userid = 1;\r\n  string email = 2;\r\n  string password = 3;\r\n  string firstname = 4;\r\n  string lastname = 5;\r\n  string dateOfBirth = 6;\r\n  string sex = 7;\r\n  string phoneNumber = 8;\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ServerSideApp/src/main/proto/User.proto b/ServerSideApp/src/main/proto/User.proto
+--- a/ServerSideApp/src/main/proto/User.proto	(revision d64c5d9a2405050056785a13a6293b05dc0bdedc)
++++ b/ServerSideApp/src/main/proto/User.proto	(date 1730195034429)
+@@ -1,4 +1,14 @@
+ syntax = "proto3";
++// .proto files are used for the gRPC structure of the data and the services.
++//  both sides agree on the data format...i think.
++
++option java_package = "Server";
++
++
++
++message UserIdRequest {
++  string userid = 1;
++}
+ 
+ message Users {
+   string userid = 1;
+@@ -9,4 +19,10 @@
+   string dateOfBirth = 6;
+   string sex = 7;
+   string phoneNumber = 8;
++}
++service UserService {
++  rpc GetUser(UserIdRequest) returns (Users); // Defines a gRPC service that is then compiled into the protobuf
++  // then you create the logic in the server class and database operations
++   // For the server here, this User.proto file is compiled into Java (or c#) using the Protobuf compiler .
++  // It allows clients to request user details by providing a user ID fx
+ }
+\ No newline at end of file
+Index: ServerSideApp/src/main/java/com/example/serversideapp/ServerSideAppApplication.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.serversideapp;\r\n\r\nimport org.springframework.boot.SpringApplication;\r\nimport org.springframework.boot.autoconfigure.SpringBootApplication;\r\n\r\nimport java.sql.SQLException;\r\n\r\n@SpringBootApplication\r\npublic class ServerSideAppApplication {\r\n\r\n    public static void main(String[] args) {\r\n        SpringApplication.run(ServerSideAppApplication.class, args);\r\n//        DBQuery dbQuery = new DBQuery();\r\n//        System.out.println(dbQuery.GetUserByPhone(\"1112223333\"));\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ServerSideApp/src/main/java/com/example/serversideapp/ServerSideAppApplication.java b/ServerSideApp/src/main/java/com/example/serversideapp/ServerSideAppApplication.java
+--- a/ServerSideApp/src/main/java/com/example/serversideapp/ServerSideAppApplication.java	(revision d64c5d9a2405050056785a13a6293b05dc0bdedc)
++++ b/ServerSideApp/src/main/java/com/example/serversideapp/ServerSideAppApplication.java	(date 1730195027050)
+@@ -9,8 +9,8 @@
+ public class ServerSideAppApplication {
+ 
+     public static void main(String[] args) {
+-        SpringApplication.run(ServerSideAppApplication.class, args);
+-//        DBQuery dbQuery = new DBQuery();
+-//        System.out.println(dbQuery.GetUserByPhone("1112223333"));
++//        SpringApplication.run(ServerSideAppApplication.class, args);
++        DBQuery dbQuery = new DBQuery();
++        System.out.println(dbQuery.GetUserByPhone("1112223333"));
+     }
+ }
+Index: ServerSideApp/src/main/resources/application.properties
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring.application.name=ServerSideApp\r\nspring.datasource.url=jdbc:postgresql://localhost:5432/postgres\r\nspring.datasource.username= postgres\r\nspring.datasource.password=451311qq\r\nspring.jpa.hibernate.ddl-auto=update\r\n\r\nspring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect\r\n\r\n#todo later when connecting DB\r\n#spring.application.name=ServerSideApp\r\n#spring.datasource.url=jdbc:h2:mem:testdb\r\n#spring.jpa.hibernate.ddl-auto=none
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>ISO-8859-1
+===================================================================
+diff --git a/ServerSideApp/src/main/resources/application.properties b/ServerSideApp/src/main/resources/application.properties
+--- a/ServerSideApp/src/main/resources/application.properties	(revision d64c5d9a2405050056785a13a6293b05dc0bdedc)
++++ b/ServerSideApp/src/main/resources/application.properties	(date 1730195034429)
+@@ -1,10 +1,14 @@
++# settings are needed to connect the app to the PostgreSQL database and manage data
++
+ spring.application.name=ServerSideApp
+ spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+ spring.datasource.username= postgres
+ spring.datasource.password=451311qq
+ spring.jpa.hibernate.ddl-auto=update
+-
+ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
++spring.jpa.properties.hibernate.default_schema=ReFrigderate
++
++
+ 
+ #todo later when connecting DB
+ #spring.application.name=ServerSideApp

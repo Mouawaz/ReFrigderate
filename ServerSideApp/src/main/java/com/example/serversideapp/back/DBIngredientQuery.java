@@ -28,7 +28,7 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
     public IngredientLocal UpdateIngredient(int ingredientId, int quantity, int daysUntilBad) {
         Date todaysDate = new Date();
         try (Connection connection = getConnected()) {
-            PreparedStatement psUpdateIngredient = connection.prepareStatement("INSERT INTO refridgerate.inventory VALUES (DEFAULT, ?, ?, CAST(? AS refridgerate.action_type), ?, CAST(? AS DATE), CAST(? AS DATE));");
+            PreparedStatement psUpdateIngredient = connection.prepareStatement("INSERT INTO refridgerate.inventory VALUES (1, DEFAULT, ?, ?, CAST(? AS refridgerate.action_type), ?, CAST(? AS DATE), CAST(? AS DATE));");
             psUpdateIngredient.setInt(1, ingredientId);//IngredientId
             psUpdateIngredient.setInt(2, 1);//chefId, for now stuck at 1
             psUpdateIngredient.setString(3, quantity > 0 ? "Add" : "Subtract");//ActionType, either Add or Subtract.
