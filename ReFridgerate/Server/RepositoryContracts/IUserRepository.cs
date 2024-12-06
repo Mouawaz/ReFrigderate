@@ -6,7 +6,8 @@ namespace RepositoryContracts;
 public interface IUserRepository
 {
     Task<LoginResponseDto> AddAsync(CreateUserDto createUserDto);
-    Task<User> GetSingleAsync(int id);
-    IQueryable<User> GetMultiple();
+    Task<UserDto> GetSingleAsync(int id);
+    IQueryable<UserDto> GetMultiple();
     Task<LoginResponseDto> LoginAsync(LoginDto loginDto);
+    Task<bool> UpdateAsync(int id, string role);
 }

@@ -31,8 +31,7 @@ public class RecipeServiceImplemented extends RecipeServiceGrpc.RecipeServiceImp
         responseObserver.onCompleted();
     }
 
-    @Override
-    public void updateRecipe(RecipeOuterClass.UpdateRecipeRequest request, StreamObserver<RecipeOuterClass.RecipeResponse> responseObserver) {
+    @Override public void updateRecipe(RecipeOuterClass.UpdateRecipeRequest request, StreamObserver<RecipeOuterClass.RecipeResponse> responseObserver) {
         RecipeOuterClass.Recipe recipe = recipeManager.updateRecipe(request);
         RecipeOuterClass.RecipeResponse response = RecipeOuterClass.RecipeResponse.newBuilder()
                 .setSuccess(true)
