@@ -1,13 +1,20 @@
 @page "/recipe"
 @using APIContracts.IngridientDtos
-@using BlazorApp.Components.Services
+@using APIContracts.RecipeDtos
 @using BlazorApp1.Services
 @inject IIngredientService IngredientService
+@inject IRecipeService RecipeService
+
+<link href="css/Recipe.css?version=0.1" rel="stylesheet" />
+
+
 <title>Recipes</title>
-<h3>Recipes</h3>
 <AuthorizeView>
     <Authorized>
         <div class="page-container">
+            <div class="header">
+                <h1>Recipes</h1>
+            </div>
             <div class="modal-footer">
                 <Button Icon="add.png"
                         Text="Add new"
@@ -24,7 +31,7 @@
                         <input type="text"
                                class="form-control mt-1 no-border"
                                placeholder="Enter name"
-                               @bind="recipeName" />
+                               @bind="recipeName"/>
                     </div>
                 </div>
                 <div class="row">
@@ -35,28 +42,67 @@
                         <input type="text"
                                class="form-control mt-1 no-border"
                                placeholder="Enter instructions"
-                               @bind="recipeInstructions" />
+                               @bind="recipeInstructions"/>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="mt-2">Type: </label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text"
+                               class="form-control mt-1 no-border"
+                               placeholder="Enter type"
+                               @bind="type"/>
                     </div>
                 </div>
                 <div class="mt-5">
                     <label>Choose ingredients:</label>
-                    <div class="row m-2">
-                        <div class="col-11">
-                            <select class="p-1">
+                    <div class="row m-2 justify-content-center align-items-center">
+                        <div class="col-9">
+                            <select @bind="currentIngredient" class="p-1">
                                 <option selected>Choose an ingredient</option>
                                 @foreach (IngredientDto dto in _ingredientList) {
                                     <option>@dto.Name</option>
                                 }
                             </select>
                         </div>
+                        <div class="col-2">
+                            <input type="number"
+                                   class="form-control no-border"
+                                   placeholder="Enter amount"
+                                   @bind="currentIngredientAmount"/>
+                        </div>
                         <div class="col-1">
-                            <Button Icon="add.png"></Button>
+                            <Button Icon="add.png"
+                                    OnClick="() => AddIngredientToRecipe()"></Button>
                         </div>
                     </div>
+                    @foreach (RecipeIngredientDto dto in selectedIngredients) {
+                        <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
+                            <div class="col-3">
+                                <label>@dto.IngredientName</label>
+                            </div>
+                            <div class="col-3">
+                                <label>Quantity: </label>
+                                @dto.Quantity
+                            </div>
+                            <div class="col-2">
+                                <Button
+                                    Icon="minus.png"
+                                    OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)"></Button>
+                            </div>
+                        </div>
+                    }
                 </div>
+                @if (!string.IsNullOrWhiteSpace(error)) {
+                    <div class="blazor-error-boundary">
+                        @error <br/>
+                    </div>
+                }
             </ChildContent>
             <FooterContent>
-                <Button Text="Close" Secondary OnClick="addRecipeModal.Close" />
+                <Button Text="Close" Secondary OnClick="addRecipeModal.Close"/>
                 <Button Text="Add" OnClick="() => AddRecipe()"/>
             </FooterContent>
         </Modal>
@@ -69,14 +115,66 @@
 @code {
     private string recipeName { get; set; }
     private string recipeInstructions { get; set; }
+    private string type { get; set; }
+    private string currentIngredient { get; set; }
+    private string error { get; set; } = "";
+    private int currentIngredientAmount { get; set; }
     private Modal addRecipeModal;
     private List<IngredientDto> _ingredientList = new();
+    private List<RecipeIngredientDto> selectedIngredients = new();
     private void OpenModal() {
+        recipeName = "";
+        recipeInstructions = "";
+        error = "";
+        selectedIngredients = new();
         addRecipeModal.Open();
     }
     private void AddRecipe() {
-        Console.WriteLine("I've attempted to add a recipe but its not implemented yet");
+        error = "";
+        if (string.IsNullOrWhiteSpace(recipeName) || string.IsNullOrWhiteSpace(recipeInstructions) || string.IsNullOrWhiteSpace(type)) {
+            error = "One of the values has been left empty";
+            return;
+        }
+        if (selectedIngredients.Count == 0) {
+            error = "You need some ingredients in a recipe";
+            return;
+        }
+        CreateRecipeDto createRecipeDto = new() {
+            name = recipeName,
+            instructions = recipeInstructions,
+            type = type,
+            creatorId = 1,
+            ingredients = selectedIngredients
+        };
+        RecipeService.AddRecipeAsync(createRecipeDto);
+        Console.WriteLine(createRecipeDto);
+        
         addRecipeModal.Close();
+    }
+    private void AddIngredientToRecipe() {
+        IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
+        RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == currentIngredient);
+        if (ingredientDto is null || attempted is not null) {
+            error = "Something went wrong";
+            Console.WriteLine(error);
+            return;
+        }
+        error = "";
+        RecipeIngredientDto toAdd = new() {
+            IngredientId = ingredientDto.Id,
+            IngredientName = ingredientDto.Name,
+            Quantity = currentIngredientAmount
+        };
+        selectedIngredients.Add(toAdd);
+    }
+    private void RemoveIngredientFromRecipe(string ingredientName) {
+        RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == ingredientName); 
+        if (attempted is null) {
+            error = "Something went wrong";
+            Console.WriteLine(error);
+            return;
+        }
+        selectedIngredients.Remove(attempted);
     }
     protected async override Task OnInitializedAsync() {
         try {
