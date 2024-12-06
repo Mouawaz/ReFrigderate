@@ -20,6 +20,7 @@ public class RecipeManagerImpl implements RecipeManager {
         for (RecipeLocal rl : dbRecipeManager.GetAllIngredients()){
             respBuilder.addRecipes(parseFromLocal(rl));
         }
+//        System.out.println(respBuilder.build());
         return respBuilder.build();
     }
 

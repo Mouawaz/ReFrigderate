@@ -26,7 +26,7 @@ public class ServerSideAppApplication {
 //                        .setIngredientId(2)
 //                        .setQuantity(2).build()).build());
 //        System.out.println(recipe);
-//        System.out.println(recipeManager.deleteRecipe(3));
+//        System.out.println(recipeManager.GetAllRecipes());
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

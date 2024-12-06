@@ -42,6 +42,6 @@ message AllRecipesResponse {
 service RecipeService {
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
   rpc CreateRecipe(CreateRecipeRequest) returns (Recipe);
+  rpc UpdateRecipe(CreateRecipeRequest) returns (Recipe);
   rpc DeleteRecipe(DeleteRecipeRequest) returns (Recipe);
-//  rpc UpdateRecipe(UpdateRecipeRequest) returns (Recipe);
 }

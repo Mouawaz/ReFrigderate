@@ -7,47 +7,41 @@ message EmptyRecep {}
 message SimplifiedIngredient {
   int32 ingredientId = 1;
   string ingredientName = 2;
-  int32 ingredientQuantity = 3;
-  float ingredientCost = 4;
+  int32 quantity = 3;
+  float cost = 4;
 }
 
 message Recipe {
   int32 id = 1;
   string name = 2;
-  string instruction = 3;
-  string type = 4;
-  int32 creatorId = 5;
+  bool modificationsAllowed = 3;
+  string instructions = 4;
+  string type = 5;
+  int32 creatorId = 6;
+  repeated SimplifiedIngredient ingredients = 7;
+}
+
+message CreateRecipeRequest {
+  string name = 1;
+  string instructions = 2;
+  bool modificationsAllowed = 3;
+  int32 creatorId = 4;
+  string type = 5;
   repeated SimplifiedIngredient ingredients = 6;
+  int32 UpdateRecipeId = 7;
+}
+
+message DeleteRecipeRequest {
+  int32 id = 1;
 }
 
 message AllRecipesResponse {
   repeated Recipe recipes = 1;
 }
-message RecipeIngredientBasic{
-  int32 IngredientId = 1;
-  string ingredientName = 2;
-  int32 quantity = 3;
-}
-message CreateRecipeRequest {
-  string name = 1;
-  string instructions = 2;
-  int32 creatorId = 3;
-  string type = 4;
-  repeated SimplifiedIngredient ingredients = 5;
-}
-message RecipeResponse {
-  bool success = 1;
-  string message = 2;
-  Recipe recipe = 3;
-}
-message DeleteRecipeRequest {
-  int32 id = 1;
-}
 
-service RecipeService{
+service RecipeService {
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
-  rpc CreateRecipe(CreateRecipeRequest) returns (RecipeResponse);
-  rpc UpdateRecipe(Recipe) returns (RecipeResponse);
-  rpc DeleteRecipe(DeleteRecipeRequest) returns (RecipeResponse);
-
+  rpc CreateRecipe(CreateRecipeRequest) returns (Recipe);
+  rpc UpdateRecipe(CreateRecipeRequest) returns (Recipe);
+  rpc DeleteRecipe(DeleteRecipeRequest) returns (Recipe);
 }
