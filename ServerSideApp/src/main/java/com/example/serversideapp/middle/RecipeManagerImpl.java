@@ -25,63 +25,44 @@ public class RecipeManagerImpl implements RecipeManager {
 
     @Override
     public RecipeOuterClass.Recipe createRecipe(RecipeOuterClass.CreateRecipeRequest request) {
-        ArrayList<SimplifiedIngredientLocal> ingredientLocals = new ArrayList<>();
-        for (RecipeOuterClass.SimplifiedIngredient ingredient : request.getIngredientsList()) {
-            ingredientLocals.add(new SimplifiedIngredientLocal(
-                    ingredient.getIngredientId(),
-                    ingredient.getIngredientName(),
-                    ingredient.getCost(),
-                    ingredient.getQuantity()
-            ));
-        }
-
-        RecipeLocal newRecipeLocal = new RecipeLocal(
-                0,
-                request.getName(),
-                request.getInstructions(),
-                request.getType(),
-                request.getCreatorId(),
-                ingredientLocals
-        );
-
-        RecipeLocal savedRecipe = dbRecipeManager.CreateRecipe(newRecipeLocal);
+        RecipeLocal savedRecipe = dbRecipeManager.CreateRecipe(request);
         return parseFromLocal(savedRecipe);
     }
 
-    @Override
-    public RecipeOuterClass.Recipe updateRecipe(RecipeOuterClass.UpdateRecipeRequest request) {
-        RecipeLocal existingRecipe = dbRecipeManager.GetRecipe(request.getId());
-
-        if (existingRecipe == null) {
-            throw new IllegalArgumentException("Recipe not found with ID: " + request.getId());
-        }
-
-        if (request.hasName()) {
-            existingRecipe.setName(request.getName());
-        }
-
-        if (request.hasInstructions()) {
-            existingRecipe.setInstructions(request.getInstructions());
-        }
-
-        if (request.hasType()) {
-            existingRecipe.setType(request.getType());
-        }
-
-        ArrayList<SimplifiedIngredientLocal> ingredientLocals = new ArrayList<>();
-        for (RecipeOuterClass.SimplifiedIngredient ingredient : request.getIngredientsList()) {
-            ingredientLocals.add(new SimplifiedIngredientLocal(
-                    ingredient.getIngredientId(),
-                    ingredient.getIngredientName(),
-                    ingredient.getQuantity(),
-                    0
-            ));
-        }
-        existingRecipe.setIngredientUsed(ingredientLocals);
-
-        RecipeLocal updatedRecipe = dbRecipeManager.UpdateRecipe(existingRecipe);
-        return parseFromLocal(updatedRecipe);
-    }
+//    @Override
+//    public RecipeOuterClass.Recipe updateRecipe(RecipeOuterClass.UpdateRecipeRequest request) {
+//        RecipeLocal existingRecipe = dbRecipeManager.GetRecipe(request.getId());
+//
+//        if (existingRecipe == null) {
+//            throw new IllegalArgumentException("Recipe not found with ID: " + request.getId());
+//        }
+//
+//        if (request.hasName()) {
+//            existingRecipe.setName(request.getName());
+//        }
+//
+//        if (request.hasInstructions()) {
+//            existingRecipe.setInstructions(request.getInstructions());
+//        }
+//
+//        if (request.hasType()) {
+//            existingRecipe.setType(request.getType());
+//        }
+//
+//        ArrayList<SimplifiedIngredientLocal> ingredientLocals = new ArrayList<>();
+//        for (RecipeOuterClass.SimplifiedIngredient ingredient : request.getIngredientsList()) {
+//            ingredientLocals.add(new SimplifiedIngredientLocal(
+//                    ingredient.getIngredientId(),
+//                    ingredient.getIngredientName(),
+//                    ingredient.getQuantity(),
+//                    0
+//            ));
+//        }
+//        existingRecipe.setIngredientUsed(ingredientLocals);
+//
+//        RecipeLocal updatedRecipe = dbRecipeManager.UpdateRecipe(existingRecipe);
+//        return parseFromLocal(updatedRecipe);
+//    }
 
     @Override
     public boolean deleteRecipe(int recipeId) {
@@ -102,9 +83,7 @@ public class RecipeManagerImpl implements RecipeManager {
                     .setQuantity(sil.getQuantity())
                     .setCost(sil.getCost())
                     .build();
-            System.out.println(sil.getQuantity());
-            System.out.println(ing);
-//            builder.addIngredients();
+            builder.addIngredients(ing);
         }
         return builder.build();
     }
