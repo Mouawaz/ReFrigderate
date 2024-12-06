@@ -12,12 +12,29 @@ public class RecipeClient : IRecipeClientManager
         channel = GrpcChannel.ForAddress("http://localhost:8080");
         recipeService = new RecipeService.RecipeServiceClient(channel);
     }
-    public IQueryable<Recipe> GetAllRecipes()
+    public IQueryable<RecipeDto> GetAllRecipes()
     {
 
         EmptyRecep empty = new ();
-        IQueryable<Recipe> recipes =
-            recipeService.GetAllRecipes(empty).Recipes.AsQueryable();
+        List<RecipeDto> recipes =
+            recipeService.GetAllRecipes(empty).Recipes.AsQueryable().Select(r =>
+                new RecipeDto()
+                {
+                    id = r.Id,
+                    name = r.Name,
+                    creatorId = r.CreatorId,
+                    type = r.Type,
+                    instruction = r.Instruction,
+                    ingredients = r.Ingredients.AsQueryable().Select(i =>
+                        new SimplifiedIngredientDto()
+                        {
+                            ingredientId = i.IngredientId,
+                            ingredientName = i.IngredientName,
+                            ingredientQuantity = i.IngredientQuantity,
+                            ingredientCost = i.IngredientCost,
+                        }).ToList()
+                }).ToList();
+        
         return recipes.AsQueryable();
     }
 

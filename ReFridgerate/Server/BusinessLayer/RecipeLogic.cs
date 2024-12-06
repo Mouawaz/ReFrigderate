@@ -13,7 +13,7 @@ public class RecipeLogic : IRecipeRepository
     {
         this.clientManager = clientManager;
     }
-    public IQueryable<Recipe> GetAllRecipes()
+    public IQueryable<RecipeDto> GetAllRecipes()
     {
         return clientManager.GetAllRecipes();
     }

@@ -27,7 +27,7 @@ public class RecipeController : ControllerBase
     {
         try
         {
-            IQueryable<Recipe> recipes =
+            IQueryable<RecipeDto> recipes =
                 recipeRepo.GetAllRecipes();
             return Results.Ok(recipes);
         }
