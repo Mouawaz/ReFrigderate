@@ -34,13 +34,14 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
             psUpdateIngredient.setString(3, quantity > 0 ? "Add" : "Subtract");//ActionType, either Add or Subtract.
             psUpdateIngredient.setInt(4, quantity);//Quantity
             psUpdateIngredient.setString(5, todaysDate.toString());//Day of change
-            psUpdateIngredient.setString(6, todaysDate.toInstant().plus(3, ChronoUnit.DAYS).toString());//Expiration date
-            psUpdateIngredient.executeUpdate();
+            psUpdateIngredient.setString(6, todaysDate.toInstant().plus(daysUntilBad, ChronoUnit.DAYS).toString());//Expiration date
+//            psUpdateIngredient.executeUpdate();
             //Done with updating, now get total again
             PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient WHERE ingredientid = ?");
             PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
             PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             psIngredients.setInt(1, ingredientId);
+            System.out.println(getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates).getFirst());
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates).getFirst();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -48,11 +49,14 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
     }
 
     private Date findRecentDate(ResultSet rsDates) throws SQLException {
+        System.out.println("___________________");
         rsDates.next();
         Date minDate = rsDates.getDate(2);
         int count = rsDates.getInt(1);
         while (rsDates.next()) {
+            System.out.println(count);
             if (count <= 0) {
+                System.out.println(minDate);
                 minDate = rsDates.getDate(2);
             }
             count += rsDates.getInt(1);
@@ -60,8 +64,6 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
         return minDate;
     }
 
-    //TODO: rework the get to actually work lmao
-    //NOTE: Provisional code for testing frontend
     private ArrayList<IngredientLocal> getListOfIngredient(ResultSet rsIngredients, PreparedStatement psBatches, PreparedStatement psDates) throws SQLException {
         ArrayList<IngredientLocal> ans = new ArrayList<>();
 
@@ -69,7 +71,7 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
             try {
                 int ingredientID = rsIngredients.getInt("ingredientID");
                 String name = rsIngredients.getString("name");
-                float cost = rsIngredients.wasNull() ? rsIngredients.getFloat("cost") : 0.0f;
+                float cost = rsIngredients.getFloat("cost");
                 psBatches.setInt(1, ingredientID);
                 psDates.setInt(1, ingredientID);
                 ResultSet rsBatches = psBatches.executeQuery();

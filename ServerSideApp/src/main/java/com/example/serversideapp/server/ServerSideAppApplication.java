@@ -1,26 +1,17 @@
 package com.example.serversideapp.server;
 
-import com.example.serversideapp.back.*;
-import com.example.serversideapp.middle.*;
+import Server.IngredientOuterClass;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
+import com.example.serversideapp.back.*;
+import com.example.serversideapp.middle.*;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import Server.User;
 
 @SpringBootApplication
 public class ServerSideAppApplication {
     public static void main(String[] args) {
-
-//        UserManager userManager = new UserManagerImpl(new DBUserQuery());
-//        System.out.println(userManager.AddUser(User.CreateUserRequest.newBuilder()
-//                .setEmail("DPKK@example.com")
-//                .setFirstname("Kurcze")
-//                .setLastname("Blade")
-//                .setPassword("2137").build()));
-
-
-
-
+//        RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
+//        recipeManager.GetAllRecipes();
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

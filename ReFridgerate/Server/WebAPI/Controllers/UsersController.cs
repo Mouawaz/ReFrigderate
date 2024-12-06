@@ -22,19 +22,9 @@ public class UsersController : ControllerBase
     {
         try
         {
-            User user = await userRepo.GetSingleAsync(id);
-            if (user == null)
-            {
-                return NotFound($"User with ID {id} not found.");
-            }
-            UserDto dto = new UserDto()
-            {
-                Id = user.Userid,
-                FirstName = user.Firstname,
-                LastName = user.Lastname,
-                Email = user.Email,
-            };
-            return dto;
+            UserDto dto = await userRepo.GetSingleAsync(id);
+
+            return Ok(dto);
         }
         catch (Exception e)
         {
@@ -48,14 +38,8 @@ public class UsersController : ControllerBase
     {
         try
         {
-            var users = userRepo.GetMultiple();
-            var userDtos = users.Select(user => new UserDto
-            {
-                Id = user.Userid,
-                FirstName = user.Firstname,
-                LastName = user.Lastname,
-                Email = user.Email,
-            });
+            IQueryable<UserDto> userDtos = userRepo.GetMultiple();
+            
             return Ok(userDtos);
         }
         catch (Exception e)
@@ -81,6 +65,14 @@ public class UsersController : ControllerBase
             Console.WriteLine(e);
             return StatusCode(500, e.Message);
         }
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult<bool>> UpdateUser(
+        [FromRoute] int id, string role)
+    {
+       bool success = await userRepo.UpdateAsync(id, role);
+       return Ok(success);
     }
 
     [HttpPost("login")]

@@ -27,7 +27,7 @@ public class RecipeController : ControllerBase
     {
         try
         {
-            IQueryable<Recipe> recipes =
+            IQueryable<RecipeDto> recipes =
                 recipeRepo.GetAllRecipes();
             return Results.Ok(recipes);
         }
@@ -56,10 +56,10 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Recipe>> UpdateUser(
-        [FromRoute] Recipe recipe)
+    public async Task<ActionResult<Recipe>> UpdateUser([FromRoute] int id,
+        [FromBody] CreateRecipeDto recipeDto)
     {
-       Recipe updatedRecipe = await recipeRepo.UpdateAsync(recipe);
+       Recipe updatedRecipe = await recipeRepo.UpdateAsync(id, recipeDto);
        return Ok(updatedRecipe);
     }
 

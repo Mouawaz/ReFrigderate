@@ -13,29 +13,29 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public ArrayList<RecipeLocal> GetAllIngredients() {
-        try(Connection connection = getConnected()){
+        try (Connection connection = getConnected()) {
             ArrayList<RecipeLocal> ans = new ArrayList<>();
             PreparedStatement psRecipes = connection.prepareStatement(
                     "SELECT recipeid, name, instructions, type, chefid FROM refridgerate.recipe"
             );
             PreparedStatement psRecipeIngredients = connection.prepareStatement(
-                    "SELECT quantityneeded, r.ingredientid, ingredient.name FROM refridgerate.recipe " +
+                    "SELECT r.ingredientid, ingredient.name, ingredient.cost, quantityneeded FROM refridgerate.recipe " +
                             "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
                             "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid=?;"
             );
             ResultSet rsRecipe = psRecipes.executeQuery();
             ArrayList<SimplifiedIngredientLocal> localIngredient;
-            while (rsRecipe.next()){
+            while (rsRecipe.next()) {
                 localIngredient = new ArrayList<>();
                 psRecipeIngredients.setInt(1, rsRecipe.getInt(1));
                 ResultSet rsRecipeIngredients = psRecipeIngredients.executeQuery();
-                while (rsRecipeIngredients.next()){
+                while (rsRecipeIngredients.next()) {
                     localIngredient.add(new SimplifiedIngredientLocal(
-                            rsRecipeIngredients.getInt(2),
-                            rsRecipeIngredients.getString(3),
                             rsRecipeIngredients.getInt(1),
-                            0
-                    ));
+                            rsRecipeIngredients.getString(2),
+                            rsRecipeIngredients.getFloat(3),
+                            rsRecipeIngredients.getInt(4)
+                            ));
                 }
                 ans.add(new RecipeLocal(
                         rsRecipe.getInt(1),
@@ -47,8 +47,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                 ));
             }
             return ans;
-        }
-        catch (SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -60,12 +59,12 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public RecipeLocal GetRecipe(int id) {
-        try(Connection connection = getConnected()) {
+        try (Connection connection = getConnected()) {
             PreparedStatement psRecipe = connection.prepareStatement(
                     "SELECT recipeid, name, instructions, type, chefid FROM refridgerate.recipe WHERE recipeid = ?"
             );
             PreparedStatement psRecipeIngredients = connection.prepareStatement(
-                    "SELECT quantityneeded, r.ingredientid, ingredient.name FROM refridgerate.recipe " +
+                    "SELECT quantityneeded, r.ingredientid, ingredient.name, ingredient.cost FROM refridgerate.recipe " +
                             "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
                             "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid = ?"
             );
@@ -83,8 +82,8 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                     localIngredient.add(new SimplifiedIngredientLocal(
                             rsRecipeIngredients.getInt(2),
                             rsRecipeIngredients.getString(3),
-                            rsRecipeIngredients.getInt(1),
-                            0
+                            rsRecipeIngredients.getInt(4),
+                            rsRecipeIngredients.getInt(1)
                     ));
                 }
 
@@ -106,7 +105,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public RecipeLocal CreateRecipe(RecipeLocal newRecipeLocal) {
-        try(Connection connection = getConnected()) {
+        try (Connection connection = getConnected()) {
             PreparedStatement psCreateRecipe = connection.prepareStatement(
                     "INSERT INTO refridgerate.recipe (name, instructions, type, chefid) VALUES (?, ?, ?, ?) RETURNING recipeid"
             );
@@ -142,7 +141,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public RecipeLocal UpdateRecipe(RecipeLocal existingRecipe) {
-        try(Connection connection = getConnected()) {
+        try (Connection connection = getConnected()) {
             PreparedStatement psUpdateRecipe = connection.prepareStatement(
                     "UPDATE refridgerate.recipe SET name = ?, instructions = ?, type = ?, chefid = ? WHERE recipeid = ?"
             );
@@ -179,7 +178,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public boolean DeleteRecipe(int recipeId) {
-        try(Connection connection = getConnected()) {
+        try (Connection connection = getConnected()) {
             PreparedStatement psDeleteIngredients = connection.prepareStatement(
                     "DELETE FROM refridgerate.recipeingredient WHERE recipeid = ?"
             );

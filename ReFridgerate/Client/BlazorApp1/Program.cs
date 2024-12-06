@@ -31,6 +31,7 @@ builder.Services.AddAuthorizationCore();
 builder.Services.AddScoped<IThemeState, ThemeState>();
 builder.Services.AddScoped<IUserService, HttpUserService>();
 builder.Services.AddScoped<IIngredientService, HttpIngredientService>();
+builder.Services.AddScoped<IRecipeService, HttpRecipeService>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthProvider>();
 
 var app = builder.Build();

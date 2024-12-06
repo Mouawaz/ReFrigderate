@@ -4,8 +4,8 @@ namespace GrpcClient;
 
 public interface IRecipeClientManager
 {
-    IQueryable<Recipe> GetAllRecipes();
+    IQueryable<RecipeDto> GetAllRecipes();
     Task<Recipe> AddAsync(CreateRecipeDto recipeDto);
-    Task<Recipe> UpdateUserAsync(Recipe recipe);
+    Task<Recipe> UpdateRecipeAsync(int id, CreateRecipeDto recipe);
     Task DeleteRecipeAsync(int id);
 }

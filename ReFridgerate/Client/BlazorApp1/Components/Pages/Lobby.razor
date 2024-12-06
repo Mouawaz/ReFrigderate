@@ -100,6 +100,28 @@
                                            disabled="@(!IsOption2Selected)"
                                            @bind="Option2Value"/>
                                 </div>
+        <div class="items-grid">
+            @foreach (var ingredient in filteredIngredients)
+            {
+                <div class="item-card">
+                    <div class="item-metadata">
+                        <div class="meta-item-custom s\@ingredient.ExpirationStatus">
+                            <Icon class="me-2" Src="Images/time.png" Size="small" />
+                            @ingredient.DaysUntilBad
+                        </div>
+                        <div class="meta-item-custom s\@ingredient.StockStatus">
+                            <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
+                            @ingredient.Amount
+                        </div>
+                        <div class="notification-bell">
+                            @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                            ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                            {
+                            <Tooltip Tip="@GetWarningMessage(ingredient)">
+                                <Icon Src="Images/notification.png" Size="mini" />
+                            </Tooltip>
+                            }
+                        </div>
 
                                 <div class="mb-3">
                                     <label for="addDate">Expiration Date</label>
@@ -344,9 +366,9 @@
     {
         return status switch
         {
-            3 => "status-critical",
-            2 => "status-warning",
-            _ => "status-normal"
+            3 => "status-critical", 
+            2 => "status-warning",  
+            1 => "status-normal"  
         };
     }
 

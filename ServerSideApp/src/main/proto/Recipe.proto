@@ -8,6 +8,7 @@ message SimplifiedIngredient {
   int32 ingredientId = 1;
   string ingredientName = 2;
   int32 quantity = 3;
+  float cost = 4;
 }
 
 message Recipe {
@@ -22,8 +23,8 @@ message Recipe {
 message CreateRecipeRequest {
   string name = 1;
   string instructions = 2;
-  string type = 3;
-  int32 creatorId = 4;
+  int32 creatorId = 3;
+  string type = 4;
   repeated SimplifiedIngredient ingredients = 5;
 }
 

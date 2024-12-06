@@ -14,19 +14,26 @@ public class UserLogic : IUserRepository
     {
         this.clientManager = clientManager;
     }
-    /*public Task<User> GetSingleAsync(int id)
+    public async Task<UserDto> GetSingleAsync(int id)
     {
-        throw new NotImplementedException();
-    }*/
+        UserDto user = await clientManager.GetSingleAsync(id);
 
-    public IQueryable<User> GetMultiple()
+        if (id.Equals(null) || id < 1)
+        {
+            throw new ArgumentException("Provided user id is not valid");
+        }
+
+        return user;
+    }
+
+    public IQueryable<UserDto> GetMultiple()
     {
-        throw new NotImplementedException();
+       return clientManager.GetMultiple();
     }
 
     public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
     {
-        if (loginDto.email == null || loginDto.password == null)
+        if (loginDto.email.Equals(null) || loginDto.password.Equals(null))
         {
             throw new ArgumentException("Fields cannot be empty");
             
@@ -48,6 +55,16 @@ public class UserLogic : IUserRepository
         
     }
 
+    public async Task<bool> UpdateAsync(int id, string role)
+    {
+        if (id.Equals(null) || id < 1 || role.Equals(null))
+        {
+            throw new ArgumentException("Provided information is not valid");
+        }
+        return await clientManager.UpdateUserAsync(id, role);
+    }
+    
+
     public async Task<LoginResponseDto> AddAsync(CreateUserDto userDto)
     {
         if (userDto.FirstName == null || userDto.LastName == null || userDto.Email == null || userDto.Password == null)
@@ -61,10 +78,5 @@ public class UserLogic : IUserRepository
             throw new ArgumentException("First and Last name cannot contain digits");
         }
         return await clientManager.AddAsync(userDto);
-    }
-
-    public Task<User> GetSingleAsync(int id)
-    {
-        throw new NotImplementedException();
     }
 }
