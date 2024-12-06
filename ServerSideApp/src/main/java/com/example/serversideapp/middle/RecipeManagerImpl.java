@@ -30,8 +30,8 @@ public class RecipeManagerImpl implements RecipeManager {
             ingredientLocals.add(new SimplifiedIngredientLocal(
                     ingredient.getIngredientId(),
                     ingredient.getIngredientName(),
-                    ingredient.getQuantity(),
-                    0
+                    ingredient.getCost(),
+                    ingredient.getQuantity()
             ));
         }
 

@@ -38,19 +38,19 @@ public class RecipeLogic : IRecipeRepository
         return await clientManager.AddAsync(recipeDto);
     }
 
-    public async Task<Recipe> UpdateAsync(Recipe recipe)
+    public async Task<Recipe> UpdateAsync(int id, CreateRecipeDto recipe)
     {
-        if (recipe.Id.Equals(null) || recipe.Name.Equals(null) || recipe.Instruction.Equals(null) || recipe.Ingredients.Count.Equals(0) ||
-            recipe.Type.Equals(null) || recipe.CreatorId.Equals(null))
+        if (id.Equals(null) || recipe.name.Equals(null) || recipe.instructions.Equals(null) || recipe.ingredients.Count.Equals(0) ||
+            recipe.type.Equals(null) || recipe.creatorId.Equals(null))
         {
             throw new ArgumentException("Data cannot be null");
         }
 
-        if (recipe.Id < 1 || recipe.Name.All(c =>char.IsDigit(c) || recipe.CreatorId < 1 || recipe.Type.Any(c =>char.IsDigit(c))))
+        if (id < 1 || recipe.name.All(c =>char.IsDigit(c) || recipe.creatorId < 1 || recipe.type.Any(c =>char.IsDigit(c))))
         {
             throw new ArgumentException("Invalid recipe information");
         }
-        return await clientManager.UpdateUserAsync(recipe);
+        return await clientManager.UpdateRecipeAsync(id, recipe);
     }
 
     public async Task DeleteAsync(int id)

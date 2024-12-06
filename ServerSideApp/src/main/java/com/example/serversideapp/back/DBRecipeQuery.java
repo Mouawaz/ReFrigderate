@@ -65,7 +65,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                     "SELECT recipeid, name, instructions, type, chefid FROM refridgerate.recipe WHERE recipeid = ?"
             );
             PreparedStatement psRecipeIngredients = connection.prepareStatement(
-                    "SELECT quantityneeded, r.ingredientid, ingredient.name FROM refridgerate.recipe " +
+                    "SELECT quantityneeded, r.ingredientid, ingredient.name, ingredient.cost FROM refridgerate.recipe " +
                             "JOIN refridgerate.recipeingredient r ON recipe.recipeid = r.recipeid " +
                             "JOIN refridgerate.ingredient ON r.ingredientid = ingredient.ingredientid WHERE r.recipeid = ?"
             );
@@ -83,8 +83,8 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                     localIngredient.add(new SimplifiedIngredientLocal(
                             rsRecipeIngredients.getInt(2),
                             rsRecipeIngredients.getString(3),
-                            rsRecipeIngredients.getInt(1),
-                            0
+                            rsRecipeIngredients.getInt(4),
+                            rsRecipeIngredients.getInt(1)
                     ));
                 }
 

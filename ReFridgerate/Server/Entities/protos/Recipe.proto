@@ -28,11 +28,12 @@ message RecipeIngredientBasic{
   string ingredientName = 2;
   int32 quantity = 3;
 }
-message RecipeCreationRequest{
+message CreateRecipeRequest {
   string name = 1;
-  string instruction = 2;
+  string instructions = 2;
   int32 creatorId = 3;
-  repeated RecipeIngredientBasic ingredients = 4;
+  string type = 4;
+  repeated SimplifiedIngredient ingredients = 5;
 }
 message RecipeResponse {
   bool success = 1;
@@ -45,7 +46,7 @@ message DeleteRecipeRequest {
 
 service RecipeService{
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
-  rpc CreateRecipe(RecipeCreationRequest) returns (RecipeResponse);
+  rpc CreateRecipe(CreateRecipeRequest) returns (RecipeResponse);
   rpc UpdateRecipe(Recipe) returns (RecipeResponse);
   rpc DeleteRecipe(DeleteRecipeRequest) returns (RecipeResponse);
 

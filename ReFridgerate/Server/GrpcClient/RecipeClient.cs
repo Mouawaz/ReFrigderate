@@ -23,15 +23,17 @@ public class RecipeClient : IRecipeClientManager
 
     public async Task<Recipe> AddAsync(CreateRecipeDto recipeDto)
     {
-        RecipeCreationRequest request = new()
+        CreateRecipeRequest request = new()
         {
             Name = recipeDto.name,
-            Instruction = recipeDto.instructions,
-            Ingredients = { recipeDto.ingredients.AsQueryable().Select(ingredient => new RecipeIngredientBasic()
+            Instructions = recipeDto.instructions,
+            CreatorId = recipeDto.creatorId,
+            Type = recipeDto.type,
+            Ingredients = { recipeDto.ingredients.AsQueryable().Select(ingredient => new SimplifiedIngredient()
             {
                 IngredientId = ingredient.IngredientId,
                 IngredientName = ingredient.IngredientName,
-                Quantity = ingredient.Quantity
+                IngredientQuantity = ingredient.Quantity
             }) }
         };
         RecipeResponse response = await recipeService.CreateRecipeAsync(request);
@@ -42,8 +44,28 @@ public class RecipeClient : IRecipeClientManager
         return response.Recipe;
     }
 
-    public async Task<Recipe> UpdateUserAsync(Recipe recipe)
+    public async Task<Recipe> UpdateRecipeAsync(int id, CreateRecipeDto recipeDto)
     {
+        Recipe recipe = new()
+        {
+            Id = id,
+            Name = recipeDto.name,
+            Instruction = recipeDto.instructions,
+            Type = recipeDto.type,
+            CreatorId = recipeDto.creatorId,
+            Ingredients =
+            {
+                recipeDto.ingredients.AsQueryable().Select(i =>
+                    new SimplifiedIngredient()
+                    {
+                        IngredientId = i.IngredientId,
+                        IngredientName = i.IngredientName,
+                        IngredientCost = i.Quantity,
+                        IngredientQuantity = i.Quantity
+                    }).ToList()
+            }
+        };
+        
         RecipeResponse response = await recipeService.UpdateRecipeAsync(recipe);
         if (!response.Success)
         {
