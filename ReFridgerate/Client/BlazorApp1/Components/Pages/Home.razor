@@ -1,40 +1,47 @@
-﻿@page "/home2"
+﻿@page "/home"
 @using System.Reflection.Metadata
+@using System.Security.Claims
 @using APIContracts.UserDtos
 @using BlazorApp1.Services
-@inject IUserService userService
+@using Microsoft.AspNetCore.Http.HttpResults
+@inject IUserService UserService
+
+<link href="css/Home.css?version=0.1" rel="stylesheet" />
 
 <PageTitle>Home</PageTitle>
-
-<h1>Hello to our proof of concept</h1>
-<input type="text" class="p-3" placeholder="Enter id" @bind="userId"/>
-<button class="btn btn-primary" @onclick="ShowUser">Click me</button>
-
-@if (user != null)
-{
-    <div>
-        <h3>User Details</h3>
-        <p><strong> ID:</strong> @user.Id</p>
-        <p><strong> First name:</strong> @user.FirstName</p>
-        <p><strong> Last name:</strong> @user.LastName</p>
-        <p><strong>Email:</strong> @user.Email</p>
-    </div>
-}
+<AuthorizeView>
+    <Authorized>
+        <h2>Hi, @context.User.Identity?.Name!</h2>
+        <div class="page-container m-2 justify-content-center align-items-center">
+            <img class="p-1 ingredient-content image-main" src="@_ratString"/>
+        </div>
+        <Button
+            Text="Get a new rat!"
+            OnClick="()=>{GiveRandomPicture();}"></Button>
+    </Authorized>
+    <NotAuthorized>
+        
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
-    private UserDto? user;
-    private int userId;
-    
-    private async Task ShowUser()
-    {
-        try
-        {
-            user = await userService.GetSingleUserAsync(userId); 
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error: {ex.Message}");
-        }
-    }
 
+    string _ratString { get; set; } = "";
+
+    Random random = new ();
+    public void GiveRandomPicture() {
+        int rat = random.Next(1, 8);
+        _ratString = $"/Images/rat{rat}.jpg";
+    }
+    protected async override Task OnInitializedAsync() {
+        Thread _myThread = new (()=> {
+            while (true) {
+                Thread.Sleep(2000);
+                GiveRandomPicture();
+                    
+            }
+        });
+        GiveRandomPicture();
+        _myThread.Start();
+    }
 }

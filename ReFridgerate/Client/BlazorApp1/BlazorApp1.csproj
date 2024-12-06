@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\APIContracts\APIContracts.csproj" />
+      <ProjectReference Include="..\..\Server\Entities\Entities.csproj" />
     </ItemGroup>
 
     <ItemGroup>

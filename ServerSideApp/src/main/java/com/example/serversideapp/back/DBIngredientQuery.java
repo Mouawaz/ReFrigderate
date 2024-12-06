@@ -34,7 +34,7 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
             psUpdateIngredient.setString(3, quantity > 0 ? "Add" : "Subtract");//ActionType, either Add or Subtract.
             psUpdateIngredient.setInt(4, quantity);//Quantity
             psUpdateIngredient.setString(5, todaysDate.toString());//Day of change
-            psUpdateIngredient.setString(6, todaysDate.toInstant().plus(3, ChronoUnit.DAYS).toString());//Expiration date
+            psUpdateIngredient.setString(6, todaysDate.toInstant().plus(daysUntilBad, ChronoUnit.DAYS).toString());//Expiration date
             psUpdateIngredient.executeUpdate();
             //Done with updating, now get total again
             PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient WHERE ingredientid = ?");
@@ -48,11 +48,14 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
     }
 
     private Date findRecentDate(ResultSet rsDates) throws SQLException {
+        System.out.println("___________________");
         rsDates.next();
         Date minDate = rsDates.getDate(2);
         int count = rsDates.getInt(1);
         while (rsDates.next()) {
+            System.out.println(count);
             if (count <= 0) {
+                System.out.println(minDate);
                 minDate = rsDates.getDate(2);
             }
             count += rsDates.getInt(1);
