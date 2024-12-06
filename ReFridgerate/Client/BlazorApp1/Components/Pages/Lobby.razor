@@ -10,64 +10,60 @@
 <title>Ingredients</title>
 <AuthorizeView>
     <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
-        <div class="page-container">
-            <div class="header">
-                <h1>Ingredients</h1>
-                <div class="header-controls">
-                    <div class="search-box">
-                        <img class="ingredientt" src="Images/search.png" alt="search"/>
-                        <input type="text"
-                               placeholder="Search..."
-                               @bind-value="searchText"
-                               @bind-value:event="oninput"
-                               @onkeyup="FilterIngredients"/>
-                    </div>
+        <div class="header">
+            <h1>Ingredients</h1>
+            <div class="header-controls">
+                <div class="search-box">
+                    <img class="ingredientt" src="Images/search.png" alt="search"/>
+                    <input type="text"
+                           placeholder="Search..."
+                           @bind-value="searchText"
+                           @bind-value:event="oninput"
+                           @onkeyup="FilterIngredients"/>
                 </div>
             </div>
+        </div>
 
-            <div class="items-grid">
-                @foreach (var ingredient in filteredIngredients)
-                {
-                    <div class="item-card">
-                        <div class="item-metadata">
-                            <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
-                                <Icon class="me-2" Src="Images/time.png" Size="small"/>
-                                @ingredient.DaysUntilBad
-                            </div>
-                            <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
-                                <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
-                                @ingredient.Amount
-                            </div>
-                            <div class="notification-bell">
-                                @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
-                                     ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
-                                {
-                                    <Tooltip Tip="@GetWarningMessage(ingredient)">
-                                        <Icon Src="Images/notification.png" Size="mini"/>
-                                    </Tooltip>
-                                }
-                            </div>
-
+        <div class="items-grid">
+            @foreach (var ingredient in filteredIngredients)
+            {
+                <div class="item-card">
+                    <div class="item-metadata">
+                        <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
+                            <Icon class="me-2" Src="Images/time.png" Size="small"/>
+                            @ingredient.DaysUntilBad
                         </div>
-
-                        <div class="item-image">
-                            <Icon Name="@ingredient.Name" Size="medium"/>
+                        <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
+                            <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
+                            @ingredient.Amount
                         </div>
-
-                        <div class="item-name">
-                            @ingredient.Name
-                        </div>
-
-                        <div class="item-actions">
-                            <Button Icon="editing.png"
-                                    Text="Edit"
-                                    OnClick="() => OpenModal(ingredient)">
-                            </Button>
+                        <div class="notification-bell">
+                            @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                                 ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                            {
+                                <Tooltip Tip="@GetWarningMessage(ingredient)">
+                                    <Icon Src="Images/notification.png" Size="mini"/>
+                                </Tooltip>
+                            }
                         </div>
                     </div>
-                }
-            </div>
 
+                    <div class="item-image">
+                        <Icon Name="@ingredient.Name" Size="medium"/>
+                    </div>
+
+                    <div class="item-name">
+                        @ingredient.Name
+                    </div>
+
+                    <div class="item-actions">
+                        <Button Icon="editing.png"
+                                Text="Edit"
+                                OnClick="() => OpenModal(ingredient)">
+                        </Button>
+                    </div>
+                </div>
+            }
         </div>
 
         <!-- Ingredient Details Modal -->
@@ -100,28 +96,6 @@
                                            disabled="@(!IsOption2Selected)"
                                            @bind="Option2Value"/>
                                 </div>
-        <div class="items-grid">
-            @foreach (var ingredient in filteredIngredients)
-            {
-                <div class="item-card">
-                    <div class="item-metadata">
-                        <div class="meta-item-custom s\@ingredient.ExpirationStatus">
-                            <Icon class="me-2" Src="Images/time.png" Size="small" />
-                            @ingredient.DaysUntilBad
-                        </div>
-                        <div class="meta-item-custom s\@ingredient.StockStatus">
-                            <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
-                            @ingredient.Amount
-                        </div>
-                        <div class="notification-bell">
-                            @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
-                            ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
-                            {
-                            <Tooltip Tip="@GetWarningMessage(ingredient)">
-                                <Icon Src="Images/notification.png" Size="mini" />
-                            </Tooltip>
-                            }
-                        </div>
 
                                 <div class="mb-3">
                                     <label for="addDate">Expiration Date</label>
@@ -158,7 +132,6 @@
                                            @bind="Option4Value"/>
                                 </div>
 
-
                                 <div class="mb-3">
                                     <label for="removeDate">Expiration Date</label>
                                     <input type="date"
@@ -171,7 +144,6 @@
                         </TabPage>
                     </TabControl>
                 }
-
             </ChildContent>
             <FooterContent>
                 <Button Text="Close" Secondary OnClick="detailsModal.Close"/>
