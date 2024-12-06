@@ -29,40 +29,11 @@ public class RecipeManagerImpl implements RecipeManager {
         return parseFromLocal(savedRecipe);
     }
 
-//    @Override
-//    public RecipeOuterClass.Recipe updateRecipe(RecipeOuterClass.UpdateRecipeRequest request) {
-//        RecipeLocal existingRecipe = dbRecipeManager.GetRecipe(request.getId());
-//
-//        if (existingRecipe == null) {
-//            throw new IllegalArgumentException("Recipe not found with ID: " + request.getId());
-//        }
-//
-//        if (request.hasName()) {
-//            existingRecipe.setName(request.getName());
-//        }
-//
-//        if (request.hasInstructions()) {
-//            existingRecipe.setInstructions(request.getInstructions());
-//        }
-//
-//        if (request.hasType()) {
-//            existingRecipe.setType(request.getType());
-//        }
-//
-//        ArrayList<SimplifiedIngredientLocal> ingredientLocals = new ArrayList<>();
-//        for (RecipeOuterClass.SimplifiedIngredient ingredient : request.getIngredientsList()) {
-//            ingredientLocals.add(new SimplifiedIngredientLocal(
-//                    ingredient.getIngredientId(),
-//                    ingredient.getIngredientName(),
-//                    ingredient.getQuantity(),
-//                    0
-//            ));
-//        }
-//        existingRecipe.setIngredientUsed(ingredientLocals);
-//
-//        RecipeLocal updatedRecipe = dbRecipeManager.UpdateRecipe(existingRecipe);
-//        return parseFromLocal(updatedRecipe);
-//    }
+    @Override
+    public RecipeOuterClass.Recipe updateRecipe(RecipeOuterClass.CreateRecipeRequest request) {
+        RecipeLocal updatedRecipe = dbRecipeManager.UpdateRecipe(request);
+        return parseFromLocal(updatedRecipe);
+    }
 
     @Override
     public boolean deleteRecipe(int recipeId) {
