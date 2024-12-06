@@ -33,3 +33,10 @@
     background-color: #d6d8db; 
     color: #343a40; 
 }
+
+.custom-button:disabled {
+    background-color: #B0D1C1; 
+    color: #A0A0A0;  
+    cursor: not-allowed; 
+    box-shadow: none;  
+}

@@ -6,6 +6,15 @@
     margin-right: 0.5rem;
 }
 
+.meta-item-custom{
+    background-color: #e0e0e0;
+    color: #212529;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 0.5rem;
+    margin-left: 0.5rem;
+}
+
 .page-container {
     padding: 2rem;
 }
