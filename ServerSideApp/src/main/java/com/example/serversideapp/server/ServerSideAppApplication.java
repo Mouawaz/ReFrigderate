@@ -10,8 +10,8 @@ import Server.User;
 @SpringBootApplication
 public class ServerSideAppApplication {
     public static void main(String[] args) {
-//        GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
-//        System.out.print(generalIngredientsManager.GetAllIngredients());
+//        RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
+//        System.out.println(recipeManager.GetAllRecipes());
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

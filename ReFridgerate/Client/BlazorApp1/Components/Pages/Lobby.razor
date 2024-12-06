@@ -28,11 +28,11 @@
             {
                 <div class="item-card">
                     <div class="item-metadata">
-                        <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
+                        <div class="meta-item-custom s\@ingredient.ExpirationStatus">
                             <Icon class="me-2" Src="Images/time.png" Size="small" />
                             @ingredient.DaysUntilBad
                         </div>
-                        <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
+                        <div class="meta-item-custom s\@ingredient.StockStatus">
                             <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
                             @ingredient.Amount
                         </div>
@@ -331,7 +331,7 @@
         {
             3 => "status-critical", 
             2 => "status-warning",  
-            _ => "status-normal"  
+            1 => "status-normal"  
         };
     }
     

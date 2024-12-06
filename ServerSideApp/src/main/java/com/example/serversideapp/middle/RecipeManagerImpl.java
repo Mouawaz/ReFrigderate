@@ -101,6 +101,7 @@ public class RecipeManagerImpl implements RecipeManager {
                     .setIngredientId(sil.getId())
                     .setIngredientName(sil.getName())
                     .setQuantity(sil.getQuantity())
+                    .setCost(sil.getCost())
                     .build());
         }
         return builder.build();
