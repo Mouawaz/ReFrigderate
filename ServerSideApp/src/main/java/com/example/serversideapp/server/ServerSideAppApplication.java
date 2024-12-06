@@ -10,11 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ServerSideAppApplication {
     public static void main(String[] args) {
-//        GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
-//        System.out.println(generalIngredientsManager.UpdateIngredient(IngredientOuterClass.UpdateIngredientRequest.newBuilder()
-//                .setId(1)
-//                .setDifference(20)
-//                .setDaysUntilBad(1).build()));
+//        RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
+//        recipeManager.GetAllRecipes();
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

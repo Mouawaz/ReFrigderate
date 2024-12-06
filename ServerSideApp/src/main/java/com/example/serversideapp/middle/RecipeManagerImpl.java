@@ -95,14 +95,16 @@ public class RecipeManagerImpl implements RecipeManager {
                 .setInstructions(local.getInstructions())
                 .setType(local.getType())
                 .setCreatorId(local.getCreatorId());
-
         for (SimplifiedIngredientLocal sil : local.getIngredientUsed()){
-            builder.addIngredients(RecipeOuterClass.SimplifiedIngredient.newBuilder()
+            RecipeOuterClass.SimplifiedIngredient ing = RecipeOuterClass.SimplifiedIngredient.newBuilder()
                     .setIngredientId(sil.getId())
                     .setIngredientName(sil.getName())
                     .setQuantity(sil.getQuantity())
                     .setCost(sil.getCost())
-                    .build());
+                    .build();
+            System.out.println(sil.getQuantity());
+            System.out.println(ing);
+//            builder.addIngredients();
         }
         return builder.build();
     }
