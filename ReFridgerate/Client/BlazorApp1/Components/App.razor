@@ -1,9 +1,13 @@
 ﻿@using BlazorApp1.Components.Layout
+@using BlazorApp1.Services
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.Web
 
+@inject IThemeState ThemeState
+
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="@(ThemeState.IsDarkMode ? "dark" : "light")">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -15,7 +19,18 @@
     <HeadOutlet @rendermode="InteractiveServer"/>
 </head>
 <body>
- <Routes @rendermode="InteractiveServer"/> 
+<Routes @rendermode="InteractiveServer"/> 
 <script src="_framework/blazor.web.js"></script>
 </body>
 </html>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await ThemeState.InitializeThemeAsync();
+        ThemeState.OnThemeChange += async () => 
+        {
+            await InvokeAsync(StateHasChanged);
+        };
+    }
+}

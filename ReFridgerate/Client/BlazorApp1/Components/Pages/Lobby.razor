@@ -4,158 +4,159 @@
 @using BlazorApp.Components.Services
 @using BlazorApp1.Services
 @inject IIngredientService IngredientService
+@inject IThemeState ThemeState
 
-<link href="css/lobby.css?version=0.1" rel="stylesheet" />
+<link href="css/lobby.css?version=0.1" rel="stylesheet"/>
 <title>Ingredients</title>
 <AuthorizeView>
-    <div class="page-container">
-        <div class="header">
-            <h1>Ingredients</h1>
-            <div class="header-controls">
-                <div class="search-box">
-                    <img class="ingredientt" src="Images/search.png" alt="search" />
-                    <input type="text"
-                           placeholder="Search..."
-                           @bind-value="searchText"
-                           @bind-value:event="oninput"
-                           @onkeyup="FilterIngredients" />
+    <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
+        <div class="page-container">
+            <div class="header">
+                <h1>Ingredients</h1>
+                <div class="header-controls">
+                    <div class="search-box">
+                        <img class="ingredientt" src="Images/search.png" alt="search"/>
+                        <input type="text"
+                               placeholder="Search..."
+                               @bind-value="searchText"
+                               @bind-value:event="oninput"
+                               @onkeyup="FilterIngredients"/>
+                    </div>
                 </div>
             </div>
+
+            <div class="items-grid">
+                @foreach (var ingredient in filteredIngredients)
+                {
+                    <div class="item-card">
+                        <div class="item-metadata">
+                            <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
+                                <Icon class="me-2" Src="Images/time.png" Size="small"/>
+                                @ingredient.DaysUntilBad
+                            </div>
+                            <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
+                                <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
+                                @ingredient.Amount
+                            </div>
+                            <div class="notification-bell">
+                                @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                                     ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                                {
+                                    <Tooltip Tip="@GetWarningMessage(ingredient)">
+                                        <Icon Src="Images/notification.png" Size="mini"/>
+                                    </Tooltip>
+                                }
+                            </div>
+
+                        </div>
+
+                        <div class="item-image">
+                            <Icon Name="@ingredient.Name" Size="medium"/>
+                        </div>
+
+                        <div class="item-name">
+                            @ingredient.Name
+                        </div>
+
+                        <div class="item-actions">
+                            <Button Icon="editing.png"
+                                    Text="Edit"
+                                    OnClick="() => OpenModal(ingredient)">
+                            </Button>
+                        </div>
+                    </div>
+                }
+            </div>
+
         </div>
 
-        <div class="items-grid">
-            @foreach (var ingredient in filteredIngredients)
-            {
-                <div class="item-card">
-                    <div class="item-metadata">
-                        <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
-                            <Icon class="me-2" Src="Images/time.png" Size="small" />
-                            @ingredient.DaysUntilBad
-                        </div>
-                        <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
-                            <Icon class="me-2" Src="Images/shopping-basket.png" Size="small" />
-                            @ingredient.Amount
-                        </div>
-                        <div class="notification-bell">
-                            @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
-                            ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
-                            {
-                            <Tooltip Tip="@GetWarningMessage(ingredient)">
-                                <Icon Src="Images/notification.png" Size="mini" />
-                            </Tooltip>
-                            }
-                        </div>
+        <!-- Ingredient Details Modal -->
+        <Modal @ref="detailsModal" Title="Ingredient Details">
+            <ChildContent>
+                @if (selectedIngredient != null)
+                {
+                    <TabControl OnTabChanged="HandleTabChange">
+                        <TabPage Text="Add">
+                            <InputRadioGroup @bind-Value="SelectedOptionAdd" class="custom-radio-group">
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <InputRadio class="form-check-input" Value="1"/>
+                                        <label class="form-check-label">Add a certain amount</label>
+                                    </div>
+                                    <input type="text"
+                                           class="form-control mt-2 no-border"
+                                           placeholder="Enter amount"
+                                           disabled="@(!IsOption1Selected)"
+                                           @bind="Option1Value"/>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <InputRadio class="form-check-input" Value="2"/>
+                                        <label class="form-check-label">Enter the total amount</label>
+                                    </div>
+                                    <input type="text"
+                                           class="form-control mt-2 no-border"
+                                           placeholder="Enter total amount"
+                                           disabled="@(!IsOption2Selected)"
+                                           @bind="Option2Value"/>
+                                </div>
 
-                    </div>
+                                <div class="mb-3">
+                                    <label for="addDate">Expiration Date</label>
+                                    <input type="date"
+                                           id="addDate"
+                                           class="form-control"
+                                           @bind="SelectedDate"/>
+                                </div>
+                            </InputRadioGroup>
+                        </TabPage>
 
-                    <div class="item-image">
-                        <Icon Name="@ingredient.Name" Size="medium" />
-                    </div>
+                        <TabPage Text="Remove">
+                            <InputRadioGroup @bind-Value="SelectedOptionRemove" class="custom-radio-group">
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <InputRadio class="form-check-input" Value="3"/>
+                                        <label class="form-check-label">Remove a certain amount</label>
+                                    </div>
+                                    <input type="text"
+                                           class="form-control mt-2 no-border"
+                                           placeholder="Enter amount"
+                                           disabled="@(!IsOption3Selected)"
+                                           @bind="Option3Value"/>
+                                </div>
+                                <div class="mb-3">
+                                    <div class="form-check">
+                                        <InputRadio class="form-check-input" Value="4"/>
+                                        <label class="form-check-label">Enter the total amount</label>
+                                    </div>
+                                    <input type="text"
+                                           class="form-control mt-2 no-border"
+                                           placeholder="Enter total amount"
+                                           disabled="@(!IsOption4Selected)"
+                                           @bind="Option4Value"/>
+                                </div>
 
-                    <div class="item-name">
-                        @ingredient.Name
-                    </div>
 
-                    <div class="item-actions">
-                        <Button Icon="editing.png"
-                                Text="Edit"
-                                OnClick="() => OpenModal(ingredient)">
-                        </Button>
-                    </div>
-                </div>
-            }
-        </div>
+                                <div class="mb-3">
+                                    <label for="removeDate">Expiration Date</label>
+                                    <input type="date"
+                                           id="removeDate"
+                                           class="form-control"
+                                           @bind="SelectedDate"
+                                           disabled="@(!IsOption4Selected)"/>
+                                </div>
+                            </InputRadioGroup>
+                        </TabPage>
+                    </TabControl>
+                }
 
+            </ChildContent>
+            <FooterContent>
+                <Button Text="Close" Secondary OnClick="detailsModal.Close"/>
+                <Button Text="Apply Changes" OnClick="ApplyStockChanges"/>
+            </FooterContent>
+        </Modal>
     </div>
-
-    <!-- Ingredient Details Modal -->
-    <Modal @ref="detailsModal" Title="Ingredient Details">
-        <ChildContent>
-            @if (selectedIngredient != null)
-            { 
-                <TabControl OnTabChanged="HandleTabChange">
-                    <TabPage Text="Add">
-                        <InputRadioGroup @bind-Value="SelectedOptionAdd" class="custom-radio-group">
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <InputRadio class="form-check-input" Value="1" />
-                                    <label class="form-check-label">Add a certain amount</label>
-                                </div>
-                                <input type="text"
-                                       class="form-control mt-2 no-border"
-                                       placeholder="Enter amount"
-                                       disabled="@(!IsOption1Selected)"
-                                       @bind="Option1Value" />
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <InputRadio class="form-check-input" Value="2" />
-                                    <label class="form-check-label">Enter the total amount</label>
-                                </div>
-                                <input type="text"
-                                       class="form-control mt-2 no-border"
-                                       placeholder="Enter total amount"
-                                       disabled="@(!IsOption2Selected)"
-                                       @bind="Option2Value" />
-                            </div>
-                            
-                            <div class="mb-3">
-                                <label for="addDate">Expiration Date</label>
-                                <input type="date" 
-                                       id="addDate" 
-                                       class="form-control"
-                                       @bind="SelectedDate" 
-                                />
-                            </div>
-                        </InputRadioGroup>
-                    </TabPage>
-
-                    <TabPage Text="Remove">
-                        <InputRadioGroup @bind-Value="SelectedOptionRemove" class="custom-radio-group">
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <InputRadio class="form-check-input" Value="3" />
-                                    <label class="form-check-label">Remove a certain amount</label>
-                                </div>
-                                <input type="text"
-                                       class="form-control mt-2 no-border"
-                                       placeholder="Enter amount"
-                                       disabled="@(!IsOption3Selected)"
-                                       @bind="Option3Value" />
-                            </div>
-                            <div class="mb-3">
-                                <div class="form-check">
-                                    <InputRadio class="form-check-input" Value="4" />
-                                    <label class="form-check-label">Enter the total amount</label>
-                                </div>
-                                <input type="text"
-                                       class="form-control mt-2 no-border"
-                                       placeholder="Enter total amount"
-                                       disabled="@(!IsOption4Selected)"
-                                       @bind="Option4Value" />
-                            </div>
-
-
-                            <div class="mb-3">
-                                <label for="removeDate">Expiration Date</label>
-                                <input type="date" 
-                                       id="removeDate" 
-                                       class="form-control"
-                                       @bind="SelectedDate"
-                                       disabled="@(!IsOption4Selected)" />
-                            </div>
-                        </InputRadioGroup>
-                    </TabPage>
-                </TabControl>
-
-            }
-        
-        </ChildContent>
-        <FooterContent>
-            <Button Text="Close" Secondary OnClick="detailsModal.Close" />
-            <Button Text="Apply Changes" OnClick="ApplyStockChanges" />
-        </FooterContent>
-    </Modal>
 </AuthorizeView>
 
 @code {
@@ -165,8 +166,9 @@
     private IngredientDto selectedIngredient;
     private Modal detailsModal;
     private String WarningTooltip;
-    
+
     private int selectedOptionAdd;
+
     public int SelectedOptionAdd
     {
         get => selectedOptionAdd;
@@ -178,6 +180,7 @@
     }
 
     private int selectedOptionRemove;
+
     public int SelectedOptionRemove
     {
         get => selectedOptionRemove;
@@ -192,14 +195,14 @@
     private string Option2Value { get; set; }
     private string Option3Value { get; set; }
     private string Option4Value { get; set; }
-    private DateTime? SelectedDate { get; set; } 
+    private DateTime? SelectedDate { get; set; }
 
     private bool IsOption1Selected => SelectedOptionAdd == 1;
     private bool IsOption2Selected => SelectedOptionAdd == 2;
     private bool IsOption3Selected => SelectedOptionRemove == 3;
     private bool IsOption4Selected => SelectedOptionRemove == 4;
-    
-    private string currentTab = "Add"; 
+
+    private string currentTab = "Add";
 
     private void HandleTabChange(TabPage activePage)
     {
@@ -207,19 +210,6 @@
         ResetRemoveInputs();
     }
 
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            ingredients = await IngredientService.GetIngredientsAsync();
-            filteredIngredients = new List<IngredientDto>(ingredients);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error fetching ingredients: {e.Message}");
-            throw;
-        }
-    }
 
     private void FilterIngredients()
     {
@@ -235,6 +225,31 @@
         }
     }
 
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            ingredients = await IngredientService.GetIngredientsAsync();
+            filteredIngredients = new List<IngredientDto>(ingredients);
+
+            // Subscribe to theme changes
+            ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error fetching ingredients: {e.Message}");
+            throw;
+        }
+    }
+
+    public void Dispose()
+    {
+        // Clean up the subscription
+        ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
+    }
+
+
     private void OpenModal(IngredientDto ingredient)
     {
         selectedIngredient = ingredient;
@@ -247,7 +262,7 @@
         {
             var updateIngredient = new UpdateIngredientDto
             {
-                DateOfExpiration = SelectedDate?.ToString("d/M/yyyy") ?? new DateTime().ToString("d/M/yyyy"), 
+                DateOfExpiration = SelectedDate?.ToString("d/M/yyyy") ?? new DateTime().ToString("d/M/yyyy"),
                 Difference = Math.Abs(newStockStatus - ingredient.Amount),
                 Substraction = isSubtraction,
                 amount = ingredient.Amount
@@ -315,54 +330,60 @@
     {
         Option1Value = string.Empty;
         Option2Value = string.Empty;
-        SelectedDate = null; 
+        SelectedDate = null;
     }
 
     private void ResetRemoveInputs()
     {
         Option3Value = string.Empty;
         Option4Value = string.Empty;
-        SelectedDate = null; 
+        SelectedDate = null;
     }
-    
+
     private string GetStatusClass(int status)
     {
         return status switch
         {
-            3 => "status-critical", 
-            2 => "status-warning",  
-            _ => "status-normal"  
+            3 => "status-critical",
+            2 => "status-warning",
+            _ => "status-normal"
         };
     }
-    
+
     private string GetWarningMessage(IngredientDto ingredient)
     {
         string msg = "";
-        if (ingredient.ExpirationStatus == 3 && ingredient.DaysUntilBad>0)
+        if (ingredient.ExpirationStatus == 3 && ingredient.DaysUntilBad > 0)
         {
             msg += $"{ingredient.Name} is very close to expiration.";
         }
+
         if (ingredient.ExpirationStatus == 2)
         {
             msg += $"Expiration date approaching in {ingredient.DaysUntilBad} days.";
         }
-        if (ingredient.ExpirationStatus == 3 && ingredient.DaysUntilBad<=0)
+
+        if (ingredient.ExpirationStatus == 3 && ingredient.DaysUntilBad <= 0)
         {
             msg += $"{ingredient.Name} has expired";
         }
-        if (ingredient.StockStatus == 3 && ingredient.Amount>0)
+
+        if (ingredient.StockStatus == 3 && ingredient.Amount > 0)
         {
             msg += "Low stock, consider restocking soon.";
         }
-        if (ingredient.StockStatus == 3 && ingredient.Amount<=0)
+
+        if (ingredient.StockStatus == 3 && ingredient.Amount <= 0)
         {
             msg += $"{ingredient.Name} is out of stock";
         }
+
         if (ingredient.StockStatus == 2)
         {
             msg += $"{ingredient.Name} is running low on stock";
         }
+
         return msg;
     }
-}
 
+}

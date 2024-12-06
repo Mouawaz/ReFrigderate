@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 
 // Add Authorization
 builder.Services.AddAuthorizationCore();
-
+builder.Services.AddScoped<IThemeState, ThemeState>();
 builder.Services.AddScoped<IUserService, HttpUserService>();
 builder.Services.AddScoped<IIngredientService, HttpIngredientService>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthProvider>();

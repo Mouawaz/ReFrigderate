@@ -127,7 +127,7 @@ CREATE TABLE Recipe
     name                 VARCHAR(100),
     instructions         TEXT,
     modificationsAllowed BOOLEAN,
-    chefID              INT,
+    chefID               INT,
     type                 VARCHAR(50),
     FOREIGN KEY (chefID) REFERENCES Chef (chefID)
 );
