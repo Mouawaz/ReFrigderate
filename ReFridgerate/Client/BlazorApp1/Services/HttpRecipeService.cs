@@ -21,7 +21,20 @@ public class HttpRecipeService : IRecipeService {
             PropertyNameCaseInsensitive = true
         })!;
     }
-    public Task<List<Recipe>> GetRecipesAsync() {
-        throw new NotImplementedException();
+    public async Task<List<Recipe>> GetRecipesAsync() {
+        HttpResponseMessage httpResponse = await _httpClient.GetAsync("Recipe");
+        string response = await httpResponse.Content.ReadAsStringAsync();
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            throw new Exception(response);
+        }
+        List<Recipe> recipes = new List<Recipe>();
+
+        recipes = JsonSerializer.Deserialize<List<Recipe>>(response, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        Console.WriteLine(recipes);
+        return recipes;
     }
 }

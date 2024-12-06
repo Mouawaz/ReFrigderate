@@ -154,6 +154,7 @@
     private void AddIngredientToRecipe() {
         IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
         RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == currentIngredient);
+        List<Recipe> recipes = new List<Recipe>();
         if (ingredientDto is null || attempted is not null) {
             error = "Something went wrong";
             Console.WriteLine(error);
@@ -179,6 +180,11 @@
     protected async override Task OnInitializedAsync() {
         try {
             _ingredientList = await IngredientService.GetIngredientsAsync();
+            List<Recipe> recipes = await RecipeService.GetRecipesAsync();
+            foreach (var recipe in recipes)
+            {
+                Console.WriteLine(recipe.Name);
+            }
         }
         catch (Exception e) {
             Console.WriteLine(e);
