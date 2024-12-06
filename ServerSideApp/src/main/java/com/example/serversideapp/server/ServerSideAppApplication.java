@@ -1,6 +1,7 @@
 package com.example.serversideapp.server;
 
-import Server.IngredientOuterClass;
+//import Server.IngredientOuterClass;
+//import Server.RecipeOuterClass;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import com.example.serversideapp.back.*;
@@ -11,7 +12,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class ServerSideAppApplication {
     public static void main(String[] args) {
 //        RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
-//        recipeManager.GetAllRecipes();
+//        RecipeOuterClass.Recipe recipe = recipeManager.createRecipe(RecipeOuterClass.CreateRecipeRequest.newBuilder()
+//                .setName("Bobs lasagna")
+//                .setInstructions("Bob HATES lasagna")
+//                .setModificationsAllowed(true)
+//                .setCreatorId(1)
+//                .setType("Starter")
+//                .setUpdateRecipeId(3)
+//                .addIngredients(RecipeOuterClass.SimplifiedIngredient.newBuilder()
+//                        .setIngredientId(1)
+//                        .setQuantity(200).build())
+//                .addIngredients(RecipeOuterClass.SimplifiedIngredient.newBuilder()
+//                        .setIngredientId(2)
+//                        .setQuantity(2).build()).build());
+//        System.out.println(recipe);
+//        System.out.println(recipeManager.deleteRecipe(3));
         //--------------------------------------Tests above
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());

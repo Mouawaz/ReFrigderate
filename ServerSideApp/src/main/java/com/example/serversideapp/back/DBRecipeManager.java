@@ -1,5 +1,6 @@
 package com.example.serversideapp.back;
 
+import Server.RecipeOuterClass;
 import com.example.serversideapp.shared.RecipeLocal;
 
 import java.util.ArrayList;
@@ -8,11 +9,9 @@ public interface DBRecipeManager {
     ArrayList<RecipeLocal> GetAllIngredients();
     RecipeLocal GetIngredientById(int id);
 
-    RecipeLocal GetRecipe(int id);
-
-    RecipeLocal UpdateRecipe(RecipeLocal existingRecipe);
+    RecipeLocal UpdateRecipe(RecipeOuterClass.CreateRecipeRequest request);
 
     boolean DeleteRecipe(int recipeId);
 
-    RecipeLocal CreateRecipe(RecipeLocal newRecipeLocal);
+    RecipeLocal CreateRecipe(RecipeOuterClass.CreateRecipeRequest request);
 }
