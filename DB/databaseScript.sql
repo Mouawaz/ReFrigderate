@@ -120,7 +120,9 @@ CREATE TABLE Alert
     FOREIGN KEY (transactionID) REFERENCES Inventory (InventoryID)
 );
 
-CREATE TABLE Recipe
+CREATE TYPE meal_course AS ENUM ('Starter', 'Main', 'Dessert');
+
+create TABLE Recipe
 (
     fridgeID             INT REFERENCES Fridge (fridgeID),
     recipeID             SERIAL PRIMARY KEY,
@@ -128,10 +130,9 @@ CREATE TABLE Recipe
     instructions         TEXT,
     modificationsAllowed BOOLEAN,
     chefID               INT,
-    type                 VARCHAR(50),
+    type                 meal_course,
     FOREIGN KEY (chefID) REFERENCES Chef (chefID)
 );
-
 
 CREATE TYPE menu_status AS ENUM ('Available', 'Unavailable');
 
@@ -150,8 +151,8 @@ create TABLE RecipeIngredient
     ingredientID   INT,
     quantityNeeded INT,
     PRIMARY KEY (recipeID, ingredientID),
-    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID),
-    FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID)
+    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID) ON DELETE CASCADE,
+    FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID) ON DELETE CASCADE
 );
 
 
@@ -217,12 +218,8 @@ VALUES (1, 1, 'Low Stock', 'Pending'),
 
 
 INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID, type)
-VALUES
-    (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1, 'Starter'),
-    (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2, 'Starter'),
-    (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2, 'Main'),
-    (DEFAULT, 'Gateaux marcel', 'bake chocolate mousse at 160 for 40 minutes', FALSE, 1, 'Dessert'),
-    (DEFAULT, 'Creme Brulee', 'Emulsify eggs in the cream ', TRUE, 2, 'Dessert');
+VALUES (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1, 'Starter'),
+       (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2, 'Starter');
 
 
 INSERT INTO Menu (menuID, name, status)
