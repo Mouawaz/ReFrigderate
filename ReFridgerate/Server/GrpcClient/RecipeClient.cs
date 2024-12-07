@@ -18,8 +18,6 @@ public class RecipeClient : IRecipeClientManager
     {
 
         EmptyRecep empty = new();
-        IQueryable<Recipe> recipess =
-            recipeService.GetAllRecipes(empty).Recipes.AsQueryable();
         List<RecipeDto> recipes =
             recipeService.GetAllRecipes(empty).Recipes.AsQueryable().Select(r =>
                 new RecipeDto()
@@ -29,6 +27,7 @@ public class RecipeClient : IRecipeClientManager
                     creatorId = r.CreatorId,
                     type = r.Type,
                     instruction = r.Instructions,
+                    modifcationsAllowed = r.ModificationsAllowed,
                     ingredients = r.Ingredients.AsQueryable().Select(i =>
                         new SimplifiedIngredientDto()
                         {
@@ -42,76 +41,94 @@ public class RecipeClient : IRecipeClientManager
         return recipes.AsQueryable();
     }
 
-    public async Task<Recipe> AddAsync(CreateRecipeDto recipeDto)
+    public async Task<RecipeDto> AddAsync(CreateRecipeDto recipeDto)
     {
-        /* CreateRecipeRequest request = new()
+         CreateRecipeRequest request = new()
          {
              Name = recipeDto.name,
              Instructions = recipeDto.instructions,
              CreatorId = recipeDto.creatorId,
              Type = recipeDto.type,
+             ModificationsAllowed = recipeDto.modificationsAllowed,
              Ingredients = { recipeDto.ingredients.AsQueryable().Select(ingredient => new SimplifiedIngredient()
              {
                  IngredientId = ingredient.IngredientId,
                  IngredientName = ingredient.IngredientName,
-                 IngredientQuantity = ingredient.Quantity
+                 Quantity = ingredient.Quantity
              }) }
          };
-         RecipeResponse response = await recipeService.CreateRecipeAsync(request);
-         if (!response.Success)
+         Recipe recipe = await recipeService.CreateRecipeAsync(request);
+         RecipeDto dto = new()
          {
-             throw new Exception(response.Message);
-         }
-         return response.Recipe;*/
-        throw new NotImplementedException();
+             id = recipe.Id,
+             name = recipe.Name,
+             creatorId = recipe.CreatorId,
+             type = recipe.Type,
+             instruction = recipe.Instructions,
+             modifcationsAllowed = recipe.ModificationsAllowed,
+             ingredients = recipe.Ingredients.AsQueryable().Select(ingredient =>
+                 new SimplifiedIngredientDto()
+                 {
+                     ingredientId = ingredient.IngredientId,
+                     ingredientName = ingredient.IngredientName,
+                     ingredientCost = ingredient.Cost,
+                     ingredientQuantity = ingredient.Quantity
+                 }).ToList()
+         };
+         return dto;
     }
 
-    public async Task<Recipe> UpdateRecipeAsync(int id,
+    public async Task<RecipeDto> UpdateRecipeAsync(int id,
         CreateRecipeDto recipeDto)
     {
-        /* Recipe recipe = new()
+        CreateRecipeRequest request = new()
          {
-             Id = id,
+             UpdateRecipeId = id,
              Name = recipeDto.name,
-             Instruction = recipeDto.instructions,
+             Instructions = recipeDto.instructions,
              Type = recipeDto.type,
              CreatorId = recipeDto.creatorId,
-             Ingredients =
-             {
-                 recipeDto.ingredients.AsQueryable().Select(i =>
+             ModificationsAllowed = recipeDto.modificationsAllowed,
+
+             Ingredients = { recipeDto.ingredients.AsQueryable().Select(i =>
                      new SimplifiedIngredient()
                      {
                          IngredientId = i.IngredientId,
                          IngredientName = i.IngredientName,
-                         IngredientCost = i.Quantity,
-                         IngredientQuantity = i.Quantity
+                         Quantity = i.Quantity
                      }).ToList()
              }
          };
 
-         RecipeResponse response = await recipeService.UpdateRecipeAsync(recipe);
-         if (!response.Success)
+         Recipe recipe = await recipeService.UpdateRecipeAsync(request);
+         RecipeDto dto = new()
          {
-             throw new Exception(response.Message);
-         }
-         return response.Recipe;
+             id = recipe.Id,
+             name = recipe.Name,
+             creatorId = recipe.CreatorId,
+             type = recipe.Type,
+             instruction = recipe.Instructions,
+             modifcationsAllowed = recipe.ModificationsAllowed,
+             ingredients = recipe.Ingredients.AsQueryable().Select(ingredient =>
+                 new SimplifiedIngredientDto()
+                 {
+                     ingredientId = ingredient.IngredientId,
+                     ingredientName = ingredient.IngredientName,
+                     ingredientCost = ingredient.Cost,
+                     ingredientQuantity = ingredient.Quantity
+                 }).ToList()
+         };
+         return dto;
      }
 
      public async Task DeleteRecipeAsync(int id)
      {
          DeleteRecipeRequest request = new() { Id = id };
-         RecipeResponse response = await recipeService.DeleteRecipeAsync(request);
-         if (!response.Success)
+         DeleteResponse response = await recipeService.DeleteRecipeAsync(request);
+         if (!response.IsSucces)
          {
-             throw new Exception(response.Message);
+             throw new Exception("Failed to delete recipe");
          }
          return;
-     }*/
-        throw new NotImplementedException();
-    }
-
-    public Task DeleteRecipeAsync(int id)
-    {
-        throw new NotImplementedException();
-    }
+     }
 }

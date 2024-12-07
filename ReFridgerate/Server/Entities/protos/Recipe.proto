@@ -39,9 +39,12 @@ message AllRecipesResponse {
   repeated Recipe recipes = 1;
 }
 
+message DeleteResponse{
+  bool IsSucces = 1;
+}
 service RecipeService {
   rpc GetAllRecipes(EmptyRecep) returns (AllRecipesResponse);
   rpc CreateRecipe(CreateRecipeRequest) returns (Recipe);
   rpc UpdateRecipe(CreateRecipeRequest) returns (Recipe);
-  rpc DeleteRecipe(DeleteRecipeRequest) returns (Recipe);
+  rpc DeleteRecipe(DeleteRecipeRequest) returns (DeleteResponse);
 }

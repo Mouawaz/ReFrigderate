@@ -38,13 +38,13 @@ public class RecipeController : ControllerBase
         }
     }
     [HttpPost]
-    public async Task<ActionResult<Recipe>> CreateRecipe([FromBody]  CreateRecipeDto createRecipeDto )
+    public async Task<ActionResult<RecipeDto>> CreateRecipe([FromBody]  CreateRecipeDto createRecipeDto )
     {
         try
         {
             
 
-            Recipe recipe = await recipeRepo.AddAsync(createRecipeDto);
+            RecipeDto recipe = await recipeRepo.AddAsync(createRecipeDto);
 
             return Created("Recipe", recipe);
         }
@@ -56,10 +56,10 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<Recipe>> UpdateUser([FromRoute] int id,
+    public async Task<ActionResult<RecipeDto>> UpdateUser([FromRoute] int id,
         [FromBody] CreateRecipeDto recipeDto)
     {
-       Recipe updatedRecipe = await recipeRepo.UpdateAsync(id, recipeDto);
+        RecipeDto updatedRecipe = await recipeRepo.UpdateAsync(id, recipeDto);
        return Ok(updatedRecipe);
     }
 

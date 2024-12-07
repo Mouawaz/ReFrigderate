@@ -7,5 +7,6 @@ public class RecipeDto
     public string instruction { get; set; }
     public string type { get; set; }
     public int creatorId { get; set; }
+    public bool modifcationsAllowed { get; set; }
     public List<SimplifiedIngredientDto> ingredients { get; set; }
 }

@@ -18,7 +18,7 @@ public class RecipeLogic : IRecipeRepository
         return clientManager.GetAllRecipes();
     }
 
-    public async Task<Recipe> AddAsync(CreateRecipeDto recipeDto)
+    public async Task<RecipeDto> AddAsync(CreateRecipeDto recipeDto)
     {
         if (recipeDto.name.Equals(null) || recipeDto.type.Equals(null) || recipeDto.creatorId.Equals(null) || recipeDto.type.Equals(null))
         {
@@ -38,7 +38,7 @@ public class RecipeLogic : IRecipeRepository
         return await clientManager.AddAsync(recipeDto);
     }
 
-    public async Task<Recipe> UpdateAsync(int id, CreateRecipeDto recipe)
+    public async Task<RecipeDto> UpdateAsync(int id, CreateRecipeDto recipe)
     {
         if (id.Equals(null) || recipe.name.Equals(null) || recipe.instructions.Equals(null) || recipe.ingredients.Count.Equals(0) ||
             recipe.type.Equals(null) || recipe.creatorId.Equals(null))
