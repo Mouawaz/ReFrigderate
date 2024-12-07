@@ -45,6 +45,7 @@ public class RecipeManagerImpl implements RecipeManager {
         RecipeOuterClass.Recipe.Builder builder = RecipeOuterClass.Recipe.newBuilder()
                 .setId(local.getId())
                 .setName(local.getName())
+                .setModificationsAllowed(local.isModsAllowed())
                 .setInstructions(local.getInstructions())
                 .setType(local.getType())
                 .setCreatorId(local.getCreatorId());

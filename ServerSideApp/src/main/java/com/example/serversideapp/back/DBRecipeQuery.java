@@ -18,7 +18,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
         try (Connection connection = getConnected()) {
             ArrayList<RecipeLocal> ans = new ArrayList<>();
             PreparedStatement psRecipes = connection.prepareStatement(
-                    "SELECT recipeid, name, instructions, type, chefid FROM refridgerate.recipe"
+                    "SELECT recipeid, name, instructions, type, chefid, modificationsallowed FROM refridgerate.recipe"
             );
             PreparedStatement psRecipeIngredients = connection.prepareStatement(
                     "SELECT r.ingredientid, ingredient.name, ingredient.cost, quantityneeded FROM refridgerate.recipe " +
@@ -45,7 +45,8 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
                         rsRecipe.getString(3),
                         rsRecipe.getString(4),
                         rsRecipe.getInt(5),
-                        localIngredient
+                        localIngredient,
+                        rsRecipe.getBoolean(6)
                 ));
             }
             return ans;

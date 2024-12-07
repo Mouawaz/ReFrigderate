@@ -35,13 +35,10 @@ public class RecipeServiceImplemented extends RecipeServiceGrpc.RecipeServiceImp
     }
 
     @Override
-    public void deleteRecipe(RecipeOuterClass.DeleteRecipeRequest request, StreamObserver<RecipeOuterClass.Recipe> responseObserver) {
-        if (recipeManager.deleteRecipe(request.getId())){
-            responseObserver.onCompleted();
-        }
-        else {
-            responseObserver.onError(new Throwable(""));
-        }
+    public void deleteRecipe(RecipeOuterClass.DeleteRecipeRequest request, StreamObserver<RecipeOuterClass.DeleteResponse> responseObserver) {
+        responseObserver.onNext(RecipeOuterClass.DeleteResponse.newBuilder()
+                .setIsSucces(recipeManager.deleteRecipe(request.getId())).build());
+        responseObserver.onCompleted();
     }
 }
 
