@@ -4,5 +4,6 @@ namespace BlazorApp1.Services;
 
 public interface IRecipeService {
     Task<Recipe> AddRecipeAsync(CreateRecipeDto recipeDto);
-    Task<List<Recipe>> GetRecipesAsync();
+    Task<List<RecipeDto>>GetRecipesAsync();
+    Task DeleteRecipeAsync(int id);
 }

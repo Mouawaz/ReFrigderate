@@ -18,7 +18,11 @@
         { "tomato", "Images/tomato.png" },
         { "cheese", "Images/cheese.png" },
         { "milk", "Images/milk.png" },
-        { "butter", "Images/butter.png" }
+        { "butter", "Images/butter.png" },
+        { "gateaux marcel", "Images/GateauxMarcel.jpg"},
+        { "cheese omelet", "Images/CheeseOmelet.png"},
+        { "tomato soup", "Images/tomatoSoup.jpg"},
+        { "creme brulee", "Images/CremeBrulee.jpg"},
     };
 
     private string GetImageSource()
@@ -32,7 +36,7 @@
             return ingredientIcons[Name.ToLower()];
         }
 
-        return "Images/default.png"; // Fallback image
+        return "Images/default.png";
     }
 
     private (int Width, int Height) GetDimensions() => Size.ToLower() switch
@@ -41,6 +45,7 @@
         "mini" => (30, 30),
         "medium" => (60, 60),
         "large" => (120, 120),
+        "huge" => (240, 240),
         _ => (60, 60)
     };
 }

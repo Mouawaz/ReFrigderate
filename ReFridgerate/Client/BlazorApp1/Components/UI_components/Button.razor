@@ -22,12 +22,15 @@
     [Parameter] public EventCallback<MouseEventArgs> OnClick { get; set; }
     [Parameter] public bool Secondary { get; set; } = false;
     [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public bool Danger { get; set; } = false;
     [Parameter]
     public string CustomClass { get; set; }
 
     private string GetButtonClasses()
     {
-        string baseClass = Secondary ? "custom-button-secondary" : "custom-button-primary";
+        string baseClass = Danger 
+            ? "custom-button-danger" 
+            : (Secondary ? "custom-button-secondary" : "custom-button-primary");
 
         if (Disabled)
         {

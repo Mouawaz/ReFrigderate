@@ -21,6 +21,31 @@
                         OnClick="() => OpenModal()"></Button>
             </div>
         </div>
+        <div class="recipe-list">
+            @foreach(var recipe in _recipeList)
+            {
+                <div class="recipe-container">
+                    <div class="recipe-image">
+                        <p class="recipe-name">@recipe.name</p>
+                        <Icon Name="@recipe.name" Size="huge"></Icon>
+                    </div>
+                    <div class="recie-info">
+                        <p><b>Type: </b>@recipe.type</p>
+                        <p><b>Ingredients:</b></p>
+                        @foreach (var recipeIngredient in @recipe.ingredients)
+                        {
+                        <p>@recipeIngredient.ingredientName</p>
+                        }
+                        <p><b>Instructions:</b></p>
+                        <p>@recipe.instruction</p>
+                    </div>
+                    <div class="recipe-buttons">
+                        <Button Icon="editing.png">Edit</Button>
+                        <Button Danger Icon="whiteDelete.png" OnClick="()=> OpenDeleteModal(recipe)">Delete</Button>
+                    </div>
+                </div>
+            }
+        </div>
         <Modal @ref="addRecipeModal" Title="Create recipe">
             <ChildContent>
                 <div class="row">
@@ -106,6 +131,15 @@
                 <Button Text="Add" OnClick="() => AddRecipe()"/>
             </FooterContent>
         </Modal>
+        <Modal @ref="deleteRecipeModal" Title="Delete recipe">
+            <ChildContent>
+                <p>Are you sure you want to delete @((selectedRecipe != null) ? selectedRecipe.name : "this recipe")? This action is irreversible!</p>
+            </ChildContent>
+            <FooterContent>
+                <Button Text="Cancel" Secondary OnClick="deleteRecipeModal.Close"/>
+                <Button Text="Delete" Danger OnClick="DeleteRecipe"/>
+            </FooterContent>
+        </Modal>
     </Authorized>
     <NotAuthorized>
     
@@ -120,8 +154,11 @@
     private string error { get; set; } = "";
     private int currentIngredientAmount { get; set; }
     private Modal addRecipeModal;
+    private Modal deleteRecipeModal;
+    private RecipeDto? selectedRecipe = null;
     private List<IngredientDto> _ingredientList = new();
     private List<RecipeIngredientDto> selectedIngredients = new();
+    private List<RecipeDto> _recipeList = new();
     private void OpenModal() {
         recipeName = "";
         recipeInstructions = "";
@@ -180,15 +217,29 @@
     protected async override Task OnInitializedAsync() {
         try {
             _ingredientList = await IngredientService.GetIngredientsAsync();
-            List<Recipe> recipes = await RecipeService.GetRecipesAsync();
-            foreach (var recipe in recipes)
-            {
-                Console.WriteLine(recipe.Name);
-            }
+            _recipeList = await RecipeService.GetRecipesAsync();
         }
         catch (Exception e) {
             Console.WriteLine(e);
             throw;
+        }
+    }
+    
+    private void OpenDeleteModal(RecipeDto recipe)
+    {
+        selectedRecipe = recipe;
+        deleteRecipeModal.Open();
+    }
+    
+    private void DeleteRecipe()
+    {
+        if (selectedRecipe != null)
+        {
+            RecipeService.DeleteRecipeAsync(selectedRecipe.id);
+            _recipeList.Remove(selectedRecipe);
+            selectedRecipe = null;
+            deleteRecipeModal.Close();
+            Console.WriteLine();
         }
     }
 }
