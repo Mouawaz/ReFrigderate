@@ -42,7 +42,7 @@ public class UserClient : IUserClientManager
             success = loginResponse.Success,
             userId = loginResponse.UserId,
             fullName = loginResponse.FullName,
-            role = loginResponse.Role
+            role = loginResponse.Permissions
         };
         return loginResponseDto;
     }
@@ -63,7 +63,7 @@ public class UserClient : IUserClientManager
             success = loginResponse.Success,
             userId = loginResponse.UserId,
             fullName = loginResponse.FullName,
-            role = loginResponse.Role
+            role = loginResponse.Permissions
         };
         return loginResponseDto;
     }
@@ -79,8 +79,7 @@ public class UserClient : IUserClientManager
        {
            Id = response.Userid,
            Email = response.Email,
-           FirstName = response.Firstname,
-           LastName = response.Lastname,
+           FullName = response.FullName,
            Role = response.Role
        };
        return dto;
@@ -88,20 +87,20 @@ public class UserClient : IUserClientManager
 
     public  IQueryable<UserDto> GetMultiple()
     {
-        IQueryable<UserDto> users = userService.GetAllUsers(new Empty())
+        EmptyUser empty = new();
+        IQueryable<UserDto> users = userService.GetAllUsers(empty)
             .Messages.AsQueryable().Select(u => new UserDto
             {
                 Id = u.Userid,
                 Email = u.Email,
-                FirstName = u.Firstname,
-                LastName = u.Lastname,
+                FullName = u.FullName,
                 Role = u.Role
 
             });
         return users;
     }
 
-    public async Task<bool> UpdateUserAsync(int id, string role)
+    public async Task<bool> UpdateUserAsync(int id, int role)
     {
         UpdateUserRequest request = new()
         {
