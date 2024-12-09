@@ -7,4 +7,5 @@ public class UpdateIngredientDto
     public int amount { get; set; }
     public int Difference { get; set; }
     public bool Substraction { get; set; }
+    public string Reason { get; set; }
 }

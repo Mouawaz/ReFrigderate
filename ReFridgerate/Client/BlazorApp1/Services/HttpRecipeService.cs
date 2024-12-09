@@ -48,6 +48,24 @@ public class HttpRecipeService : IRecipeService {
             throw new Exception(response);
         }
     }
+    
+    public async Task<RecipeDto> UpdateRecipeAsync(int id, RecipeDto updateRecipe)
+    {
+        HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync($"Recipe/{id}", updateRecipe);
+
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            string errorResponse = await httpResponse.Content.ReadAsStringAsync();
+            throw new Exception(errorResponse);
+        }
+
+        string response = await httpResponse.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<RecipeDto>(response, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+    }
 
     
     

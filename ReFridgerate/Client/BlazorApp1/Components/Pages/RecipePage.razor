@@ -40,7 +40,7 @@
                         <p>@recipe.instruction</p>
                     </div>
                     <div class="recipe-buttons">
-                        <Button Icon="editing.png">Edit</Button>
+                        <Button Icon="editing.png" OnClick="()=>OpenEditModal(recipe)">Edit</Button>
                         <Button Danger Icon="whiteDelete.png" OnClick="()=> OpenDeleteModal(recipe)">Delete</Button>
                     </div>
                 </div>
@@ -140,6 +140,16 @@
                 <Button Text="Delete" Danger OnClick="DeleteRecipe"/>
             </FooterContent>
         </Modal>
+
+        <Modal @ref="editRecipeModal" Title="Edit recipe">
+            <ChildContent>
+                <p>Edit in the future</p>
+            </ChildContent>
+            <FooterContent>
+                <Button Text="Cancel" Secondary OnClick="editRecipeModal.Close"/>
+                <Button Text="Confirm" OnClick="EditRecipe"/>
+            </FooterContent>
+        </Modal>
     </Authorized>
     <NotAuthorized>
     
@@ -155,6 +165,7 @@
     private int currentIngredientAmount { get; set; }
     private Modal addRecipeModal;
     private Modal deleteRecipeModal;
+    private Modal editRecipeModal;
     private RecipeDto? selectedRecipe = null;
     private List<IngredientDto> _ingredientList = new();
     private List<RecipeIngredientDto> selectedIngredients = new();
@@ -239,7 +250,22 @@
             _recipeList.Remove(selectedRecipe);
             selectedRecipe = null;
             deleteRecipeModal.Close();
-            Console.WriteLine();
+        }
+    }
+    
+    private void OpenEditModal(RecipeDto recipe)
+    {
+        selectedRecipe = recipe;
+        editRecipeModal.Open();
+    }
+    
+    private void EditRecipe()
+    {
+        if (selectedRecipe != null)
+        {
+            //RecipeService.EditRecipeAsync(selectedRecipe.id);
+            selectedRecipe = null;
+            editRecipeModal.Close();
         }
     }
 }

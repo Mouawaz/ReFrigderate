@@ -121,6 +121,13 @@
                                            disabled="@(!IsOption3Selected)"
                                            @bind="Option3Value"/>
                                 </div>
+                                <div class="mb-3" hidden="@(!(SelectedOptionRemove == 3))">
+                                    <label for="reason">Reason for Subtraction</label>
+                                    <textarea id="reason"
+                                              class="form-control"
+                                              placeholder="Enter reason for subtraction"
+                                              @bind="ReasonForSubtraction"></textarea>
+                                </div>
                                 <div class="mb-3">
                                     <div class="form-check">
                                         <InputRadio class="form-check-input" Value="4"/>
@@ -161,6 +168,7 @@
     private IngredientDto selectedIngredient;
     private Modal detailsModal;
     private String WarningTooltip;
+    private string ReasonForSubtraction { get; set; } = string.Empty;
 
     private int selectedOptionAdd;
 
@@ -260,7 +268,8 @@
                 DateOfExpiration = SelectedDate?.ToString("d/M/yyyy") ?? new DateTime().ToString("d/M/yyyy"),
                 Difference = Math.Abs(newStockStatus - ingredient.Amount),
                 Substraction = isSubtraction,
-                amount = ingredient.Amount
+                amount = ingredient.Amount,
+                Reason = ReasonForSubtraction
             };
 
             IngredientDto updatedIngredient = await IngredientService.UpdateIngredientAsync(ingredient.Id, updateIngredient);
@@ -333,6 +342,7 @@
         Option3Value = string.Empty;
         Option4Value = string.Empty;
         SelectedDate = null;
+        ReasonForSubtraction = string.Empty; 
     }
 
     private string GetStatusClass(int status)
