@@ -33,9 +33,21 @@ message UpdateIngredientRequest{
   int32 daysUntilBad = 3;
 }
 
+message UpdateWarningAmountsRequest{
+  int32 ingredientId = 1;
+  int32 yellowAmount = 2;
+  int32 redAmount = 3;
+  int32 yellowDaysUntil = 4;
+  int32 redDaysUntil = 5;
+}
+message Success{
+  bool success = 1;
+}
+
 service IngredientService{
   rpc GetAllIngredients(Empty) returns (AllIngredientResponse);
   rpc UpdateIngredient(UpdateIngredientRequest) returns (Ingredient);
+  rpc UpdateWarningAmount(UpdateWarningAmountsRequest) returns (Success);
 }
 
 //service UserService {

@@ -23,4 +23,10 @@ public class IngredientServiceImplemented extends IngredientServiceGrpc.Ingredie
         responseObserver.onNext(generalIngredientsManager.UpdateIngredient(request));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void updateWarningAmount(IngredientOuterClass.UpdateWarningAmountsRequest request, StreamObserver<IngredientOuterClass.Success> responseObserver) {
+        responseObserver.onNext(generalIngredientsManager.UpdateWarningAmount(request));
+        responseObserver.onCompleted();
+    }
 }

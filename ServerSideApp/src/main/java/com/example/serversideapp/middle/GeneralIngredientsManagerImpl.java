@@ -32,12 +32,18 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
         return parseFromLocal(local);
     }
 
+    @Override
+    public IngredientOuterClass.Success UpdateWarningAmount(IngredientOuterClass.UpdateWarningAmountsRequest request) {
+        boolean ans = dbIngredientManager.UpdateWarningAmount(request.getIngredientId(), request.getYellowAmount(), request.getRedAmount(), request.getYellowDaysUntil(), request.getRedDaysUntil());
+        return IngredientOuterClass.Success.newBuilder().setSuccess(ans).build();
+    }
+
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
-        int redAmount = 5;
-        int yellowAmount = 10;
-        int redTime = 0;
-        int yellowTime = 7;
+        int redAmount = local.getRedAmount();
+        int yellowAmount = local.getYellowAmount();
+        int redTime = local.getRedDays();
+        int yellowTime = local.getYellowDays();
         //in the future to be defined by the user, and read from the DB
         Date todaysDate = new Date();
         int days = (int)TimeUnit.MILLISECONDS.toDays(local.getExpirationDate().getTime() - todaysDate.getTime());
