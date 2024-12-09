@@ -89,7 +89,11 @@ create TABLE Ingredient
     fridgeID     INT REFERENCES Fridge (fridgeID),
     ingredientID SERIAL PRIMARY KEY,
     name         VARCHAR(100),
-    cost         DECIMAL(10, 2)
+    cost         DECIMAL(10, 2),
+    yellowAmount INT DEFAULT 10,
+    redAmount    INT DEFAULT 5,
+    yellowDays   INT DEFAULT 7,
+    redDays      INT DEFAULT 0
 );
 
 CREATE TYPE action_type AS ENUM ('Add', 'Subtract');
@@ -162,8 +166,8 @@ create TABLE MenuRecipe
     menuID   INT,
     recipeID INT,
     PRIMARY KEY (menuID, recipeID),
-    FOREIGN KEY (menuID) REFERENCES Menu (menuID),
-    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID)
+    FOREIGN KEY (menuID) REFERENCES Menu (menuID) ON DELETE CASCADE ,
+    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID) ON DELETE CASCADE
 );
 
 
