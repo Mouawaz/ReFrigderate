@@ -1,61 +1,80 @@
 ﻿@using BlazorApp1.Services
 @inject IThemeState ThemeState
 
-<div class="top-row ps-3 navbar">
-    <div class="container-fluid">
-        <a class="navbar-brand logo-title" href="home" style="color: #000000"><b>ReFridgerate</b></a>
-        <img class="icon-img" src="Images/fridge.png" alt="fridge"/>
-        <button 
-            class="theme-toggle-btn"
-            @onclick="ToggleTheme"
-            title="Toggle theme">
-            @if (ThemeState.IsDarkMode)
-            {
-                <span>🌙</span>
-            }
-            else
-            {
-                <span>☀️</span>
-            }
-        </button>
+<div class="@(ThemeState.IsDarkMode ? "dark" : "light")">
+    <div class="top-row ps-3 navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand logo-title" href="home"><b>ReFridgerate</b></a>
+            <img class="icon-img" src="Images/fridge.png" alt="fridge"/>
+        </div>
+    </div>
+
+    <input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
+
+    <div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
+        <nav>
+            <div class="main-menu">
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="home">
+                        <img class="icon-img" src="Images/home.png" alt="home"/>
+                        <span>Home</span>
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="lobby">
+                        <img class="icon-img" src="Images/grocery-bag.png" alt="ingredients"/>
+                        <span>Ingredients</span>
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="recipe">
+                        <img class="icon-img" src="Images/recipe.png" alt="ingredients"/>
+                        <span>Recipes</span>
+                    </NavLink>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="orders">
+                        <img class="icon-img" src="Images/r.png" alt="help"/>
+                        <span>Orders</span>
+                    </NavLink>
+                </div>
+            </div>
+
+            <div class="bottom-menu">
+                <div class="nav-item">
+                    <Button
+                        CustomClass="nav-link w-100 theme-toggle-nav"
+                        OnClick="@(async (e) => await ToggleTheme())"
+                        Secondary="true">
+                        <img class="icon-img" src="@(ThemeState.IsDarkMode ? "Images/moon.png" : "Images/sun.png")" alt="theme"/>
+                        <span>@(ThemeState.IsDarkMode ? "Dark Mode" : "Light Mode")</span>
+                    </Button>
+                </div>
+                <div class="nav-item">
+                    <NavLink class="nav-link" href="admin">
+                        <img class="icon-img" src="Images/admin.png" alt="admin"/>
+                        <span>Admin</span>
+                    </NavLink>
+                </div>
+            </div>
+        </nav>
     </div>
 </div>
 
-<input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
-
-<div class="nav-scrollable" onclick="document.querySelector('.navbar-toggler').click()">
-    <nav>
-        <div class="nav-item">
-            <NavLink class="nav-link" href="home">
-                <img class="icon-img" src="Images/home.png" alt="home"/>
-                <span>Home</span>
-            </NavLink>
-        </div>
-        <div class="nav-item">
-            <NavLink class="nav-link" href="lobby">
-                <img class="icon-img" src="Images/grocery-bag.png" alt="ingredients"/>
-                <span>Ingredients</span>
-            </NavLink>
-        </div>
-        <div class="nav-item">
-            <NavLink class="nav-link" href="recipe">
-                <img class="icon-img" src="Images/recipe.png" alt="ingredients"/>
-                <span>Recipes</span>
-            </NavLink>
-        </div>
-
-        <div class="nav-item nav-item-admin" style="position: fixed; bottom: 0; left: 0; width: 100%; z-index: 1000;">
-            <NavLink class="nav-link" href="admin">
-                <img class="icon-img" src="Images/admin.png" alt="admin"/>
-                <span>Admin</span>
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
 @code {
-    private async Task ToggleTheme()
+    protected override void OnInitialized()
     {
-        await ThemeState.SetThemeAsync(!ThemeState.IsDarkMode);
+        ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+    }
+
+    public void Dispose()
+    {
+        ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
+    }
+
+    private Task ToggleTheme()
+    {
+        ThemeState.IsDarkMode = !ThemeState.IsDarkMode;
+        return Task.CompletedTask;
     }
 }

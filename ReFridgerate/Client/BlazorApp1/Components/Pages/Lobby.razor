@@ -248,7 +248,6 @@
 
     public void Dispose()
     {
-        // Clean up the subscription
         ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
     }
 

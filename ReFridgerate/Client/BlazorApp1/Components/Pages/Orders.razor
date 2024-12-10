@@ -1,0 +1,150 @@
+@page "/orders"
+@using BlazorApp1.Services
+@inject IThemeState ThemeState
+
+<link href="css/orders.css" rel="stylesheet"/>
+<title>Orders</title>
+
+<div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
+    <div class="header">
+        <h1>Orders</h1>
+    </div>
+
+    <div class="orders-grid">
+        @foreach (var order in filteredOrders)
+        {
+            <div class="order-card">
+                <div class="order-metadata">
+                    <div class="meta-item-custom @GetStatusClass(order.Status)">
+                        <i class="fas fa-table me-2"></i>
+                        Table @order.TableNumber
+                    </div>
+                    <div class="meta-item-custom">
+                        <i class="fas fa-clock me-2"></i>
+                        @order.OrderTime.ToString("HH:mm")
+                    </div>
+                </div>
+
+                <div class="dishes-list">
+                    @foreach (var dish in order.Dishes)
+                    {
+                        <div class="dish-item">
+                            <span class="dish-name">@dish.Name</span>
+                            @if (!string.IsNullOrEmpty(dish.Note))
+                            {
+                                <span class="dish-note">@dish.Note</span>
+                            }
+                        </div>
+                    }
+                </div>
+
+                <div class="order-actions">
+                    <Button Icon="check.png"
+                            Text="Accept"
+                            OnClick="@(e => AcceptOrder(order))"/>
+                    <Button Icon="cancel.png"
+                            Text="Deny"
+                            Danger="true"
+                            OnClick="@(e => DenyOrder(order))"/>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    private List<Order> orders;
+    private List<Order> filteredOrders;
+
+    public class Order
+    {
+        public int TableNumber { get; set; }
+        public DateTime OrderTime { get; set; }
+        public string Status { get; set; }
+        public List<Dish> Dishes { get; set; }
+    }
+
+    public class Dish
+    {
+        public string Name { get; set; }
+        public string Note { get; set; }
+    }
+
+    protected override void OnInitialized()
+    {
+        // Subscribe to theme changes
+        ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+        
+        // Dummy data
+        orders = new List<Order>
+        {
+            new Order
+            {
+                TableNumber = 1,
+                OrderTime = DateTime.Now.AddMinutes(-30),
+                Status = "new",
+                Dishes = new List<Dish>
+                {
+                    new Dish { Name = "Spaghetti Carbonara", Note = "Extra cheese" },
+                    new Dish { Name = "Caesar Salad", Note = "No croutons" }
+                }
+            },
+            new Order
+            {
+                TableNumber = 2,
+                OrderTime = DateTime.Now.AddMinutes(-15),
+                Status = "new",
+                Dishes = new List<Dish>
+                {
+                    new Dish { Name = "Margherita Pizza", Note = "Well done" },
+                    new Dish { Name = "Tiramisu" },
+                    new Dish { Name = "Espresso" }
+                }
+            },
+            new Order
+            {
+                TableNumber = 3,
+                OrderTime = DateTime.Now.AddMinutes(-5),
+                Status = "new",
+                Dishes = new List<Dish>
+                {
+                    new Dish { Name = "Steak", Note = "Medium rare" },
+                    new Dish { Name = "Mashed Potatoes", Note = "Extra butter" },
+                    new Dish { Name = "Green Salad" }
+                }
+            }
+        };
+        filteredOrders = new List<Order>(orders);
+    }
+
+    
+
+    private string GetStatusClass(string status)
+    {
+        return status.ToLower() switch
+        {
+            "new" => "status-new",
+            "inprogress" => "status-inprogress",
+            "ready" => "status-ready",
+            "completed" => "status-completed",
+            _ => ""
+        };
+    }
+
+    private Task AcceptOrder(Order order)
+    {
+        orders.Remove(order);
+        filteredOrders.Remove(order);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+
+    private Task DenyOrder(Order order)
+    {
+        orders.Remove(order);
+        filteredOrders.Remove(order);
+        StateHasChanged();
+        return Task.CompletedTask;
+    }
+}
