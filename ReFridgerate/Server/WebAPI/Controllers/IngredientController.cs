@@ -26,7 +26,6 @@ public class IngredientController : ControllerBase
     {
         try
         {
-
             IngredientDto ingredient =
                await ingredientRepo.UpdateAsync(id, userInfo, userInfo.Difference);
             return Results.Ok(ingredient);

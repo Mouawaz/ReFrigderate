@@ -31,7 +31,8 @@ public class UserManagerImpl implements UserManager{
             return User.LoginResponse.newBuilder()
                     .setSuccess(true)
                     .setUserId(attemptedUser.getId())
-                    .setFullName(attemptedUser.getFirstN() + " " + attemptedUser.getLastN()).build();
+                    .setFullName(attemptedUser.getFirstN() + " " + attemptedUser.getLastN())
+                    .setPermissions(attemptedUser.getPermissions()).build();
         }
         return User.LoginResponse.newBuilder().setSuccess(false).build();
     }

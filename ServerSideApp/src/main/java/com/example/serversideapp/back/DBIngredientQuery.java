@@ -69,9 +69,7 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
         Date minDate = rsDates.getDate(2);
         int count = rsDates.getInt(1);
         while (rsDates.next()) {
-            System.out.println(count);
             if (count <= 0) {
-                System.out.println(minDate);
                 minDate = rsDates.getDate(2);
             }
             count += rsDates.getInt(1);

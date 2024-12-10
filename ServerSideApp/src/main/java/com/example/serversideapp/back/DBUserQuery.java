@@ -13,7 +13,7 @@ public class DBUserQuery extends DBGeneral implements DBUserManager{
     @Override
     public UserLocal getUserByName(String email) {
         try (Connection connection = getConnected()){
-            PreparedStatement psUser = connection.prepareStatement("SELECT userid, email, password, firstname, lastname, role  FROM refridgerate.user WHERE email = ?");
+            PreparedStatement psUser = connection.prepareStatement("SELECT userid, email, password, firstname, lastname, role  FROM refridgerate.user WHERE email = ? ORDER BY userid");
             psUser.setString(1, email);
             ResultSet rsUser = psUser.executeQuery();
             if (!rsUser.next()){
@@ -51,7 +51,7 @@ public class DBUserQuery extends DBGeneral implements DBUserManager{
     public ArrayList<UserLocal> getAllUsers() {
         try(Connection connection = getConnected()){
             ArrayList<UserLocal> ans = new ArrayList<>();
-            PreparedStatement psGetAllUsers = connection.prepareCall("SELECT userid, email, firstname, lastname, role FROM refridgerate.user");
+            PreparedStatement psGetAllUsers = connection.prepareCall("SELECT userid, email, firstname, lastname, role FROM refridgerate.user ORDER BY userid");
             ResultSet rsGetAllUsers = psGetAllUsers.executeQuery();
             while (rsGetAllUsers.next()){
                 ans.add(new UserLocal(
@@ -72,7 +72,12 @@ public class DBUserQuery extends DBGeneral implements DBUserManager{
 
     @Override
     public UserLocal getSingleUser(int id) {
-        return getAllUsers().get(id-1);
+        for (UserLocal ul : getAllUsers()){
+            if (ul.getId() ==id){
+                return ul;
+            }
+        }
+        throw new RuntimeException("No user with id " + id + " found");
     }
 
     @Override

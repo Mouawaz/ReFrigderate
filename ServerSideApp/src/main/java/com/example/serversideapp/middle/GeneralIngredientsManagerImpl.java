@@ -38,6 +38,22 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
         return IngredientOuterClass.Success.newBuilder().setSuccess(ans).build();
     }
 
+    @Override
+    public IngredientOuterClass.UpdateWarningAmountsRequest getTreshold(IngredientOuterClass.IdRequest request) {
+        IngredientOuterClass.UpdateWarningAmountsRequest.Builder ans = IngredientOuterClass.UpdateWarningAmountsRequest.newBuilder();
+        for (IngredientLocal il : dbIngredientManager.GetAllIngredients()){
+            if (il.getId()== request.getId()){
+                ans
+                        .setYellowAmount(il.getYellowAmount())
+                        .setYellowDaysUntil(il.getYellowDays())
+                        .setRedAmount(il.getRedAmount())
+                        .setRedDaysUntil(il.getRedDays());
+                return ans.build();
+            }
+        }
+        throw new RuntimeException("No ingredient with id " + request.getId() + " was found");
+    }
+
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
         int redAmount = local.getRedAmount();
