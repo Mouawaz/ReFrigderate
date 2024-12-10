@@ -9,5 +9,5 @@ public interface IUserRepository
     Task<UserDto> GetSingleAsync(int id);
     IQueryable<UserDto> GetMultiple();
     Task<LoginResponseDto> LoginAsync(LoginDto loginDto);
-    Task<bool> UpdateAsync(int id, string role);
+    Task<bool> UpdateAsync(int id, int role);
 }

@@ -61,4 +61,34 @@ public class IngredientClient : IIngredientClientManager
         
         return ingredientDtos.AsQueryable();
     }
+
+    public async Task<ThresholdDto> GetTresholdAsync(int id)
+    {
+        IdRequest request = new IdRequest { Id = id };
+        UpdateWarningAmountsRequest response = await ingredientService.GetTresholdAsync(request);
+        ThresholdDto thresholds = new()
+        {
+            IndredientId = response.IngredientId,
+            redAmount = response.RedAmount,
+            yellowAmount = response.YellowAmount,
+            redDaysUntil = response.RedDaysUntil,
+            yellowDaysUntil = response.YellowDaysUntil
+        };
+        return thresholds;
+    }
+
+    public async Task<bool> UpdateTresholdsAsync(ThresholdDto thresholdDto)
+    {
+        UpdateWarningAmountsRequest request = new()
+        {
+            IngredientId = thresholdDto.IndredientId,
+            RedAmount = thresholdDto.redAmount,
+            YellowAmount = thresholdDto.yellowAmount,
+            RedDaysUntil = thresholdDto.redDaysUntil,
+            YellowDaysUntil = thresholdDto.yellowDaysUntil
+        };
+        Success response = await ingredientService.UpdateWarningAmountAsync(request);
+
+        return response.Success_;
+    }
 }

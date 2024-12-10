@@ -55,7 +55,7 @@ public class UserLogic : IUserRepository
         
     }
 
-    public async Task<bool> UpdateAsync(int id, string role)
+    public async Task<bool> UpdateAsync(int id, int role)
     {
         if (id.Equals(null) || id < 1 || role.Equals(null))
         {

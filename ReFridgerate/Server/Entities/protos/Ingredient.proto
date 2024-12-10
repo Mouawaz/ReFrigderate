@@ -38,9 +38,25 @@ message UpdateIngredientRequest{ //Many 'Ingredient' messages | basically an arr
 //  int32 amount
 //}
 
+message UpdateWarningAmountsRequest{
+  int32 ingredientId = 1;
+  int32 yellowAmount = 2;
+  int32 redAmount = 3;
+  int32 yellowDaysUntil = 4;
+  int32 redDaysUntil = 5;
+}
+
+message Success{
+  bool success = 1;
+}
+message IdRequest{
+  int32 Id = 1;
+}
 service IngredientService{
   rpc GetAllIngredients(Empty) returns (AllIngredientResponse);
   rpc UpdateIngredient(UpdateIngredientRequest) returns (Ingredient);
+  rpc UpdateWarningAmount(UpdateWarningAmountsRequest) returns (Success);
+  rpc GetTreshold(IdRequest) returns (UpdateWarningAmountsRequest);
 }
 
 //service UserService {

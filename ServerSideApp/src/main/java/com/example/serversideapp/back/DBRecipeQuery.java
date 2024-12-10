@@ -57,7 +57,12 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public RecipeLocal GetIngredientById(int id) {
-        return GetAllIngredients().get(id - 1);
+        for (RecipeLocal rl : GetAllIngredients()){
+            if (rl.getId() == id){
+                return rl;
+            }
+        }
+        throw new RuntimeException("No recipe with the id " + id + " was found");
     }
 
     @Override

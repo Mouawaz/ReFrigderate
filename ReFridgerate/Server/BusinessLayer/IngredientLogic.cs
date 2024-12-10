@@ -50,4 +50,42 @@ public class IngredientLogic : IIngredientRepository
     {
         return clientManager.GetAllIngredients();
     }
+
+    public async Task<ThresholdDto> GetSingleTresholdAsync(int id)
+    {
+        if (id.Equals(null) || id < 1)
+        {
+            throw new ArgumentException("Id cannot be null");
+        }
+
+        return await clientManager.GetTresholdAsync(id);
+    }
+
+    public async Task<bool> UpdateTresholdsAsync(int id, ThresholdDto thresholdDto)
+    {
+        if (id.Equals(null) || id < 1)
+        {
+            throw new ArgumentException("Id is invalid");
+        }
+
+        if (thresholdDto.redAmount.Equals(null) || thresholdDto.yellowAmount.Equals(null) || 
+            thresholdDto.redDaysUntil.Equals(null) || thresholdDto.yellowDaysUntil.Equals(null))
+        {
+            throw new ArgumentException("Data cannot be empty");
+        }
+
+        if (thresholdDto.redAmount < 0 || thresholdDto.yellowAmount< 0 || 
+            thresholdDto.redDaysUntil < 0 || thresholdDto.yellowDaysUntil < 0)
+        {
+            throw new ArgumentException("Tresholds cannot be negative");
+        }
+
+        if (thresholdDto.redAmount >= thresholdDto.yellowAmount || thresholdDto.redDaysUntil >= thresholdDto.yellowDaysUntil)
+        {
+            throw new ArgumentException("Red tresholds cannot be greater or equal than yellow tresholds");
+        }
+
+        thresholdDto.IndredientId = id;
+        return await clientManager.UpdateTresholdsAsync(thresholdDto);
+    }
 }

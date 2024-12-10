@@ -8,6 +8,6 @@ public interface IUserClientManager
     Task<LoginResponseDto> AddAsync(CreateUserDto userDto);
     Task<UserDto> GetSingleAsync(int id);
     IQueryable<UserDto> GetMultiple();
-    Task<bool> UpdateUserAsync(int id, string role);
+    Task<bool> UpdateUserAsync(int id, int role);
 
 }
