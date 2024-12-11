@@ -36,6 +36,22 @@ public class UserServiceImplemented extends UserServiceGrpc.UserServiceImplBase 
         }
     }
 
+    @Override
+    public void getAllUsers(User.EmptyUser request, StreamObserver<User.AllUsersResponse> responseObserver) {
+        responseObserver.onNext(userManager.getAllUsers(request));
+        responseObserver.onCompleted();
+    }
 
+    @Override
+    public void getSingleUser(User.UserRequest request, StreamObserver<User.SingleUserResponse> responseObserver) {
+        responseObserver.onNext(userManager.getSingleUser(request));
+        responseObserver.onCompleted();
+    }
+
+    @Override
+    public void updateUser(User.UpdateUserRequest request, StreamObserver<User.UpdateUserResponse> responseObserver) {
+        responseObserver.onNext(userManager.updateUser(request));
+        responseObserver.onCompleted();
+    }
 }
 

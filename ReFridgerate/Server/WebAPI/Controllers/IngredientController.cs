@@ -26,7 +26,6 @@ public class IngredientController : ControllerBase
     {
         try
         {
-
             IngredientDto ingredient =
                await ingredientRepo.UpdateAsync(id, userInfo, userInfo.Difference);
             return Results.Ok(ingredient);
@@ -76,5 +75,48 @@ public class IngredientController : ControllerBase
             Console.WriteLine(e);
             return Results.BadRequest(e.Message);
         }
+    }
+    
+    [HttpGet("Treshold/{id}")]
+    public async Task<IResult> GetIngredientTresholds([FromRoute] int id)
+    {
+        try
+        {
+            ThresholdDto dto = await ingredientRepo.GetSingleTresholdAsync(id);
+            return Results.Ok(dto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return Results.BadRequest(e.Message);
+        }
+    }
+    [HttpPut("/IngredientTresholds/{id}")]
+    public async Task<IResult> UpdateIngredientTresholds([FromRoute] int id,
+        [FromBody] ThresholdDto ingredientThresholds)
+    {
+        try
+        {
+
+            bool success =
+                await ingredientRepo.UpdateTresholdsAsync(id, ingredientThresholds);
+            if (!success)
+            {
+                return Results.Problem("Failed to update ingredient tresholds");
+            }
+            return Results.Ok("Updated succesfully");
+        }
+        catch (ArgumentException e)
+        {
+            Console.WriteLine(e);
+            
+            return Results.BadRequest(e.Message);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return Results.StatusCode(500);
+        }
+        
     }
 }

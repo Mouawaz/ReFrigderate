@@ -29,4 +29,15 @@ public class IngredientServiceImplemented extends IngredientServiceGrpc.Ingredie
         responseObserver.onNext(generalIngredientsManager.UpdateWarningAmount(request));
         responseObserver.onCompleted();
     }
+
+    @Override
+    public void getTreshold(IngredientOuterClass.IdRequest request, StreamObserver<IngredientOuterClass.UpdateWarningAmountsRequest> responseObserver) {
+        try {
+            responseObserver.onNext(generalIngredientsManager.getTreshold(request));
+            responseObserver.onCompleted();
+        }
+        catch (Exception e){
+            responseObserver.onError(e);
+        }
+    }
 }

@@ -8,4 +8,5 @@ public interface GeneralIngredientsManager {
     IngredientOuterClass.AllIngredientResponse GetAllIngredients();
     IngredientOuterClass.Ingredient UpdateIngredient(IngredientOuterClass.UpdateIngredientRequest request);
     IngredientOuterClass.Success UpdateWarningAmount(IngredientOuterClass.UpdateWarningAmountsRequest request);
+    IngredientOuterClass.UpdateWarningAmountsRequest getTreshold(IngredientOuterClass.IdRequest request);
 }

@@ -40,34 +40,7 @@ create TABLE "user"
     lastname    VARCHAR(100),
     email       VARCHAR(100),
     password    varchar(255) not null,
-    role        varchar(20)
-);
-
-
-create TABLE Chef
-(
-    fridgeID      INT REFERENCES Fridge (fridgeID),
-    chefID        INT PRIMARY KEY,
-    position      VARCHAR(50),
-    shiftSchedule VARCHAR(50),
-    FOREIGN KEY (chefID) REFERENCES refridgerate."user" (userID)
-);
-
-create TABLE Waiter
-(
-    fridgeID        INT REFERENCES Fridge (fridgeID),
-    waiterID        Int PRIMARY KEY,
-    tableAssignment VARCHAR(50),
-    shiftSchedule   VARCHAR(50),
-    FOREIGN KEY (waiterID) REFERENCES refridgerate."user" (userID)
-);
-
-create TABLE Owner
-(
-    fridgeID       INT REFERENCES Fridge (fridgeID),
-    ownerID        INT PRIMARY KEY,
-    AccessToReport VARCHAR(20),
-    FOREIGN KEY (ownerID) REFERENCES refridgerate."user" (userID)
+    role        int DEFAULT 0
 );
 
 CREATE TYPE report_type AS ENUM ('Inventory', 'Performance');
@@ -78,9 +51,7 @@ CREATE TABLE Report
     reportID     SERIAL PRIMARY KEY,
     type         report_type,
     data         TEXT,
-    creationDate DATE,
-    ownerID      INT,
-    FOREIGN KEY (ownerID) REFERENCES Owner (ownerID)
+    creationDate DATE
 );
 
 
@@ -89,7 +60,11 @@ create TABLE Ingredient
     fridgeID     INT REFERENCES Fridge (fridgeID),
     ingredientID SERIAL PRIMARY KEY,
     name         VARCHAR(100),
-    cost         DECIMAL(10, 2)
+    cost         DECIMAL(10, 2),
+    yellowAmount INT DEFAULT 10,
+    redAmount    INT DEFAULT 5,
+    yellowDays   INT DEFAULT 7,
+    redDays      INT DEFAULT 0
 );
 
 CREATE TYPE action_type AS ENUM ('Add', 'Subtract');
@@ -105,7 +80,7 @@ CREATE TABLE Inventory
     expirationDate   DATE,
     reasonForRemoval varchar(30),
     FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID),
-    FOREIGN KEY (chefID) REFERENCES Chef (chefID)
+    FOREIGN KEY (chefID) REFERENCES "user" (userID)
 );
 
 CREATE TYPE threshold_type AS ENUM ('Low Stock', 'Expiration');
@@ -131,7 +106,7 @@ create TABLE Recipe
     modificationsAllowed BOOLEAN,
     chefID               INT,
     type                 meal_course,
-    FOREIGN KEY (chefID) REFERENCES Chef (chefID)
+    FOREIGN KEY (chefID) REFERENCES "user" (userID)
 );
 
 CREATE TYPE menu_status AS ENUM ('Available', 'Unavailable');
@@ -164,6 +139,8 @@ create TABLE MenuRecipe
     PRIMARY KEY (menuID, recipeID),
     FOREIGN KEY (menuID) REFERENCES Menu (menuID),
     FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID)
+    FOREIGN KEY (menuID) REFERENCES Menu (menuID) ON DELETE CASCADE ,
+    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID) ON DELETE CASCADE
 );
 
 
@@ -173,23 +150,10 @@ VALUES ('ReTard', DEFAULT);
 
 
 INSERT INTO "user" (userID, firstname, lastname, email, password, role)
-VALUES (1, 'Jhon', 'Doe', 'jdoe@example.com', 'password123', 'Commis chef'),
-       (2, 'Amantha', 'Smith', 'asmith@example.com', 'password456', 'porter');
-
-
-INSERT INTO Chef (chefID, position, shiftSchedule)
-VALUES (1, 'Head Chef', 'Monday-Friday'),
-       (2, 'Sous Chef', 'Wednesday-Sunday');
-
-
-INSERT INTO Waiter (waiterID, tableAssignment, shiftSchedule)
-VALUES (1, 'Table 1-5', 'Tuesday-Saturday'),
-       (2, 'Table 6-10', 'Friday-Tuesday');
-
-
-INSERT INTO Owner (ownerID, AccessToReport)
-VALUES (1, 'Full'),
-       (2, 'Limited');
+VALUES (DEFAULT, 'Jhon', 'Doe', 'jdoe@example.com', 'password123', 3),
+       (DEFAULT, 'Amantha', 'Smith', 'asmith@example.com', 'password456', 2),
+       (DEFAULT, 'Waiter', 'Waiter', 'waiter@example.com', 'iamawaiter', 1),
+       (DEFAULT, 'Smough', 'Doe', 'sdoe@example.com', 'password123456', 1);
 
 
 INSERT INTO Ingredient (ingredientID, name, cost)
@@ -200,6 +164,9 @@ VALUES (DEFAULT, 'Tomato', 0.50),
 INSERT INTO Report (reportID, type, data, creationDate, ownerID)
 VALUES (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
        (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
+INSERT INTO Report (reportID, type, data, creationDate)
+VALUES (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024'),
+       (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024');
 
 
 INSERT INTO Inventory (InventoryID, ingredientID, chefID, actionType, quantity, date, expirationDate)

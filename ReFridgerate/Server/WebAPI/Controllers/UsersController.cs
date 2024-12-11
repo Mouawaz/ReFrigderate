@@ -69,7 +69,7 @@ public class UsersController : ControllerBase
 
     [HttpPut("{id}")]
     public async Task<ActionResult<bool>> UpdateUser(
-        [FromRoute] int id, string role)
+        [FromRoute] int id, int role)
     {
        bool success = await userRepo.UpdateAsync(id, role);
        return Ok(success);

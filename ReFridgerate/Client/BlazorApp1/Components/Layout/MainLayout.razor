@@ -1,10 +1,8 @@
-﻿@using BlazorApp1.Services
-@inherits LayoutComponentBase
-@inject IThemeState ThemeState
+﻿@inherits LayoutComponentBase
 
 <AuthorizeView>
     <Authorized>
-        <div class="page @(ThemeState.IsDarkMode ? "dark" : "light")">
+        <div class="page">
             <div class="sidebar">
                 <NavMenu/>
             </div>
@@ -18,9 +16,7 @@
     <NotAuthorized>
         <div class="page">
             <main>
-                @* <article class="content px-4"> *@
                     @Body
-                @* </article> *@
             </main>
         </div>
     </NotAuthorized>

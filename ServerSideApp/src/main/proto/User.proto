@@ -2,6 +2,9 @@ syntax = "proto3";
 
 option java_package = "Server";
 
+
+message EmptyUser{}
+
 message LoginRequest {
   string email = 1;
   string password = 2;
@@ -11,15 +14,43 @@ message LoginResponse {
   bool success = 1;
   int32 userId = 2;
   string fullName = 3;
+  int32 permissions = 4;
 }
+
 message CreateUserRequest {
   string email = 1;
   string password = 2;
   string firstname = 3;
   string lastname = 4;
 }
+message UserRequest{
+  int32 userId = 1;
+}
+
+message SingleUserResponse{
+  int32 userid = 1;
+  string email = 2;
+  string fullName = 3;
+  int32 role = 4;
+}
+
+message AllUsersResponse{//Many 'Ingredient' messages | basically an array list?
+  repeated SingleUserResponse messages = 1;
+}
+
+message UpdateUserRequest{
+  int32 userId = 1;
+  int32 role = 2;
+}
+
+message UpdateUserResponse{
+  bool success = 1;
+}
 
 service UserService{
   rpc AttemptLogin(LoginRequest) returns (LoginResponse);
+  rpc GetAllUsers(EmptyUser) returns (AllUsersResponse);
   rpc AddUser(CreateUserRequest) returns (LoginResponse);
+  rpc GetSingleUser(UserRequest) returns (SingleUserResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse);
 }
