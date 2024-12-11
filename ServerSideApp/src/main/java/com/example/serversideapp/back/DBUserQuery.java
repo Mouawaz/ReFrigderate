@@ -23,7 +23,6 @@ public class DBUserQuery extends DBGeneral implements DBUserManager{
                     rsUser.getString(2),
                     rsUser.getString(3),
                     rsUser.getString(4),
-                    rsUser.getString(5));
                     rsUser.getString(5),
                     rsUser.getInt(6));
         }

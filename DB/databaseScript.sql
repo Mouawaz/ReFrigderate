@@ -137,8 +137,6 @@ create TABLE MenuRecipe
     menuID   INT,
     recipeID INT,
     PRIMARY KEY (menuID, recipeID),
-    FOREIGN KEY (menuID) REFERENCES Menu (menuID),
-    FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID)
     FOREIGN KEY (menuID) REFERENCES Menu (menuID) ON DELETE CASCADE ,
     FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID) ON DELETE CASCADE
 );
@@ -161,9 +159,6 @@ VALUES (DEFAULT, 'Tomato', 0.50),
        (DEFAULT, 'Cheese', 2.00);
 
 
-INSERT INTO Report (reportID, type, data, creationDate, ownerID)
-VALUES (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024', 1),
-       (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024', 2);
 INSERT INTO Report (reportID, type, data, creationDate)
 VALUES (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024'),
        (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024');
