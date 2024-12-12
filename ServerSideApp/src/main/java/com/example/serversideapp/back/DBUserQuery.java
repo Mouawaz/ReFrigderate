@@ -34,7 +34,7 @@ public class DBUserQuery extends DBGeneral implements DBUserManager{
     @Override
     public UserLocal addUser(User.CreateUserRequest addRequest) {
         try(Connection connection = getConnected()) {
-            PreparedStatement psAddUser = connection.prepareStatement("INSERT INTO refridgerate.user VALUES (1, DEFAULT, ?, ?, ?, ?, 'Role placeholder')");
+            PreparedStatement psAddUser = connection.prepareStatement("INSERT INTO refridgerate.user VALUES (1, DEFAULT, ?, ?, ?, ?, 0)");
             psAddUser.setString(1, addRequest.getFirstname());
             psAddUser.setString(2, addRequest.getLastname());
             psAddUser.setString(3, addRequest.getEmail());

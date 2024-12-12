@@ -5,7 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class IngredientsTest {
-
+    private GeneralIngredientsManager gim;
     @BeforeEach
     void setUp() {
         GeneralIngredientsManager gim = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
@@ -22,5 +22,9 @@ class IngredientsTest {
 
     @Test
     void updateWarningAmount() {
+    }
+    @Test
+    void getTreshold(){
+
     }
 }

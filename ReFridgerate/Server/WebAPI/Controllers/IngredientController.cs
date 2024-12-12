@@ -77,7 +77,7 @@ public class IngredientController : ControllerBase
         }
     }
     
-    [HttpGet("Treshold/{id}")]
+    [HttpGet("/Ingredient/{id}/Thresholds")]
     public async Task<IResult> GetIngredientTresholds([FromRoute] int id)
     {
         try
@@ -91,7 +91,7 @@ public class IngredientController : ControllerBase
             return Results.BadRequest(e.Message);
         }
     }
-    [HttpPut("/IngredientTresholds/{id}")]
+    [HttpPut("/Ingredient/{id}/Thresholds")]
     public async Task<IResult> UpdateIngredientTresholds([FromRoute] int id,
         [FromBody] ThresholdDto ingredientThresholds)
     {

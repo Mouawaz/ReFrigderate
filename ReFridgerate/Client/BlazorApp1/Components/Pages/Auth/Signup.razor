@@ -1,8 +1,11 @@
 @page "/signup"
+@using APIContracts.UserDtos
+@using BlazorApp1.Services
 @using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Identity.Data
 @inject AuthenticationStateProvider AuthProvider
 @inject NavigationManager navMgr
+@inject IUserService UserService
 @rendermode InteractiveServer
 <link href="css/SignUp.css?version=0.1" rel="stylesheet" />
 <title>Sign Up</title>
@@ -51,6 +54,9 @@
                         <i class="fa-eye"></i>
                     </button>
                 </div>
+                <div>
+                    <p style="color: red">@errorLabel</p>
+                </div>
 
                 <div class="extras">
                     <p>
@@ -87,8 +93,23 @@
         try
         {
             //logic here
-            Console.WriteLine($"Signing up with: FirstName={firstName}, LastName={lastName}, Email={email}, Password={password}");
-            navMgr.NavigateTo("/lobby");
+           // Console.WriteLine($"Signing up with: FirstName={firstName}, LastName={lastName}, Email={email}, Password={password}");
+            CreateUserDto userDto = new()
+            {
+                Email = email,
+                Password = password,
+                FirstName = firstName,
+                LastName = lastName
+            };
+           bool success = await UserService.AddUserAsync(userDto);
+           if (success)
+           {
+               await ((SimpleAuthProvider)AuthProvider).Login(email, password);
+               navMgr.NavigateTo("/");
+
+           }
+
+           errorLabel = "Something went wrong! Please try again later.";
         }
         catch (Exception e)
         {

@@ -5,11 +5,11 @@
 @inject IIngredientService IngredientService
 @inject IRecipeService RecipeService
 
-<link href="css/Recipe.css?version=0.1" rel="stylesheet" />
+<link href="css/Recipe.css?version=0.1" rel="stylesheet"/>
 
 
 <title>Recipes</title>
-<AuthorizeView>
+<AuthorizeView Roles="2">
     <Authorized>
         <div class="page-container">
             <div class="header">
@@ -18,30 +18,35 @@
             <div class="modal-footer">
                 <Button Icon="add.png"
                         Text="Add new"
-                        OnClick="() => OpenModal()"></Button>
+                        OnClick="() => OpenModal()">
+                </Button>
             </div>
         </div>
         <div class="recipe-list">
-            @foreach(var recipe in _recipeList)
-            {
+            @foreach (var recipe in _recipeList) {
                 <div class="recipe-container">
                     <div class="recipe-image">
                         <p class="recipe-name">@recipe.name</p>
                         <Icon Name="@recipe.name" Size="huge"></Icon>
                     </div>
                     <div class="recie-info">
-                        <p><b>Type: </b>@recipe.type</p>
-                        <p><b>Ingredients:</b></p>
-                        @foreach (var recipeIngredient in @recipe.ingredients)
-                        {
-                        <p>@recipeIngredient.ingredientName</p>
+                        <p>
+                            <b>Type: </b>@recipe.type
+                        </p>
+                        <p>
+                            <b>Ingredients:</b>
+                        </p>
+                        @foreach (var recipeIngredient in @recipe.ingredients) {
+                            <p>@recipeIngredient.ingredientName</p>
                         }
-                        <p><b>Instructions:</b></p>
+                        <p>
+                            <b>Instructions:</b>
+                        </p>
                         <p>@recipe.instruction</p>
                     </div>
                     <div class="recipe-buttons">
-                        <Button Icon="editing.png" OnClick="()=>OpenEditModal(recipe)">Edit</Button>
-                        <Button Danger Icon="whiteDelete.png" OnClick="()=> OpenDeleteModal(recipe)">Delete</Button>
+                        <Button Icon="editing.png" OnClick="() => OpenEditModal(recipe)">Edit</Button>
+                        <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
                     </div>
                 </div>
             }
@@ -75,10 +80,15 @@
                         <label class="mt-2">Type: </label>
                     </div>
                     <div class="col-10">
-                        <input type="text"
-                               class="form-control mt-1 no-border"
-                               placeholder="Enter type"
-                               @bind="type"/>
+                        @* <input type="text" *@
+                        @*        class="form-control mt-1 no-border" *@
+                        @*        placeholder="Enter type" *@
+                        @*        @bind="type"/> *@
+                        <select class="mt-2" @bind="type">
+                            <option>Starter</option>
+                            <option>Main</option>
+                            <option>Desert</option>
+                        </select>
                     </div>
                 </div>
                 <div class="mt-5">
@@ -100,7 +110,8 @@
                         </div>
                         <div class="col-1">
                             <Button Icon="add.png"
-                                    OnClick="() => AddIngredientToRecipe()"></Button>
+                                    OnClick="() => AddIngredientToRecipe()">
+                            </Button>
                         </div>
                     </div>
                     @foreach (RecipeIngredientDto dto in selectedIngredients) {
@@ -115,7 +126,8 @@
                             <div class="col-2">
                                 <Button
                                     Icon="minus.png"
-                                    OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)"></Button>
+                                    OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)">
+                                </Button>
                             </div>
                         </div>
                     }
@@ -152,7 +164,7 @@
         </Modal>
     </Authorized>
     <NotAuthorized>
-    
+
     </NotAuthorized>
 </AuthorizeView>
 
@@ -195,9 +207,12 @@
             ingredients = selectedIngredients
         };
         RecipeService.AddRecipeAsync(createRecipeDto);
-        Console.WriteLine(createRecipeDto);
-        
         addRecipeModal.Close();
+        OnInitializedAsync();
+    }
+    private async void RefreshRecipes() {
+        _ingredientList = await IngredientService.GetIngredientsAsync();
+        _recipeList = await RecipeService.GetRecipesAsync();
     }
     private void AddIngredientToRecipe() {
         IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
@@ -217,7 +232,7 @@
         selectedIngredients.Add(toAdd);
     }
     private void RemoveIngredientFromRecipe(string ingredientName) {
-        RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == ingredientName); 
+        RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == ingredientName);
         if (attempted is null) {
             error = "Something went wrong";
             Console.WriteLine(error);
@@ -235,34 +250,28 @@
             throw;
         }
     }
-    
-    private void OpenDeleteModal(RecipeDto recipe)
-    {
+
+    private void OpenDeleteModal(RecipeDto recipe) {
         selectedRecipe = recipe;
         deleteRecipeModal.Open();
     }
-    
-    private void DeleteRecipe()
-    {
-        if (selectedRecipe != null)
-        {
+
+    private void DeleteRecipe() {
+        if (selectedRecipe != null) {
             RecipeService.DeleteRecipeAsync(selectedRecipe.id);
             _recipeList.Remove(selectedRecipe);
             selectedRecipe = null;
             deleteRecipeModal.Close();
         }
     }
-    
-    private void OpenEditModal(RecipeDto recipe)
-    {
+
+    private void OpenEditModal(RecipeDto recipe) {
         selectedRecipe = recipe;
         editRecipeModal.Open();
     }
-    
-    private void EditRecipe()
-    {
-        if (selectedRecipe != null)
-        {
+
+    private void EditRecipe() {
+        if (selectedRecipe != null) {
             //RecipeService.EditRecipeAsync(selectedRecipe.id);
             selectedRecipe = null;
             editRecipeModal.Close();

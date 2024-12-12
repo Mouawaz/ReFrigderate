@@ -1,3 +1,5 @@
+using System.Text;
+using System.Text.Json;
 using APIContracts.UserDtos;
 
 namespace BlazorApp1.Services;
@@ -23,5 +25,25 @@ public class HttpUserService: IUserService
             string errorMessage = await response.Content.ReadAsStringAsync();
             throw new Exception($"Error retrieving user: {errorMessage}");
         }
+    }
+
+    public async Task<bool> AddUserAsync(CreateUserDto user)
+    {
+        HttpResponseMessage response = await client.PostAsJsonAsync($"Users", user);
+        if (response.IsSuccessStatusCode)
+        {
+            LoginResponseDto userInfo = await response.Content.ReadFromJsonAsync<LoginResponseDto>();
+            return true;
+        }
+        else
+        {
+            string errorMessage = await response.Content.ReadAsStringAsync();
+            throw new Exception($"Error retrieving user: {errorMessage}");
+        }
+    }
+
+    public IQueryable<UserDto> GetAllUsers()
+    {
+        throw new NotImplementedException();
     }
 }

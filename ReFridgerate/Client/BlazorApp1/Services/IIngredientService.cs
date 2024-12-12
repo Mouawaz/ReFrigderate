@@ -7,4 +7,6 @@ public interface IIngredientService
     Task<IngredientDto> AddIngredientAsync(IngredientDto request);
     Task<IngredientDto> UpdateIngredientAsync(int id, UpdateIngredientDto updateIngredient);
     Task<List<IngredientDto>> GetIngredientsAsync();
+    Task<ThresholdDto> GetThresholds(int id);
+    Task UpdateThreshold(int id, ThresholdDto updateThreshold);
 }

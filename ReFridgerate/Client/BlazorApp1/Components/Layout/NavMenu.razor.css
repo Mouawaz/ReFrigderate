@@ -33,7 +33,7 @@
 
 .top-row {
     height: 3.5rem;
-    background-color: rgba(0,0,0,0.4);
+    /*background-color: rgba(0,0,0,0.4);*/
     transition: background-color 0.3s ease;
 }
 
@@ -120,7 +120,7 @@ nav {
 
 .nav-scrollable {
     display: none;
-    background-color: rgba(0,0,0,0.4);
+    /*background-color: rgba(0,0,0,0.4);*/
     position: relative;
 }
 
