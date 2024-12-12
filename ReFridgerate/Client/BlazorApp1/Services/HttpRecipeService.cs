@@ -51,6 +51,7 @@ public class HttpRecipeService : IRecipeService {
     
     public async Task<RecipeDto> UpdateRecipeAsync(int id, RecipeDto updateRecipe)
     {
+        Console.WriteLine($"this is my shit {JsonSerializer.Serialize(updateRecipe)}");
         HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync($"Recipe/{id}", updateRecipe);
 
         if (!httpResponse.IsSuccessStatusCode)
@@ -62,7 +63,7 @@ public class HttpRecipeService : IRecipeService {
         string response = await httpResponse.Content.ReadAsStringAsync();
 
         return JsonSerializer.Deserialize<RecipeDto>(response, new JsonSerializerOptions
-        {
+            {
             PropertyNameCaseInsensitive = true
         })!;
     }

@@ -20,4 +20,8 @@
       <None Include="wwwroot\Images\tomato.png" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Google.Protobuf" Version="3.29.1" />
+    </ItemGroup>
+
 </Project>
