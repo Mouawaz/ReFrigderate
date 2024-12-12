@@ -54,8 +54,6 @@ public class UsersController : ControllerBase
     {
         try
         {
-            
-
             LoginResponseDto createdUser = await userRepo.AddAsync(createUserDto);
 
             return CreatedAtAction(nameof(GetSingleUser), new { id = createdUser.userId }, createUserDto);

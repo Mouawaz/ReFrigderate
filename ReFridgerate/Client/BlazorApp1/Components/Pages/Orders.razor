@@ -4,7 +4,7 @@
 
 <link href="css/orders.css" rel="stylesheet"/>
 <title>Orders</title>
-
+<AuthorizeView Roles="2">
 <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
     <div class="header">
         <h1>Orders</h1>
@@ -51,7 +51,7 @@
         }
     </div>
 </div>
-
+</AuthorizeView>
 @code {
 
     private List<Order> orders;

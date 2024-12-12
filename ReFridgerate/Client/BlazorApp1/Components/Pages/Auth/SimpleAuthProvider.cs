@@ -76,8 +76,6 @@ public class SimpleAuthProvider : AuthenticationStateProvider
             new Claim(ClaimTypes.Email, loginResponse.fullName),
             new Claim(ClaimTypes.Name, loginResponse.fullName), 
             new Claim(ClaimTypes.Role, loginResponse.role.ToString())
-            
-            
         };
         
         var identity = new ClaimsIdentity(claims, "apiauth");
