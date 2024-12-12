@@ -4,6 +4,7 @@
 @using BlazorApp1.Services
 @inject IIngredientService IngredientService
 @inject IRecipeService RecipeService
+@inject NavigationManager navMgr
 
 <link href="css/Recipe.css?version=0.1" rel="stylesheet"/>
 
@@ -297,9 +298,9 @@
         };
         RecipeService.AddRecipeAsync(createRecipeDto);
         Console.WriteLine(createRecipeDto);
-        
+    
         addRecipeModal.Close();
-        refreshRecipe();
+
     }
     private void AddIngredientToRecipe() {
         IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
@@ -337,26 +338,24 @@
             throw;
         }
     }
-
-    private async void refreshRecipe()
-    {
-        _recipeList = await RecipeService.GetRecipesAsync();
-    }
-
+    
     private void OpenDeleteModal(RecipeDto recipe)
     {
         selectedRecipe = recipe;
         deleteRecipeModal.Open();
     }
-
-    private void DeleteRecipe() {
-        if (selectedRecipe != null) {
+    
+    private async void DeleteRecipe()
+    {
+        if (selectedRecipe != null)
+        {
             RecipeService.DeleteRecipeAsync(selectedRecipe.id);
             _recipeList.Remove(selectedRecipe);
             selectedRecipe = null;
             deleteRecipeModal.Close();
         }
     }
+
     
      private void OpenEditModal(RecipeDto recipe)
     {
@@ -413,15 +412,30 @@
             editError = "You need some ingredients in a recipe";
             return;
         }
-
-        selectedRecipe.name = editedRecipeName;
-        selectedRecipe.instruction = editedRecipeInstructions;
-        selectedRecipe.type = editedRecipeType;
-        selectedRecipe.ingredients = editedIngredients;
+    
+        var createRecipeDto = new CreateRecipeDto
+        {
+            name = editedRecipeName,
+            instructions = editedRecipeInstructions,
+            type = editedRecipeType,
+            creatorId = selectedRecipe.creatorId,
+            ingredients = editedIngredients.Select(i => new RecipeIngredientDto
+            {
+                IngredientId = i.ingredientId,
+                IngredientName = i.ingredientName,
+                Quantity = i.ingredientQuantity
+            }).ToList()
+        };
 
         try
         {
-            await RecipeService.UpdateRecipeAsync(selectedRecipe.id, selectedRecipe);
+            RecipeDto updatedRecipe = await RecipeService.UpdateRecipeAsync(selectedRecipe.id, createRecipeDto);
+            var index = _recipeList.FindIndex(r => r.id == selectedRecipe.id);
+            if (index != -1)
+            {
+                _recipeList[index] = updatedRecipe;
+            }
+
             editRecipeModal.Close();
         }
         catch (Exception ex)

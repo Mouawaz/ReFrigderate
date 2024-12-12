@@ -49,7 +49,7 @@ public class HttpRecipeService : IRecipeService {
         }
     }
     
-    public async Task<RecipeDto> UpdateRecipeAsync(int id, RecipeDto updateRecipe)
+    public async Task<RecipeDto> UpdateRecipeAsync(int id, CreateRecipeDto updateRecipe)
     {
         Console.WriteLine($"this is my shit {JsonSerializer.Serialize(updateRecipe)}");
         HttpResponseMessage httpResponse = await _httpClient.PutAsJsonAsync($"Recipe/{id}", updateRecipe);
