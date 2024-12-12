@@ -42,7 +42,7 @@ public class UserClient : IUserClientManager
             success = loginResponse.Success,
             userId = loginResponse.UserId,
             fullName = loginResponse.FullName,
-            role = loginResponse.Permissions
+            role = ConvertRole(loginResponse.Permissions)
         };
         return loginResponseDto;
     }
@@ -63,7 +63,7 @@ public class UserClient : IUserClientManager
             success = loginResponse.Success,
             userId = loginResponse.UserId,
             fullName = loginResponse.FullName,
-            role = loginResponse.Permissions
+            role = ConvertRole(loginResponse.Permissions)
         };
         return loginResponseDto;
     }
@@ -75,13 +75,15 @@ public class UserClient : IUserClientManager
             UserId = id
         };
        SingleUserResponse response = await userService.GetSingleUserAsync(userRequest);
+      
        UserDto dto = new()
        {
            Id = response.Userid,
            Email = response.Email,
            FullName = response.FullName,
-           Role = response.Role
+           Role = ConvertRole(response.Role)
        };
+       
        return dto;
     }
 
@@ -94,7 +96,7 @@ public class UserClient : IUserClientManager
                 Id = u.Userid,
                 Email = u.Email,
                 FullName = u.FullName,
-                Role = u.Role
+                Role = ConvertRole(u.Role)
 
             });
         return users;
@@ -109,5 +111,26 @@ public class UserClient : IUserClientManager
         };
         UpdateUserResponse response = await userService.UpdateUserAsync(request);
         return response.Success;
+    }
+
+    private string ConvertRole(int role)
+    {
+        switch (role)
+        {
+            case 0:
+                return "Unassigned";
+                break;
+            case 1:
+                return "Waiter";
+                break;
+            case 2:
+                return "Chef";
+                break;
+            case 3:
+                return "Admin";
+                break;
+            default:
+                return "Error";
+        }
     }
 }

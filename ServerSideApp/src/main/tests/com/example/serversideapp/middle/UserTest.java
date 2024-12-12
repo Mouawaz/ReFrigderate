@@ -2,11 +2,11 @@ package com.example.serversideapp.middle;
 
 import Server.User;
 import com.example.serversideapp.back.DBUserQuery;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 class UserTest {
     private UserManager um;
 
@@ -68,5 +68,11 @@ class UserTest {
         um.updateUser(User.UpdateUserRequest.newBuilder()
                 .setUserId(1)
                 .setRole(3).build());
+    }
+    @AfterEach
+    void printOut(){
+        System.out.println(um.getAllUsers(User.EmptyUser.newBuilder().build()).getMessagesCount());
+        System.out.println(um.getAllUsers(User.EmptyUser.newBuilder().build()));
+        System.out.println("__________________________________");
     }
 }

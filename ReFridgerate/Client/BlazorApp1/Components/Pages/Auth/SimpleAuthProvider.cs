@@ -73,6 +73,7 @@ public class SimpleAuthProvider : AuthenticationStateProvider
     {
         var claims = new List<Claim>
         {
+            new Claim("Id", loginResponse.userId.ToString()),
             new Claim(ClaimTypes.Email, loginResponse.fullName),
             new Claim(ClaimTypes.Name, loginResponse.fullName), 
             new Claim(ClaimTypes.Role, loginResponse.role.ToString())
