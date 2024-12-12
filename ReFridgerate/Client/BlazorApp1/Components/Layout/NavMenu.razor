@@ -1,4 +1,7 @@
-﻿@using BlazorApp1.Services
+﻿@using BlazorApp1.Components.Pages.Auth
+@using BlazorApp1.Services
+@using Microsoft.AspNetCore.Http.HttpResults
+@inject AuthenticationStateProvider AuthProvider
 @inject IThemeState ThemeState
 
 <div class="@(ThemeState.IsDarkMode ? "dark" : "light")">
@@ -44,6 +47,15 @@
                 <div class="nav-item">
                     <Button
                         CustomClass="nav-link w-100 theme-toggle-nav"
+                        OnClick="(() => Logout())"
+                        Secondary="true">
+                        <img class="icon-img" src="Images/logout.png" alt="Logout"/>
+                        <span>Logout</span>
+                    </Button>
+                </div>
+                <div class="nav-item">
+                    <Button
+                        CustomClass="nav-link w-100 theme-toggle-nav"
                         OnClick="@(async (e) => await ToggleTheme())"
                         Secondary="true">
                         <img class="icon-img" src="@(ThemeState.IsDarkMode ? "Images/moon.png" : "Images/sun.png")" alt="theme"/>
@@ -62,14 +74,18 @@
 </div>
 
 @code {
-    protected override void OnInitialized()
-    {
+    protected override Task OnInitializedAsync() {
         ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+        return Task.CompletedTask;
     }
-
+    
     public void Dispose()
     {
         ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
+    }
+    
+    private void Logout() {
+        ((SimpleAuthProvider)AuthProvider).Logout();
     }
 
     private Task ToggleTheme()
