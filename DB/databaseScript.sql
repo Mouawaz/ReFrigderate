@@ -18,13 +18,14 @@ DROP TYPE IF EXISTS menu_status;
 DROP TYPE IF EXISTS threshold_type;
 DROP TYPE IF EXISTS action_type;
 DROP TYPE IF EXISTS report_type;
+DROP TYPE IF EXISTS ingredient_category CASCADE;
+DROP TYPE IF EXISTS meal_course;
 
 Drop Function if exists clear_old_inventory() CASCADE;
 Drop function if exists trigger_clear_old_inventory() Cascade;
 DROP FUNCTION IF EXISTS check_and_clear_old_inventory() CASCADE;
 DROP TRIGGER IF EXISTS auto_clear_old_inventory ON refridgerate.inventory CASCADE;
 SET datestyle TO 'ISO, DMY';
-
 
 CREATE TABLE Fridge
 (
@@ -36,7 +37,7 @@ create TABLE "user"
 (
     fridgeID    INT REFERENCES Fridge (fridgeID),
     userID      SERIAL PRIMARY KEY,
-    firstname        VARCHAR(100),
+    firstname   VARCHAR(100),
     lastname    VARCHAR(100),
     email       VARCHAR(100),
     password    varchar(255) not null,
@@ -54,12 +55,22 @@ CREATE TABLE Report
     creationDate DATE
 );
 
+-- Create the ingredient category enum
+CREATE TYPE ingredient_category AS ENUM (
+    'Meat',
+    'Poultry',
+    'Vegetable',
+    'Fruit',
+    'Legume',
+    'Dairy'
+);
 
-create TABLE Ingredient
+CREATE TABLE Ingredient
 (
     fridgeID     INT REFERENCES Fridge (fridgeID),
     ingredientID SERIAL PRIMARY KEY,
     name         VARCHAR(100),
+    category     ingredient_category NOT NULL,
     cost         DECIMAL(10, 2),
     yellowAmount INT DEFAULT 10,
     redAmount    INT DEFAULT 5,
@@ -104,8 +115,8 @@ create TABLE Recipe
     name                 VARCHAR(100),
     instructions         TEXT,
     modificationsAllowed BOOLEAN,
-    chefID               INT,
-    type                 meal_course,
+    chefID              INT,
+    type                meal_course,
     FOREIGN KEY (chefID) REFERENCES "user" (userID)
 );
 
@@ -130,22 +141,19 @@ create TABLE RecipeIngredient
     FOREIGN KEY (ingredientID) REFERENCES Ingredient (ingredientID) ON DELETE CASCADE
 );
 
-
 create TABLE MenuRecipe
 (
     fridgeID INT REFERENCES Fridge (fridgeID),
     menuID   INT,
     recipeID INT,
     PRIMARY KEY (menuID, recipeID),
-    FOREIGN KEY (menuID) REFERENCES Menu (menuID) ON DELETE CASCADE ,
+    FOREIGN KEY (menuID) REFERENCES Menu (menuID) ON DELETE CASCADE,
     FOREIGN KEY (recipeID) REFERENCES Recipe (recipeID) ON DELETE CASCADE
 );
 
-
-
+-- Insert sample data
 INSERT INTO Fridge (name, fridgeID)
 VALUES ('ReTard', DEFAULT);
-
 
 INSERT INTO "user" (userID, firstname, lastname, email, password, role)
 VALUES (DEFAULT, 'Jhon', 'Doe', 'jdoe@example.com', 'password123', 3),
@@ -153,16 +161,14 @@ VALUES (DEFAULT, 'Jhon', 'Doe', 'jdoe@example.com', 'password123', 3),
        (DEFAULT, 'Waiter', 'Waiter', 'waiter@example.com', 'iamawaiter', 1),
        (DEFAULT, 'Smough', 'Doe', 'sdoe@example.com', 'password123456', 1);
 
-
-INSERT INTO Ingredient (ingredientID, name, cost)
-VALUES (DEFAULT, 'Tomato', 0.50),
-       (DEFAULT, 'Cheese', 2.00);
-
+INSERT INTO Ingredient (ingredientID, name, category, cost)
+VALUES
+    (DEFAULT, 'Tomato', 'Vegetable', 0.50),
+    (DEFAULT, 'Cheese', 'Dairy', 2.00);
 
 INSERT INTO Report (reportID, type, data, creationDate)
 VALUES (DEFAULT, 'Inventory', 'Monthly stock report', '01-11-2024'),
        (DEFAULT, 'Performance', 'Weekly performance metrics', '08-11-2024');
-
 
 INSERT INTO Inventory (InventoryID, ingredientID, chefID, actionType, quantity, date, expirationDate)
 VALUES (DEFAULT, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
@@ -173,43 +179,34 @@ VALUES (DEFAULT, 1, 1, 'Add', 30, '2024-10-25', '2024-12-01'),
        (DEFAULT, 2, 2, 'Subtract', -10, '2024-11-05', '2024-11-25'),
        (DEFAULT, 2, 2, 'Add', 10, '2024-11-05', '2024-12-01');
 
-
 INSERT INTO Alert (alertID, transactionID, thresholdType, status)
 VALUES (1, 1, 'Low Stock', 'Pending'),
        (2, 2, 'Expiration', 'Resolved');
-
 
 INSERT INTO Recipe (recipeID, name, instructions, modificationsAllowed, chefID, type)
 VALUES (DEFAULT, 'Tomato Soup', 'Chop tomatoes and simmer.', TRUE, 1, 'Starter'),
        (DEFAULT, 'Cheese Omelet', 'Whisk eggs and add cheese.', FALSE, 2, 'Starter');
 
-
 INSERT INTO Menu (menuID, name, status)
 VALUES (DEFAULT, 'Lunch Menu', 'Available'),
        (DEFAULT, 'Dinner Menu', 'Unavailable');
-
 
 INSERT INTO RecipeIngredient (recipeID, ingredientID, quantityNeeded)
 VALUES (1, 1, 3), -- 3 tomatoes needed for Tomato Soup
        (2, 2, 1), -- 1 cheese and 5 tomatoes needed for Cheese Omelet
        (2, 1, 5);
 
--- Insert dummy data into MenuRecipe table
 INSERT INTO MenuRecipe (menuID, recipeID)
 VALUES (1, 1), -- Tomato Soup on Lunch Menu
        (2, 2); -- Cheese Omelet on Dinner Menu
 
-
+-- Create functions for inventory management
 CREATE OR REPLACE FUNCTION clear_old_inventory()
     RETURNS void AS
 $$
 BEGIN
-
-    DELETE
-    FROM Inventory
+    DELETE FROM Inventory
     WHERE date < (CURRENT_DATE - INTERVAL '3 months');
-
-
 END;
 $$ LANGUAGE plpgsql;
 
@@ -217,13 +214,12 @@ CREATE OR REPLACE FUNCTION check_and_clear_old_inventory()
     RETURNS TRIGGER AS
 $$
 BEGIN
-    DELETE
-    FROM refridgerate.inventory
+    DELETE FROM refridgerate.inventory
     WHERE date < (CURRENT_DATE - INTERVAL '3 months');
-
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;
+
 CREATE TRIGGER auto_clear_old_inventory
     AFTER INSERT OR UPDATE
     ON refridgerate.inventory

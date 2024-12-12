@@ -8,6 +8,15 @@ option csharp_namespace = "Entities";
 
 message Empty{} //For some reason the rpc service cant take 0 arguments to i pass it an empty message
 
+enum IngredientCategory {
+  MEAT = 0;
+  POULTRY = 1;
+  VEGETABLE = 2;
+  FRUIT = 3;
+  LEGUME = 4;
+  DAIRY = 5;
+}
+
 message Ingredient {
   int32 id = 1;
   string name = 2;
@@ -22,6 +31,7 @@ message Ingredient {
   // 1 -> Everything is ok!
   // 2 -> Ingredient about to go bad (yellow)
   // 3 -> Ingredient has went bad (red)
+  IngredientCategory category = 8;
 }
 
 message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?

@@ -14,6 +14,22 @@
         <div class="header">
             <h1>Ingredients</h1>
             <div class="header-controls">
+
+                <div class="category-filters">
+                    <Button
+                        Text="All"
+                        Secondary="@(selectedCategory == null)"
+                        OnClick="() => FilterByCategory(null)"/>
+                    @foreach (IngredientCategory category in Enum.GetValues(typeof(IngredientCategory)))
+                    {
+                    var currentCategory = category;
+                    <Button
+                        Text="@category.ToString()"
+                        Secondary="@(selectedCategory == currentCategory)"
+                        OnClick="() => FilterByCategory(currentCategory)"/>
+                    }
+                </div>
+                
                 <div class="search-box">
                     <img class="ingredientt" src="Images/search.png" alt="search"/>
                     <input type="text"
@@ -22,7 +38,9 @@
                            @bind-value:event="oninput"
                            @onkeyup="FilterIngredients"/>
                 </div>
+
             </div>
+
         </div>
 
         <div class="items-grid">
@@ -412,16 +430,16 @@
         Option3Value = string.Empty;
         Option4Value = string.Empty;
         SelectedDate = null;
-        ReasonForSubtraction = string.Empty; 
+        ReasonForSubtraction = string.Empty;
     }
 
     private string GetStatusClass(int status)
     {
         return status switch
         {
-            3 => "status-critical", 
-            2 => "status-warning",  
-            1 => "status-normal"  
+            3 => "status-critical",
+            2 => "status-warning",
+            1 => "status-normal"
         };
     }
 
@@ -460,5 +478,33 @@
 
         return msg;
     }
+
+    private IngredientCategory? selectedCategory;
+
+    private void FilterByCategory(IngredientCategory? category)
+    {
+        selectedCategory = category;
+        ApplyFilters();
+    }
+
+    private void ApplyFilters()
+    {
+        var filtered = ingredients.AsQueryable();
+
+        // Apply search filter
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
+            filtered = filtered.Where(i => i.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
+        }
+
+        // Apply category filter
+        if (selectedCategory.HasValue)
+        {
+            filtered = filtered.Where(i => i.Category == selectedCategory.Value);
+        }
+
+        filteredIngredients = filtered.ToList();
+    }
+
 
 }

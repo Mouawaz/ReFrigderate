@@ -56,22 +56,25 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
 
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
-        int redAmount = local.getRedAmount();
-        int yellowAmount = local.getYellowAmount();
-        int redTime = local.getRedDays();
-        int yellowTime = local.getYellowDays();
-        //in the future to be defined by the user, and read from the DB
-        Date todaysDate = new Date();
-        int days = (int)TimeUnit.MILLISECONDS.toDays(local.getExpirationDate().getTime() - todaysDate.getTime());
-        int amountWarning = local.getAmount() <= yellowAmount ? (local.getAmount() <= redAmount ? 3 : 2) : 1;
-        int timeWarning = days <= yellowTime ? (days <= redTime ? 3 : 2) : 1;
-        return IngredientOuterClass.Ingredient.newBuilder()
-                .setId(local.getId())
-                .setName(local.getName())
-                .setCost(local.getCost())
-                .setAmount(local.getAmount())
-                .setDaysUntilBad(days)
-                .setAmountStatus(amountWarning)
-                .setExpirationStatus(timeWarning).build();
+            int redAmount = local.getRedAmount();
+            int yellowAmount = local.getYellowAmount();
+            int redTime = local.getRedDays();
+            int yellowTime = local.getYellowDays();
+
+            Date todaysDate = new Date();
+            int days = (int)TimeUnit.MILLISECONDS.toDays(local.getExpirationDate().getTime() - todaysDate.getTime());
+            int amountWarning = local.getAmount() <= yellowAmount ? (local.getAmount() <= redAmount ? 3 : 2) : 1;
+            int timeWarning = days <= yellowTime ? (days <= redTime ? 3 : 2) : 1;
+
+            return IngredientOuterClass.Ingredient.newBuilder()
+                    .setId(local.getId())
+                    .setName(local.getName())
+                    .setCost(local.getCost())
+                    .setAmount(local.getAmount())
+                    .setDaysUntilBad(days)
+                    .setAmountStatus(amountWarning)
+                    .setExpirationStatus(timeWarning)
+                    .setCategory(IngredientOuterClass.IngredientCategory.valueOf(local.getCategory().name())) 
+                    .build();
     }
 }

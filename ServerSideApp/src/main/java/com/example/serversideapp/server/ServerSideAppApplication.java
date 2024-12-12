@@ -27,8 +27,13 @@ public class ServerSideAppApplication {
                         .setQuantity(2).build()).build());
         System.out.println(recipe);
         System.out.println(recipeManager.GetAllRecipes());*/
-        //--------------------------------------Tests above
+
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
+        System.out.println(
+        generalIngredientsManager.GetAllIngredients()
+        );
+        //--------------------------------------Tests above
+        //GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());
         RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
         //create all the managers please

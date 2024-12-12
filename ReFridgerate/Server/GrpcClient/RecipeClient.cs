@@ -1,4 +1,5 @@
 using APIContracts.RecipeDtos;
+using Grpc.Core;
 using Grpc.Net.Client;
 
 namespace GrpcClient;
@@ -16,7 +17,8 @@ public class RecipeClient : IRecipeClientManager
 
     public IQueryable<RecipeDto> GetAllRecipes()
     {
-
+        try 
+        {
         EmptyRecep empty = new();
         List<RecipeDto> recipes =
             recipeService.GetAllRecipes(empty).Recipes.AsQueryable().Select(r =>
@@ -39,6 +41,17 @@ public class RecipeClient : IRecipeClientManager
                 }).ToList();
 
         return recipes.AsQueryable();
+        }
+        catch (RpcException ex)
+        {
+            Console.WriteLine($"gRPC error: {ex.Status.Detail}");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"General error: {ex.Message}");
+            throw;
+        }
     }
 
     public async Task<RecipeDto> AddAsync(CreateRecipeDto recipeDto)

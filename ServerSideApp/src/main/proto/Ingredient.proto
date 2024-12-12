@@ -1,11 +1,17 @@
 syntax = "proto3";
-// .proto files are used for the gRPC structure of the data and the services.
-//  both sides agree on the data format...i think.
 
 option java_package = "Server";
 
+message Empty {}
 
-message Empty{} //For some reason the rpc service cant take 0 arguments to i pass it an empty message
+enum IngredientCategory {
+  MEAT = 0;
+  POULTRY = 1;
+  VEGETABLE = 2;
+  FRUIT = 3;
+  LEGUME = 4;
+  DAIRY = 5;
+}
 
 message Ingredient {
   int32 id = 1;
@@ -21,36 +27,51 @@ message Ingredient {
   // 1 -> Everything is ok!
   // 2 -> Ingredient about to go bad (yellow)
   // 3 -> Ingredient has went bad (red)
+  IngredientCategory category = 8;  // Added field for ingredient category
 }
 
-message AllIngredientResponse{ //Many 'Ingredient' messages | basically an array list?
+message AllIngredientResponse {
   repeated Ingredient messages = 1;
 }
 
-message UpdateIngredientRequest{
+message UpdateIngredientRequest {
   int32 id = 1;
   int32 difference = 2;
   int32 daysUntilBad = 3;
 }
 
-message UpdateWarningAmountsRequest{
+message UpdateWarningAmountsRequest {
   int32 ingredientId = 1;
   int32 yellowAmount = 2;
   int32 redAmount = 3;
   int32 yellowDaysUntil = 4;
   int32 redDaysUntil = 5;
 }
-message Success{
+
+//message CreateIngredientRequest {
+//  string name = 1;
+//  float cost = 2;
+//  IngredientCategory category = 3;
+//  int32 yellowAmount = 4;
+//  int32 redAmount = 5;
+//  int32 yellowDaysUntil = 6;
+//  int32 redDaysUntil = 7;
+//}
+
+message Success {
   bool success = 1;
 }
-message IdRequest{
+
+message IdRequest {
   int32 Id = 1;
 }
-service IngredientService{
+
+service IngredientService {
   rpc GetAllIngredients(Empty) returns (AllIngredientResponse);
   rpc UpdateIngredient(UpdateIngredientRequest) returns (Ingredient);
   rpc UpdateWarningAmount(UpdateWarningAmountsRequest) returns (Success);
   rpc GetTreshold(IdRequest) returns (UpdateWarningAmountsRequest);
+  //rpc CreateIngredient(CreateIngredientRequest) returns (Ingredient);  // Added new RPC for creating ingredients
 }
 
 //service UserService {
