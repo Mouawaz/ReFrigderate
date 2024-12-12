@@ -56,7 +56,7 @@ public class RecipeController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public async Task<ActionResult<RecipeDto>> UpdateUser([FromRoute] int id,
+    public async Task<ActionResult<RecipeDto>> UpdateRecipe([FromRoute] int id,
         [FromBody] CreateRecipeDto recipeDto)
     {
         RecipeDto updatedRecipe = await recipeRepo.UpdateAsync(id, recipeDto);
