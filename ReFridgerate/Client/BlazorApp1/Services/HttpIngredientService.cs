@@ -53,7 +53,7 @@ namespace BlazorApp.Components.Services
             })!;
         }
         public async Task<ThresholdDto> GetThresholds(int id) {
-            HttpResponseMessage httpResponse = await client.GetAsync($"ingredient/Treshold/{id}");
+            HttpResponseMessage httpResponse = await client.GetAsync($"Ingredient/{id}/Thresholds");
             string response = await httpResponse.Content.ReadAsStringAsync();
 
             if (!httpResponse.IsSuccessStatusCode)
@@ -67,7 +67,7 @@ namespace BlazorApp.Components.Services
             })!;
         }
         public async Task UpdateThreshold(int id, ThresholdDto updateThreshold) {
-            HttpResponseMessage httpResponse = await client.PutAsJsonAsync($"IngredientTresholds/{id}", updateThreshold);
+            HttpResponseMessage httpResponse = await client.PutAsJsonAsync($"Ingredient/{id}/Thresholds", updateThreshold);
 
             if (!httpResponse.IsSuccessStatusCode)
             {
