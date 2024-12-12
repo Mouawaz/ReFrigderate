@@ -18,7 +18,7 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
         try (Connection connection = getConnected()) {
             ArrayList<RecipeLocal> ans = new ArrayList<>();
             PreparedStatement psRecipes = connection.prepareStatement(
-                    "SELECT recipeid, name, instructions, type, chefid, modificationsallowed FROM refridgerate.recipe"
+                    "SELECT recipeid, name, instructions, type, chefid, modificationsallowed FROM refridgerate.recipe ORDER BY recipeid"
             );
             PreparedStatement psRecipeIngredients = connection.prepareStatement(
                     "SELECT r.ingredientid, ingredient.name, ingredient.cost, quantityneeded FROM refridgerate.recipe " +
@@ -95,9 +95,14 @@ public class DBRecipeQuery extends DBGeneral implements DBRecipeManager {
 
     @Override
     public RecipeLocal UpdateRecipe(RecipeOuterClass.CreateRecipeRequest request) {
-        try{
+        try (Connection connection = getConnected()){
             DeleteRecipe(request.getUpdateRecipeId());
-            return CreateRecipe(request);
+            RecipeLocal ans = CreateRecipe(request);
+            PreparedStatement psQuickUpdate = connection.prepareStatement("UPDATE refridgerate.recipe SET recipeid = ? WHERE recipeid=?;");
+            psQuickUpdate.setInt(1, request.getUpdateRecipeId());
+            psQuickUpdate.setInt(2, ans.getId());
+            ans.setId(request.getUpdateRecipeId());
+            return ans;
         }catch (Exception e){
             throw new RuntimeException(e);
         }

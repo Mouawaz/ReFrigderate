@@ -15,7 +15,7 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
     public ArrayList<IngredientLocal> GetAllIngredients() {
         //Goes through all ingredients in the database and adds them to the ans arraylist
         try (Connection connection = getConnected()) {
-            PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient");
+            PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient ORDER BY ingredientid");
             PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
             PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             return getListOfIngredient(psIngredients.executeQuery(), psBatches, psDates);
@@ -37,7 +37,7 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
             psUpdateIngredient.setString(6, todaysDate.toInstant().plus(daysUntilBad, ChronoUnit.DAYS).toString());//Expiration date
             psUpdateIngredient.executeUpdate();
             //Done with updating, now get total again
-            PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient WHERE ingredientid = ?");
+            PreparedStatement psIngredients = connection.prepareStatement("SELECT * FROM refridgerate.ingredient WHERE ingredientid = ? ORDER BY ingredientid");
             PreparedStatement psBatches = connection.prepareStatement("SELECT sum(refridgerate.inventory.quantity) FROM refridgerate.inventory WHERE ingredientid = ?;");
             PreparedStatement psDates = connection.prepareStatement("SELECT refridgerate.inventory.quantity,refridgerate.inventory.expirationdate FROM refridgerate.inventory WHERE ingredientid = ?;");
             psIngredients.setInt(1, ingredientId);
@@ -65,7 +65,6 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
     }
 
     private Date findRecentDate(ResultSet rsDates) throws SQLException {
-        rsDates.next();
         Date minDate = rsDates.getDate(2);
         int count = rsDates.getInt(1);
         while (rsDates.next()) {
