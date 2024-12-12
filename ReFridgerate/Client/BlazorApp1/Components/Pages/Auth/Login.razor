@@ -7,6 +7,7 @@
 @inject NavigationManager navMgr
 @rendermode InteractiveServer
 <link href="css/LoginStyle.css?version=0.1" rel="stylesheet"/>
+<link href="css/Home.css?version=0.1" rel="stylesheet" />
 <title>Log In Here</title>
 <AuthorizeView>
     <NotAuthorized>
@@ -48,7 +49,13 @@
         </div>
     </NotAuthorized>
     <Authorized>
-        <h3>Hello</h3>
+        <h2>Hi, @context.User.Identity?.Name!</h2>
+        <div class="page-container m-2 justify-content-center align-items-center">
+            <img class="p-1 ingredient-content image-main" src="@_ratString"/>
+        </div>
+        <Button
+            Text="Get a new rat!"
+            OnClick="()=>{GiveRandomPicture();}"></Button>
     </Authorized>
 </AuthorizeView>
 
@@ -57,29 +64,40 @@
     private string password = "password123";
     private string errorLabel;
 
-    private async Task HandleLoginReq()
-    {
-    
+    private async Task HandleLoginReq() {
         await LoginAsync();
-        
     }
-    
-    
-    
-    private async Task LoginAsync()
-    {
-        try
-        {
+
+    string _ratString { get; set; } = "";
+
+    Random random = new ();
+    public void GiveRandomPicture() {
+        int rat = random.Next(1, 8);
+        _ratString = $"/Images/rat{rat}.jpg";
+    }
+    protected async override Task OnInitializedAsync() {
+        Thread _myThread = new (()=> {
+            while (true) {
+                Thread.Sleep(2000);
+                GiveRandomPicture();
+                    
+            }
+        });
+        GiveRandomPicture();
+        _myThread.Start();
+    }
+
+    private async Task LoginAsync() {
+        try {
             await ((SimpleAuthProvider)AuthProvider).Login(email, password);
-            navMgr.NavigateTo("/home");
+            // navMgr.NavigateTo("/home");
         }
-        catch (Exception e)
-        {
+        catch (Exception e) {
             Console.WriteLine(e.Message);
             errorLabel = $"Error: {e.Message}";
             StateHasChanged();
         }
     }
-    
+
 
 }

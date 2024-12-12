@@ -150,6 +150,52 @@
                                 </div>
                             </InputRadioGroup>
                         </TabPage>
+                        <TabPage Text="Thresholds">
+                            <div class="mb-3 row s\2">
+                                <div class="col-5">
+                                    <label class="mt-1">Set the yellow amount: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Enter yellow amount"
+                                           @bind="yellowAmount"/>
+                                </div>
+                            </div>
+                            <div class="mb-3 row s\2">
+                                <div class="col-5">
+                                    <label class="mt-1">Set the yellow days: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Enter yellow days"
+                                           @bind="yellowTime"/>
+                                </div>
+                            </div>
+                            <div class="mb-3 row s\3">
+                                <div class="col-5">
+                                    <label class="mt-1">Set the red amount: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Enter red amount"
+                                           @bind="redAmount"/>
+                                </div>
+                            </div>
+                            <div class="mb-3 row s\3">
+                                <div class="col-5">
+                                    <label class="mt-1">Set the red days: </label>
+                                </div>
+                                <div class="col-7">
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="Enter red days"
+                                           @bind="redTime"/>
+                                </div>
+                            </div>
+                        </TabPage>
                     </TabControl>
                 }
             </ChildContent>
@@ -165,6 +211,10 @@
     private string searchText = "";
     private List<IngredientDto> ingredients = new();
     private List<IngredientDto> filteredIngredients = new();
+    private int yellowAmount { get; set; }
+    private int redAmount{ get; set; }
+    private int yellowTime{ get; set; }
+    private int redTime{ get; set; }
     private IngredientDto selectedIngredient;
     private Modal detailsModal;
     private String WarningTooltip;
@@ -207,12 +257,20 @@
 
     private string currentTab = "Add";
 
-    private void HandleTabChange(TabPage activePage)
-    {
+    private void HandleTabChange(TabPage activePage) {
+        currentTab = activePage.Text;
         ResetAddInputs();
         ResetRemoveInputs();
     }
 
+    private async void RefreshThresholds() {
+        ThresholdDto currentThresholds = await IngredientService.GetThresholds(selectedIngredient.Id);
+        yellowAmount = currentThresholds.yellowAmount;
+        yellowTime = currentThresholds.yellowDaysUntil;
+        redAmount = currentThresholds.redAmount;
+        redTime = currentThresholds.redDaysUntil;
+        Console.WriteLine("refresh");
+    }
 
     private void FilterIngredients()
     {
@@ -255,6 +313,7 @@
     private void OpenModal(IngredientDto ingredient)
     {
         selectedIngredient = ingredient;
+        RefreshThresholds();
         detailsModal.Open();
     }
 
@@ -292,7 +351,19 @@
         {
             int newStockStatus = 0;
             bool isSubtraction = false;
-
+            if (currentTab == "Thresholds") {
+                Console.WriteLine("Updating the thresholds");
+                ThresholdDto dto = new() {
+                    IndredientId = selectedIngredient.Id,
+                    yellowAmount = yellowAmount,
+                    redAmount = redAmount,
+                    redDaysUntil = redTime,
+                    yellowDaysUntil = yellowTime
+                };
+                IngredientService.UpdateThreshold(selectedIngredient.Id, dto);
+                detailsModal.Close();
+                return;
+            }
             if (SelectedOptionAdd == 1 && int.TryParse(Option1Value, out int addAmount))
             {
                 newStockStatus = selectedIngredient.Amount + addAmount;

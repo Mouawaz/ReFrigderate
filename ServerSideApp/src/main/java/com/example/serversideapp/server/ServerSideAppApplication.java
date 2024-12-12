@@ -38,7 +38,7 @@ public class ServerSideAppApplication {
                 .addService(new UserServiceImplemented(userManager))
                 .addService(new RecipeServiceImplemented(recipeManager)).build();
         try {
-            server.start();
+            server.start( );
             System.out.println("Server started on port: " + PORT);
             server.awaitTermination();
         } catch (Exception e) {

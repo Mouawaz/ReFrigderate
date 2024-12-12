@@ -28,8 +28,10 @@ public class RecipeServiceImplemented extends RecipeServiceGrpc.RecipeServiceImp
     }
 
     @Override
+
     public void updateRecipe(RecipeOuterClass.CreateRecipeRequest request, StreamObserver<RecipeOuterClass.Recipe> responseObserver) {
         RecipeOuterClass.Recipe recipe = recipeManager.updateRecipe(request);
+        System.out.println(recipe);
         responseObserver.onNext(recipe);
         responseObserver.onCompleted();
     }
