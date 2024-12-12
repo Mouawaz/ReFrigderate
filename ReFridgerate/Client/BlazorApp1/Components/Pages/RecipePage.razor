@@ -153,18 +153,83 @@
             </FooterContent>
         </Modal>
 
-        <Modal @ref="editRecipeModal" Title="Edit recipe">
+        <Modal @ref="editRecipeModal" Title="Edit Recipe">
             <ChildContent>
-                <p>Edit in the future</p>
+                @if (selectedRecipe != null)
+                {
+                <div class="row">
+                    <div class="col-2">
+                        <label class="mt-2">Name:</label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" class="form-control mt-1 no-border" @bind="editRecipeName" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="mt-2">Type:</label>
+                    </div>
+                    <div class="col-10">
+                        <input type="text" class="form-control mt-1 no-border" @bind="editRecipeType" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-2">
+                        <label class="mt-2">Instructions:</label>
+                    </div>
+                    <div class="col-10">
+                        <textarea class="form-control mt-1 no-border" @bind="editRecipeInstructions"></textarea>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <label>Ingredients:</label>
+                    <div class="row m-2 justify-content-center align-items-center">
+                        <div class="col-9">
+                            <select @bind="currentIngredient" class="p-1">
+                                <option selected>Choose an ingredient</option>
+                                @foreach (var ingredient in _ingredientList)
+                                {
+                                <option>@ingredient.Name</option>
+                                }
+                            </select>
+                        </div>
+                        <div class="col-2">
+                            <input type="number" class="form-control no-border" placeholder="Enter amount" @bind="currentIngredientAmount" />
+                        </div>
+                        <div class="col-1">
+                            <Button Icon="add.png" OnClick="() => AddIngredientToEditRecipe()"></Button>
+                        </div>
+                    </div>
+                    @foreach (var ingredient in editSelectedIngredients)
+                    {
+                    <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
+                        <div class="col-3">
+                            <label>@ingredient.IngredientName</label>
+                        </div>
+                        <div class="col-3">
+                            <label>Quantity: </label>@ingredient.Quantity
+                        </div>
+                        <div class="col-2">
+                            <Button Icon="minus.png" OnClick="() => RemoveIngredientFromEditRecipe(ingredient.IngredientName)"></Button>
+                        </div>
+                    </div>
+                    }
+                </div>
+                @if (!string.IsNullOrWhiteSpace(editError))
+                {
+                <div class="blazor-error-boundary">@editError</div>
+                }
+                }
             </ChildContent>
             <FooterContent>
-                <Button Text="Cancel" Secondary OnClick="editRecipeModal.Close"/>
-                <Button Text="Confirm" OnClick="EditRecipe"/>
+                <Button Text="Cancel" Secondary OnClick="editRecipeModal.Close" />
+                <Button Text="Save Changes" OnClick="EditRecipe" />
             </FooterContent>
         </Modal>
+
     </Authorized>
     <NotAuthorized>
-
+    
     </NotAuthorized>
 </AuthorizeView>
 
@@ -182,6 +247,11 @@
     private List<IngredientDto> _ingredientList = new();
     private List<RecipeIngredientDto> selectedIngredients = new();
     private List<RecipeDto> _recipeList = new();
+    private string editRecipeName { get; set; }
+    private string editRecipeInstructions { get; set; }
+    private string editRecipeType { get; set; }
+    private List<RecipeIngredientDto> editSelectedIngredients = new();
+    private string editError { get; set; } = "";
     private void OpenModal() {
         recipeName = "";
         recipeInstructions = "";
@@ -207,12 +277,9 @@
             ingredients = selectedIngredients
         };
         RecipeService.AddRecipeAsync(createRecipeDto);
+        Console.WriteLine(createRecipeDto);
+        
         addRecipeModal.Close();
-        OnInitializedAsync();
-    }
-    private async void RefreshRecipes() {
-        _ingredientList = await IngredientService.GetIngredientsAsync();
-        _recipeList = await RecipeService.GetRecipesAsync();
     }
     private void AddIngredientToRecipe() {
         IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
@@ -264,17 +331,86 @@
             deleteRecipeModal.Close();
         }
     }
-
-    private void OpenEditModal(RecipeDto recipe) {
+    
+  
+    
+    private void OpenEditModal(RecipeDto recipe)
+    {
         selectedRecipe = recipe;
+
+        // Populate edit fields with selected recipe details
+        editRecipeName = recipe.name;
+        editRecipeInstructions = recipe.instruction;
+        editRecipeType = recipe.type;
+        editSelectedIngredients = recipe.ingredients.Select(ing => new RecipeIngredientDto
+        {
+            IngredientId = ing.ingredientId,
+            IngredientName = ing.ingredientName,
+            Quantity = ing.ingredientQuantity,
+            Cost = (int)ing.ingredientCost
+        }).ToList();
+
         editRecipeModal.Open();
     }
 
-    private void EditRecipe() {
-        if (selectedRecipe != null) {
-            //RecipeService.EditRecipeAsync(selectedRecipe.id);
-            selectedRecipe = null;
+    private void AddIngredientToEditRecipe()
+    {
+        IngredientDto? ingredient = _ingredientList.SingleOrDefault(i => i.Name == currentIngredient);
+        if (ingredient == null || editSelectedIngredients.Any(e => e.IngredientName == currentIngredient))
+        {
+            editError = "Invalid ingredient or already added.";
+            return;
+        }
+
+        editSelectedIngredients.Add(new RecipeIngredientDto
+        {
+            IngredientId = ingredient.Id,
+            IngredientName = ingredient.Name,
+            Quantity = currentIngredientAmount
+        });
+        currentIngredient = null;
+        currentIngredientAmount = 0;
+    }
+
+    private void RemoveIngredientFromEditRecipe(string ingredientName)
+    {
+        var ingredient = editSelectedIngredients.SingleOrDefault(i => i.IngredientName == ingredientName);
+        if (ingredient != null)
+        {
+            editSelectedIngredients.Remove(ingredient);
+        }
+    }
+
+    private async Task EditRecipe()
+    {
+        if (selectedRecipe == null) return;
+
+        editError = "";
+        if (string.IsNullOrWhiteSpace(editRecipeName) || string.IsNullOrWhiteSpace(editRecipeInstructions) || string.IsNullOrWhiteSpace(editRecipeType))
+        {
+            editError = "Fields cannot be empty.";
+            return;
+        }
+
+        selectedRecipe.name = editRecipeName;
+        selectedRecipe.instruction = editRecipeInstructions;
+        selectedRecipe.type = editRecipeType;
+        selectedRecipe.ingredients = editSelectedIngredients.Select(ing => new SimplifiedIngredientDto
+        {
+            ingredientId = ing.IngredientId,
+            ingredientName = ing.IngredientName,
+            ingredientQuantity = ing.Quantity,
+            ingredientCost = ing.Cost
+        }).ToList();
+
+        try
+        {
+            await RecipeService.UpdateRecipeAsync(selectedRecipe.id, selectedRecipe);
             editRecipeModal.Close();
+        }
+        catch (Exception ex)
+        {
+            editError = ex.Message;
         }
     }
 }
