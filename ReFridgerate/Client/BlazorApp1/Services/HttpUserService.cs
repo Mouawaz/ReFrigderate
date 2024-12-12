@@ -42,8 +42,39 @@ public class HttpUserService: IUserService
         }
     }
 
-    public IQueryable<UserDto> GetAllUsers()
+    public async Task<List<UserDto>> GetAllUsers()
     {
-        throw new NotImplementedException();
+        HttpResponseMessage httpResponse = await client.GetAsync("Users");
+        string response = await httpResponse.Content.ReadAsStringAsync();
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            throw new Exception(response);
+        }
+        List<UserDto> users = new List<UserDto>();
+
+        users = JsonSerializer.Deserialize<List<UserDto>>(response, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
+        Console.WriteLine(users);
+        return users;
+    }
+
+    public async Task<bool> UpdateRecipeAsync(int id, int role)
+    {
+        HttpResponseMessage httpResponse = await client.PutAsJsonAsync($"Users/{id}", role);
+
+        if (!httpResponse.IsSuccessStatusCode)
+        {
+            string errorResponse = await httpResponse.Content.ReadAsStringAsync();
+            throw new Exception(errorResponse);
+        }
+
+        string response = await httpResponse.Content.ReadAsStringAsync();
+
+        return JsonSerializer.Deserialize<bool>(response, new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        })!;
     }
 }

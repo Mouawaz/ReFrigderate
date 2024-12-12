@@ -7,5 +7,7 @@ public interface IUserService
 {
     Task<UserDto> GetSingleUserAsync(int id);
     Task<bool> AddUserAsync(CreateUserDto user);
-    IQueryable<UserDto> GetAllUsers();
+    Task<List<UserDto>> GetAllUsers();
+    Task<bool> UpdateRecipeAsync(int id, int role);
+
 }
