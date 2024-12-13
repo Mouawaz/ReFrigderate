@@ -1,0 +1,174 @@
+@page "/chefmenu"
+@using BlazorApp1.Services
+@using APIContracts.RecipeDtos
+@inject IRecipeService RecipeService
+@inject MenuStateService MenuState
+
+
+<link href="css/chefmenu.css" rel="stylesheet" />
+<div>
+    <PageTitle>Restaurant Menu</PageTitle>
+
+    <div class="chef-menu">
+        <div class="chef-menu-header">
+            <h1>Restaurant Menu</h1>
+        </div>
+        
+        <div class="chef-menu-content">
+            <h2>Chef View</h2>
+            <div class="menu-section">
+                @if (recipes == null)
+                {
+                    <p><em>Loading...</em></p>
+                }
+                else
+                {
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>On Menu</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var recipe in recipes)
+                        {
+                            <tr @key="recipe.id">
+                                <td>@recipe.name</td>
+                                <td>@(originalTypes.ContainsKey(recipe.id) ? originalTypes[recipe.id] : recipe.type)</td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" 
+                                               checked="@MenuState.AvailableRecipes.Any(r => r.id == recipe.id)" 
+                                               @onchange="@((e) => ToggleRecipeOnMenu(recipe, e.Value))" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <span>@(MenuState.AvailableRecipes.Any(r => r.id == recipe.id) ? "On Menu" : "Off Menu")</span>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                }
+            </div>
+
+            <h2>Waiter View</h2>
+            <div class="waiter-menu">
+             
+                
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Type</th>
+                                <th>Accept/Deny</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var recipe in MenuState.AvailableRecipes)
+                        {
+                            <tr @key="recipe.id">
+                                <td>@recipe.name</td>
+                                <td>@recipe.type</td>
+                                <td>
+                                    <label class="switch">
+                                        <input type="checkbox" 
+                                               checked="@(acceptedOrders.ContainsKey(recipe.id) ? acceptedOrders[recipe.id] : false)" 
+                                               @onchange="@((e) => ToggleOrderAcceptance(recipe.id, e.Value))" />
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <span>@(acceptedOrders.ContainsKey(recipe.id) && acceptedOrders[recipe.id] ? "Accept" : "Deny")</span>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private List<RecipeDto> recipes;
+    private Dictionary<int, string> originalTypes = new Dictionary<int, string>();
+    private Dictionary<int, bool> acceptedOrders = new Dictionary<int, bool>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await RefreshRecipes();
+        MenuState.OnChange += StateHasChanged;
+    }
+
+    private async Task RefreshRecipes()
+    {
+        recipes = await RecipeService.GetRecipesAsync();
+
+        foreach (var recipe in recipes)
+        {
+            if (!originalTypes.ContainsKey(recipe.id))
+            {
+                originalTypes[recipe.id] = recipe.type == "Menu" ? "Starter" : recipe.type;
+            }
+        }
+    }
+
+    private async Task ToggleRecipeOnMenu(RecipeDto recipe, object isChecked)
+    {
+        bool isAvailable = (bool)isChecked;
+
+        if (isAvailable)
+        {
+            if (!originalTypes.ContainsKey(recipe.id))
+            {
+                originalTypes[recipe.id] = recipe.type;
+            }
+
+            recipe.type = "Menu";
+        }
+        else
+        {
+            recipe.type = originalTypes[recipe.id];
+        }
+
+        try
+        {
+            var recipeToUpdate = new CreateRecipeDto
+            {
+                name = recipe.name,
+                type = recipe.type,
+                instructions = recipe.instruction,
+                modificationsAllowed = recipe.modifcationsAllowed,
+                creatorId = recipe.creatorId,
+                ingredients = recipe.ingredients.Select(i => new RecipeIngredientDto
+                {
+                    IngredientId = i.ingredientId,
+                    IngredientName = i.ingredientName,
+                    Quantity = i.ingredientQuantity
+                }).ToList()
+            };
+
+            var updatedRecipe = await RecipeService.UpdateRecipeAsync(recipe.id, recipeToUpdate);
+
+            var index = recipes.FindIndex(r => r.id == recipe.id);
+            if (index != -1)
+            {
+                recipes[index] = updatedRecipe;
+            }
+
+            MenuState.UpdateRecipeAvailability(updatedRecipe, isAvailable);
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error updating recipe: {ex.Message}");
+        }
+    }
+
+    private void ToggleOrderAcceptance(int recipeId, object isChecked)
+    {
+        bool isAccepted = (bool)isChecked;
+        acceptedOrders[recipeId] = isAccepted;
+        Console.WriteLine($"Order for recipe {recipeId} is {(isAccepted ? "accepted" : "denied")}");
+    }
+}

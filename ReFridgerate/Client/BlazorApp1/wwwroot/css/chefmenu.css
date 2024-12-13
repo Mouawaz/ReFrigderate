@@ -1,0 +1,234 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+}
+
+.chef-menu {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: transparent;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.chef-menu-header {
+    text-align: center;
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.chef-menu h1 {
+    margin-bottom: 0;
+    padding-left: 20px;
+    padding-top: 15px;
+    color: rgb(0, 0, 0);
+    font-size: 2.5rem;
+    text-align: left;
+    font-weight: 400;
+    letter-spacing: 1px;
+}
+
+.chef-menu-content {
+    padding: 2rem;
+    max-width: 1200px;
+    margin: 2rem auto;
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.chef-menu-content:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+}
+
+.chef-menu h2 {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #000000;
+    font-size: 1.8rem;
+    border-bottom: 2px solid #a8d5c4;
+    padding-bottom: 0.5rem;
+    font-weight: 300;
+}
+
+.chef-menu .table {
+    margin-bottom: 2rem;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border-top: none;
+}
+
+.chef-menu .table th {
+    background-color: #ffffff;
+    color: #000000;
+    font-weight: 400;
+    text-transform: uppercase;
+    padding: 12px;
+    border-top: none;
+    border-bottom: 2px solid #a8d5c4 !important;
+}
+
+.chef-menu .table td {
+    vertical-align: middle;
+    padding: 12px;
+    background-color: #ffffff;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #eaf2f8;
+}
+
+.table-success {
+    background-color: #e8f8f5 !important;
+}
+
+.chef-menu .recipe-name-icon {
+    display: flex;
+    align-items: center;
+    font-weight: 500;
+    color: #a8d5c4;
+}
+
+.chef-menu .recipe-name-icon span {
+    margin-left: 0.5rem;
+    color: #7f8c8d;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+    margin-right: 10px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #bdc3c7;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #a8d5c4;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+/* List Styles */
+ul {
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    list-style-type: none;
+    position: relative;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    color: #7f8c8d;
+}
+
+li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #a8d5c4;
+}
+
+
+/* Waiter Menu stuff*/
+.waiter-menu .switch-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.waiter-menu .switch-label {
+    margin-left: 10px;
+    font-weight: 500;
+}
+
+.waiter-menu .btn-primary {
+    background-color: #a8d5c4;
+    border-color: #a8d5c4;
+    color: #ffffff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.waiter-menu .btn-primary:hover {
+    background-color: #4CE2C2;
+    border-color: #4CE2C2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.waiter-menu .quantity-selector {
+    background-color: #a8d5c4;
+    border-color: #a8d5c4;
+    color: #ffffff;
+    transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.waiter-menu .quantity-selector:hover,
+.waiter-menu .quantity-selector:focus {
+    background-color: #4CE2C2;
+    border-color: #4CE2C2;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.waiter-menu .table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.waiter-menu .recipe-name-icon {
+    justify-content: right ;
+}
+
+.waiter-menu .btn-group {
+    display: flex;
+    justify-content: center;
+}
+
+.waiter-menu .btn-group .btn {
+    margin: 0 5px;
+}

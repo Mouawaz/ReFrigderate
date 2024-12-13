@@ -1,5 +1,4 @@
 using APIContracts.UserDtos;
-using Entities;
 using System.Linq;
 namespace RepositoryContracts;
 

@@ -35,7 +35,7 @@ public class IngredientClient : IIngredientClientManager
             Amount = ingredient.Amount,
             DaysUntilBad = ingredient.DaysUntilBad,
             StockStatus = ingredient.StockStatus,
-            Category = (IngredientCategory)ingredient.Category
+            Category = (IngredientCategory)ingredient.Category,
             ExpirationStatus = ingredient.ExpirationStatus
         };
         return responseDto;
