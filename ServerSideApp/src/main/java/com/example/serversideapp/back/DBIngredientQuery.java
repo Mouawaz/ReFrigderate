@@ -71,6 +71,20 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
         }
     }
 
+    @Override
+    public IngredientLocal CreateIngredient(String name, IngredientCategory CATEGORY, float cost) {
+        try(Connection connection = getConnected()){
+            PreparedStatement psInsertIngredient = connection.prepareStatement("INSERT INTO refridgerate.ingredient VALUES (null, DEFAULT, ?, ?, ?)");
+
+        }
+        catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
+
+    //TODO: update, since now the date only resets if the total count reaches zero
+    //Perhaps make a list of dates and counts, fall the smallest one that is non zero?
     private Date findRecentDate(ResultSet rsDates) throws SQLException {
         rsDates.next();
         Date minDate = rsDates.getDate(2);

@@ -42,9 +42,8 @@
             </Button>
         </div>
     </div>
-</div>
-<div class="recipe-list">
-    @foreach (var recipe in _recipeList) {
+    <div class="recipe-list">
+        @foreach (var recipe in _recipeList) {
         <div class="recipe-container">
             <div class="recipe-image">
                 <p class="recipe-name">@recipe.name</p>
@@ -58,7 +57,7 @@
                     <b>Ingredients:</b>
                 </p>
                 @foreach (var recipeIngredient in @recipe.ingredients) {
-                    <p>@recipeIngredient.ingredientName</p>
+                <p>@recipeIngredient.ingredientName</p>
                 }
                 <p>
                     <b>Instructions:</b>
@@ -70,7 +69,8 @@
                 <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
             </div>
         </div>
-    }
+        }
+    </div>
 </div>
 
 <!-- Add Recipe Modal -->
