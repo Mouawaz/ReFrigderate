@@ -16,74 +16,163 @@
     <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
         <div class="header">
             <h1>Ingredients</h1>
-            <div class="search-box">
-                <img class="ingredientt" src="Images/search.png" alt="search"/>
-                <input type="text"
-                       placeholder="Search..."
-                       @bind-value="searchText"
-                       @bind-value:event="oninput"
-                       @onkeyup="FilterIngredients"/>
-            </div>
+           
             <div class="header-controls">
-
                 <div class="category-filters">
-                    <t style="font-size: xx-large">Filters:</t>
-                    <Button
-                        Text="All"
-                        Secondary="@(selectedCategory == null)"
-                        OnClick="() => FilterByCategory(null)"/>
-                    @foreach (IngredientCategory category in Enum.GetValues(typeof(IngredientCategory)))
-                    {
-                        var currentCategory = category;
-                        <Button
-                            Text="@category.ToString()"
-                            Secondary="@(selectedCategory == currentCategory)"
-                            OnClick="() => FilterByCategory(currentCategory)"/>
-                    }
+                    <label for="categoryDropdown" class="dropdown-label">Filters:</label>
+                    <select id="categoryDropdown" @bind="SelectedCategory" class="form-select">
+                        <option value="">All</option>
+                        @foreach (IngredientCategory category in Enum.GetValues(typeof(IngredientCategory)))
+                        {
+                        <option value="@category">@category.ToString()</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="search-box">
+                    <img class="ingredientt" src="Images/search.png" alt="search" />
+                    <input type="text"
+                           placeholder="Search..."
+                           @bind-value="searchText"
+                           @bind-value:event="oninput"
+                           @onkeyup="FilterIngredients" />
                 </div>
             </div>
 
         </div>
 
         <div class="items-grid">
-            @foreach (var ingredient in filteredIngredients)
+            @if (ingredients.Count == 0)
             {
-                <div class="item-card">
-                    <div class="item-metadata">
-                        <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
-                            <Icon class="me-2" Src="Images/time.png" Size="small"/>
-                            @ingredient.DaysUntilBad
+            <div class="no-items-message">
+                <p>No ingredients have been fetched yet. Please try again later!</p>
+            </div>
+            }
+            else if (filteredIngredients.Count == 0)
+            {
+            <div class="no-items-message">
+                <p>No ingredients match your filters or search criteria. Adjust your filters and try again!</p>
+            </div>
+            }
+            else
+            {
+                @foreach (var ingredient in filteredIngredients)
+                {
+                    <div class="item-card">
+                        <div class="item-metadata">
+                            <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
+                                <Icon class="me-2" Src="Images/time.png" Size="small"/>
+                                @ingredient.DaysUntilBad
+                            </div>
+                            <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
+                                <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
+                                @ingredient.Amount
+                            </div>
+                            <div class="notification-bell">
+                                @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                                     ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                                {
+                                    <Tooltip Tip="@GetWarningMessage(ingredient)">
+                                        <Icon Src="Images/notification.png" Size="mini"/>
+                                    </Tooltip>
+                                }
+                            </div>
                         </div>
-                        <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
-                            <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
-                            @ingredient.Amount
+
+                        <div class="item-image">
+                            <Icon Name="@ingredient.Name" Size="medium"/>
                         </div>
-                        <div class="notification-bell">
-                            @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
-                                 ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
-                            {
-                                <Tooltip Tip="@GetWarningMessage(ingredient)">
-                                    <Icon Src="Images/notification.png" Size="mini"/>
-                                </Tooltip>
-                            }
+
+                        <div class="item-name">
+                            @ingredient.Name
+                        </div>
+
+                        <div class="item-actions">
+                            <Button Icon="editing.png"
+                                    Text="Edit"
+                                    OnClick="() => OpenModal(ingredient)">
+                            </Button>
                         </div>
                     </div>
+                }
+            }
+            @foreach (var ingredient in filteredIngredients)
+            {
+            <div class="item-card">
+                <div class="item-metadata">
+                    <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
+                        <Icon class="me-2" Src="Images/time.png" Size="small"/>
+                        @ingredient.DaysUntilBad
+                    </div>
+                    <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
+                        <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
+                        @ingredient.Amount
+                    </div>
+                    <div class="notification-bell">
+                        @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                        ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                        {
+                        <Tooltip Tip="@GetWarningMessage(ingredient)">
+                            <Icon Src="Images/notification.png" Size="mini"/>
+                        </Tooltip>
+                        }
+                    </div>
+                </div>
+
+                <div class="item-image">
+                    <Icon Name="@ingredient.Name" Size="medium"/>
+                </div>
+
+                <div class="item-name">
+                    @ingredient.Name
+                </div>
+
+                <div class="item-actions">
+                    <Button Icon="editing.png"
+                            Text="Edit"
+                            OnClick="() => OpenModal(ingredient)">
+                    </Button>
+                </div>
+            </div>
+            }
+            @foreach (var ingredient in filteredIngredients)
+            {
+            <div class="item-card">
+                <div class="item-metadata">
+                    <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
+                        <Icon class="me-2" Src="Images/time.png" Size="small"/>
+                        @ingredient.DaysUntilBad
+                    </div>
+                    <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
+                        <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
+                        @ingredient.Amount
+                    </div>
+                    <div class="notification-bell">
+                        @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
+                        ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
+                        {
+                        <Tooltip Tip="@GetWarningMessage(ingredient)">
+                            <Icon Src="Images/notification.png" Size="mini"/>
+                        </Tooltip>
+                        }
+                    </div>
+                </div>
 
                     <div class="item-image">
                         <Icon Src="@getHtmlPicture(ingredient.Name)" Size="medium"/>
                     </div>
 
-                    <div class="item-name">
-                        @ingredient.Name
-                    </div>
-
-                    <div class="item-actions">
-                        <Button Icon="editing.png"
-                                Text="Edit"
-                                OnClick="() => OpenModal(ingredient)">
-                        </Button>
-                    </div>
+                <div class="item-name">
+                    @ingredient.Name
                 </div>
+
+                <div class="item-actions">
+                    <Button Icon="editing.png"
+                            Text="Edit"
+                            OnClick="() => OpenModal(ingredient)">
+                    </Button>
+                </div>
+            </div>
             }
         </div>
 
@@ -500,30 +589,34 @@
 
     private IngredientCategory? selectedCategory;
 
-    private void FilterByCategory(IngredientCategory? category)
+    public IngredientCategory? SelectedCategory
     {
-        selectedCategory = category;
-        ApplyFilters();
+        get => selectedCategory;
+        set
+        {
+            selectedCategory = value;
+            ApplyFilters();
+        }
     }
 
     private void ApplyFilters()
     {
         var filtered = ingredients.AsQueryable();
 
-        // Apply search filter
         if (!string.IsNullOrWhiteSpace(searchText))
         {
             filtered = filtered.Where(i => i.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
         }
 
-        // Apply category filter
         if (selectedCategory.HasValue)
         {
             filtered = filtered.Where(i => i.Category == selectedCategory.Value);
         }
 
         filteredIngredients = filtered.ToList();
+        StateHasChanged(); // Ensure UI updates
     }
+
 
 
 }

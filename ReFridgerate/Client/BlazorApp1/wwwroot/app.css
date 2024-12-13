@@ -6,7 +6,8 @@ html, body {
 }
 
 a, .btn-link {
-    color: #006bb7;
+    color: black;
+    text-decoration: none;
 }
 
 .btn-primary {
@@ -70,4 +71,31 @@ h1:focus {
     display: inline-block;
     vertical-align: middle;
     margin-right: 0.5rem;
+}
+
+.brand-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem; 
+}
+
+.icon-img {
+    width: 1.875rem;
+    height: 1.875rem;
+}
+
+@media (max-width: 640px) {
+    .container-fluid {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .brand-container {
+        flex: 1; /* Allow brand to take up available space */
+    }
+
+    .navbar-toggler {
+        flex-shrink: 0; /* Prevent shrinking of the burger menu */
+    }
 }

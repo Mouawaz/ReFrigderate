@@ -7,9 +7,13 @@
 <div class="@(ThemeState.IsDarkMode ? "dark" : "light")">
     <div class="top-row ps-3 navbar">
         <div class="container-fluid">
-            <a class="navbar-brand logo-title" href=""><b>ReFridgerate</b></a>
-            <img class="icon-img" src="Images/fridge.png" alt="fridge"/>
+            <div class="brand-container">
+                <a class="navbar-brand logo-title" href=""><b>ReFridgerate</b></a>
+                <img class="icon-img" src="Images/fridge.png" alt="fridge"/>
+            </div>
+            <input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
         </div>
+
     </div>
 
     <input type="checkbox" title="Navigation menu" class="navbar-toggler"/>
