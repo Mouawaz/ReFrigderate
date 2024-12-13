@@ -33,7 +33,7 @@ builder.Services.AddScoped<IUserService, HttpUserService>();
 builder.Services.AddScoped<IIngredientService, HttpIngredientService>();
 builder.Services.AddScoped<IRecipeService, HttpRecipeService>();
 builder.Services.AddScoped<AuthenticationStateProvider, SimpleAuthProvider>();
-builder.Services.AddScoped<MenuStateService>();
+
 
 var app = builder.Build();
 
