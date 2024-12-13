@@ -9,6 +9,7 @@ target/
 .settings/
 
 # Blazor/ASP.NET
+PasswordSingleton.cs
 bin/
 obj/
 Debug/
