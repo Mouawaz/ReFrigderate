@@ -9,36 +9,35 @@
 
 <link href="css/lobby.css?version=0.1" rel="stylesheet"/>
 <title>Ingredients</title>
-<AuthorizeView Roles= "@($"{"Chef"}, {"Admin"}")" >
+<AuthorizeView Roles="@($"{"Chef"}, {"Admin"}")">
     <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
         <div class="header">
             <h1>Ingredients</h1>
+            <div class="search-box">
+                <img class="ingredientt" src="Images/search.png" alt="search"/>
+                <input type="text"
+                       placeholder="Search..."
+                       @bind-value="searchText"
+                       @bind-value:event="oninput"
+                       @onkeyup="FilterIngredients"/>
+            </div>
             <div class="header-controls">
 
                 <div class="category-filters">
+                    <t style="font-size: xx-large">Filters:</t>
                     <Button
                         Text="All"
                         Secondary="@(selectedCategory == null)"
                         OnClick="() => FilterByCategory(null)"/>
                     @foreach (IngredientCategory category in Enum.GetValues(typeof(IngredientCategory)))
                     {
-                    var currentCategory = category;
-                    <Button
-                        Text="@category.ToString()"
-                        Secondary="@(selectedCategory == currentCategory)"
-                        OnClick="() => FilterByCategory(currentCategory)"/>
+                        var currentCategory = category;
+                        <Button
+                            Text="@category.ToString()"
+                            Secondary="@(selectedCategory == currentCategory)"
+                            OnClick="() => FilterByCategory(currentCategory)"/>
                     }
                 </div>
-                
-                <div class="search-box">
-                    <img class="ingredientt" src="Images/search.png" alt="search"/>
-                    <input type="text"
-                           placeholder="Search..."
-                           @bind-value="searchText"
-                           @bind-value:event="oninput"
-                           @onkeyup="FilterIngredients"/>
-                </div>
-
             </div>
 
         </div>
@@ -230,9 +229,9 @@
     private List<IngredientDto> ingredients = new();
     private List<IngredientDto> filteredIngredients = new();
     private int yellowAmount { get; set; }
-    private int redAmount{ get; set; }
-    private int yellowTime{ get; set; }
-    private int redTime{ get; set; }
+    private int redAmount { get; set; }
+    private int yellowTime { get; set; }
+    private int redTime { get; set; }
     private IngredientDto selectedIngredient;
     private Modal detailsModal;
     private String WarningTooltip;
@@ -275,13 +274,15 @@
 
     private string currentTab = "Add";
 
-    private void HandleTabChange(TabPage activePage) {
+    private void HandleTabChange(TabPage activePage)
+    {
         currentTab = activePage.Text;
         ResetAddInputs();
         ResetRemoveInputs();
     }
 
-    private async void RefreshThresholds() {
+    private async void RefreshThresholds()
+    {
         ThresholdDto currentThresholds = await IngredientService.GetThresholds(selectedIngredient.Id);
         yellowAmount = currentThresholds.yellowAmount;
         yellowTime = currentThresholds.yellowDaysUntil;
@@ -369,9 +370,11 @@
         {
             int newStockStatus = 0;
             bool isSubtraction = false;
-            if (currentTab == "Thresholds") {
+            if (currentTab == "Thresholds")
+            {
                 Console.WriteLine("Updating the thresholds");
-                ThresholdDto dto = new() {
+                ThresholdDto dto = new()
+                {
                     IndredientId = selectedIngredient.Id,
                     yellowAmount = yellowAmount,
                     redAmount = redAmount,
@@ -382,6 +385,7 @@
                 detailsModal.Close();
                 return;
             }
+
             if (SelectedOptionAdd == 1 && int.TryParse(Option1Value, out int addAmount))
             {
                 newStockStatus = selectedIngredient.Amount + addAmount;
