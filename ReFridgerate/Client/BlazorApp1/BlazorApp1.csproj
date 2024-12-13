@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <PackageReference Include="Google.Apis.CustomSearchAPI.v1" Version="1.68.0.3520" />
       <PackageReference Include="Google.Protobuf" Version="3.29.1" />
     </ItemGroup>
 
