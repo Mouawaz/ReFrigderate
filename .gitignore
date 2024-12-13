@@ -1293,3 +1293,4 @@ ReFridgerate/APIContracts/obj/project.assets.json
 ReFridgerate/APIContracts/obj/Debug/net8.0/APIContracts.AssemblyInfo.cs
 ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.g.props
 ReFridgerate/APIContracts/obj/APIContracts.csproj.nuget.dgspec.json
+/ReFridgerate/Server/BetterTest/BetterTest.csproj

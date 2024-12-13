@@ -22,6 +22,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp1", "Client\Blazor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessLayer", "Server\BusinessLayer\BusinessLayer.csproj", "{5CB33883-FFA6-4915-A722-1A3B5962ED34}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BetterTest", "Server\BetterTest\BetterTest.csproj", "{E2EE7FDC-1B02-4CDD-9DCD-E10E2E087817}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +38,7 @@ Global
 		{0DB8A8E7-559E-43BC-97DF-2A5CBF3C4F42} = {9D6C48A9-0249-4C81-BB66-B31A85048AD9}
 		{0C7AE194-2D47-43F3-8FCE-C8C7D926E4AB} = {A2C61683-664B-4885-BD79-26241DE3E6E4}
 		{5CB33883-FFA6-4915-A722-1A3B5962ED34} = {9D6C48A9-0249-4C81-BB66-B31A85048AD9}
+		{E2EE7FDC-1B02-4CDD-9DCD-E10E2E087817} = {9D6C48A9-0249-4C81-BB66-B31A85048AD9}
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{8B403F8F-7103-4F52-8681-266765F463B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -70,5 +73,9 @@ Global
 		{5CB33883-FFA6-4915-A722-1A3B5962ED34}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5CB33883-FFA6-4915-A722-1A3B5962ED34}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5CB33883-FFA6-4915-A722-1A3B5962ED34}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E2EE7FDC-1B02-4CDD-9DCD-E10E2E087817}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E2EE7FDC-1B02-4CDD-9DCD-E10E2E087817}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E2EE7FDC-1B02-4CDD-9DCD-E10E2E087817}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E2EE7FDC-1B02-4CDD-9DCD-E10E2E087817}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

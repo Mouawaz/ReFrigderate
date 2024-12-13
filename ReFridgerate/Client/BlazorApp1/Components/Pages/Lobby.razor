@@ -2,6 +2,9 @@
 @using APIContracts.IngridientDtos
 @using BlazorApp.Components.Services
 @using BlazorApp1.Services
+@using Google.Apis.CustomSearchAPI.v1;
+@using Google.Apis.CustomSearchAPI.v1.Data;
+@using Google.Apis.Services;
 
 
 @inject IIngredientService IngredientService
@@ -67,7 +70,7 @@
                     </div>
 
                     <div class="item-image">
-                        <Icon Name="@ingredient.Name" Size="medium"/>
+                        <Icon Src="@getHtmlPicture(ingredient.Name)" Size="medium"/>
                     </div>
 
                     <div class="item-name">
@@ -273,6 +276,32 @@
     private bool IsOption4Selected => SelectedOptionRemove == 4;
 
     private string currentTab = "Add";
+    
+    private CseResource.ListRequest lr;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            ingredients = await IngredientService.GetIngredientsAsync();
+            filteredIngredients = new List<IngredientDto>(ingredients);
+            BaseClientService.Initializer init = new();
+            init.ApiKey = PasswordSingleton.Instance.Key; //insert the API key 
+            init.ApplicationName = "Refridgerate";
+            lr = new CustomSearchAPIService(init).Cse.List();
+            lr.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
+            lr.Cx = PasswordSingleton.Instance.Cx; //insert the Browser key
+            lr.FileType = "png";
+            lr.Num = 1;
+            // Subscribe to theme changes
+            ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine($"Error fetching ingredients: {e.Message}");
+            throw;
+        }
+    }
 
     private void HandleTabChange(TabPage activePage)
     {
@@ -302,24 +331,6 @@
             filteredIngredients = ingredients
                 .Where(i => i.Name.Contains(searchText, StringComparison.OrdinalIgnoreCase))
                 .ToList();
-        }
-    }
-
-
-    protected override async Task OnInitializedAsync()
-    {
-        try
-        {
-            ingredients = await IngredientService.GetIngredientsAsync();
-            filteredIngredients = new List<IngredientDto>(ingredients);
-
-            // Subscribe to theme changes
-            ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine($"Error fetching ingredients: {e.Message}");
-            throw;
         }
     }
 
@@ -481,6 +492,10 @@
         }
 
         return msg;
+    }
+    private string getHtmlPicture(string name) {
+        lr.Q = name + " ingredient icon";
+        return lr.Execute().Items[0].Link;
     }
 
     private IngredientCategory? selectedCategory;

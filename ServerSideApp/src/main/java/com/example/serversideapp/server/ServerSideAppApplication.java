@@ -11,29 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ServerSideAppApplication {
     public static void main(String[] args) {
-/*       RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
-       RecipeOuterClass.Recipe recipe = recipeManager.createRecipe(RecipeOuterClass.CreateRecipeRequest.newBuilder()
-               .setName("Bobs lasagna")
-               .setInstructions("Bob HATES lasagna")
-               .setModificationsAllowed(true)
-               .setCreatorId(1)
-                .setType("Starter")
-                .setUpdateRecipeId(3)
-                .addIngredients(RecipeOuterClass.SimplifiedIngredient.newBuilder()
-                        .setIngredientId(1)
-                        .setQuantity(200).build())
-                .addIngredients(RecipeOuterClass.SimplifiedIngredient.newBuilder()
-                        .setIngredientId(2)
-                        .setQuantity(2).build()).build());
-        System.out.println(recipe);
-        System.out.println(recipeManager.GetAllRecipes());*/
-
+        //--------------------------------------Tests now in the tests folder please
         GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
-        System.out.println(
-        generalIngredientsManager.GetAllIngredients()
-        );
-        //--------------------------------------Tests above
-        //GeneralIngredientsManager generalIngredientsManager = new GeneralIngredientsManagerImpl(new DBIngredientQuery());
         UserManager userManager = new UserManagerImpl(new DBUserQuery());
         RecipeManager recipeManager = new RecipeManagerImpl(new DBRecipeQuery());
         //create all the managers please
