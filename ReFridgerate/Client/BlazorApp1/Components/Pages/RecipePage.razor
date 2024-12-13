@@ -381,8 +381,7 @@
             return;
         }
 
-        CreateRecipeDto createRecipeDto = new()
-        {
+        CreateRecipeDto createRecipeDto = new() {
             name = recipeName,
             instructions = recipeInstructions,
             type = type,
@@ -390,11 +389,17 @@
             ingredients = selectedIngredients
         };
 
-        await RecipeService.AddRecipeAsync(createRecipeDto);
-        addRecipeModal.Close();
-        _recipeList = await RecipeService.GetRecipesAsync();
-        ApplyFilters();
+        try {
+            await RecipeService.AddRecipeAsync(createRecipeDto); 
+            _recipeList = await RecipeService.GetRecipesAsync(); 
+            addRecipeModal.Close();
+            StateHasChanged(); 
+        } catch (Exception ex) {
+            error = $"Error adding recipe: {ex.Message}";
+        }
     }
+
+
 
     private void AddIngredientToRecipe()
     {
