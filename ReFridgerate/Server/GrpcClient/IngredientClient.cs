@@ -2,6 +2,7 @@ using APIContracts.IngridientDtos;
 using Entities;
 using Google.Protobuf;
 using Grpc.Net.Client;
+using IngredientCategory = APIContracts.IngridientDtos.IngredientCategory;
 
 namespace GrpcClient;
 
@@ -15,7 +16,8 @@ public class IngredientClient : IIngredientClientManager
         channel = GrpcChannel.ForAddress("http://localhost:8080");
         ingredientService = new IngredientService.IngredientServiceClient(channel);
     }
-
+    
+    
     public IngredientDto UpdateIngredient(IngredientDto ingredientDto, int difference)
     {
         UpdateIngredientRequest request = new()
@@ -33,6 +35,7 @@ public class IngredientClient : IIngredientClientManager
             Amount = ingredient.Amount,
             DaysUntilBad = ingredient.DaysUntilBad,
             StockStatus = ingredient.StockStatus,
+            Category = (IngredientCategory)ingredient.Category
             ExpirationStatus = ingredient.ExpirationStatus
         };
         return responseDto;
@@ -54,7 +57,7 @@ public class IngredientClient : IIngredientClientManager
                 DaysUntilBad = ingredient.DaysUntilBad,
                 StockStatus = ingredient.StockStatus,
                 ExpirationStatus = ingredient.ExpirationStatus,
-
+                Category = (IngredientCategory)ingredient.Category  
             };
             ingredientDtos.Add(dto);
         }
@@ -91,4 +94,6 @@ public class IngredientClient : IIngredientClientManager
 
         return response.Success_;
     }
+    
+    
 }

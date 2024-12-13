@@ -7,6 +7,6 @@ import java.sql.SQLException;
 public abstract class DBGeneral {
     protected Connection getConnected() throws SQLException {
         return DriverManager.getConnection(
-                "jdbc:postgresql://localhost:5432/postgres", "postgres", "1234");
+                "jdbc:postgresql://localhost:5432/postgres", "postgres", "admin");
     }
 }
