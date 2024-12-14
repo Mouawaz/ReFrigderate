@@ -41,15 +41,14 @@
 }
 
 .header {
-    background-color: var(--header-bg);
     padding: 1rem;
     padding-bottom: 3rem;
     color: var(--text-primary);
-    transition: background-color 0.3s ease;
 }
 
 .recipe-container {
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
     width: 80%;
@@ -180,19 +179,47 @@ select {
 }
 
 .header-controls {
-    margin-top: 1rem;
     display: flex;
-    gap: 1rem;
+    justify-content: space-between;
     align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
 }
 
 .category-filters {
     display: flex;
+    align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 0;
-    width: 100%;
-    justify-content: flex-start;
+}
+
+.dropdown-label {
+    font-size: 1rem;
+    font-weight: 500;
     color: var(--text-primary);
+}
+
+.form-select {
+    background-color: var(--input-bg);
+    border: 1px solid var(--card-border);
+    color: var(--text-primary);
+    padding: 0.5rem;
+    border-radius: 0.375rem;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    min-width: 150px; 
+    max-width: 300px; 
+    width: auto; 
+}
+
+.form-select:hover,
+.form-select:focus {
+    border-color: var(--hover-shadow);
+}
+
+.form-select option {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 /* Additional dark mode specific overrides */
@@ -240,4 +267,18 @@ select {
 .dark option:checked,
 .dark option:hover {
     background-color: var(--card-border);
+}
+
+@media (max-width: 768px) {
+    .recipe-container {
+        width: 100%;
+    }
+    .recipe-info{
+        padding: 1rem;
+    }
+    .recipe-buttons{
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+    }
 }

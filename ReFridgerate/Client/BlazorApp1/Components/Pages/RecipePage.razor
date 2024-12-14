@@ -21,21 +21,15 @@
         <h1>Recipes</h1>
         <div class="header-controls">
             <div class="category-filters">
-                <t style="font-size: xx-large">Filters:</t>
-                <Button
-                    Text="All"
-                    Secondary="@(selectedType == null)"
-                    OnClick="() => FilterByType(null)"/>
-                @foreach (var type in recipeTypes) {
-                    var currentType = type;
-                    <Button
-                        Text="@type"
-                        Secondary="@(selectedType == currentType)"
-                        OnClick="() => FilterByType(currentType)"/>
-                }
+                <label for="categoryDropdown" class="dropdown-label">Filters:</label>
+                <select id="categoryDropdown" @bind="SelectedType" class="form-select">
+                    <option value="">All</option>
+                    @foreach (var category in recipeTypes)
+                    {
+                        <option value="@category">@category.ToString()</option>
+                    }
+                </select>
             </div>
-        </div>
-        <div class="modal-footer">
             <Button Icon="add.png"
                     Text="Add new"
                     OnClick="() => OpenModal()">
@@ -43,13 +37,26 @@
         </div>
     </div>
     <div class="recipe-list">
+        @if (_recipeList.Count == 0)
+        {
+        <div class="no-items-message">
+            <p>No ingredients have been fetched yet. Please try again later!</p>
+        </div>
+        }
+        else if (filteredRecipes.Count == 0)
+        {
+        <div class="no-items-message">
+            <p>No ingredients match your filters criteria. Adjust your filters and try again!</p>
+        </div>
+        }
+        else{
         @foreach (var recipe in _recipeList) {
         <div class="recipe-container">
             <div class="recipe-image">
                 <p class="recipe-name">@recipe.name</p>
                 <Icon Src=@getHtmlPicture(recipe.name) Size="huge"></Icon>
             </div>
-            <div class="recie-info">
+            <div class="recipe-info">
                 <p>
                     <b>Type: </b>@recipe.type
                 </p>
@@ -69,6 +76,7 @@
                 <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
             </div>
         </div>
+        }
         }
     </div>
 </div>
@@ -336,6 +344,15 @@
         ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
     }
 
+    public string SelectedType
+    {
+        get => selectedType;
+        set
+        {
+            selectedType = value;
+            ApplyFilters();
+        }
+    }
 
     private void FilterByType(string? type) {
         selectedType = type;
@@ -356,6 +373,7 @@
         }
 
         filteredRecipes = filtered.ToList();
+        StateHasChanged();
     }
 
     private void OpenModal() {
