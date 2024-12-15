@@ -80,7 +80,7 @@
                         </div>
 
                         <div class="item-image">
-                            <Icon Name="@ingredient.Name" Size="medium"/>
+                            <Icon Src="@getHtmlPicture(ingredient.Name)" Size="medium"/>
                         </div>
 
                         <div class="item-name">
@@ -96,84 +96,8 @@
                     </div>
                 }
             }
-            @foreach (var ingredient in filteredIngredients)
-            {
-            <div class="item-card">
-                <div class="item-metadata">
-                    <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
-                        <Icon class="me-2" Src="Images/time.png" Size="small"/>
-                        @ingredient.DaysUntilBad
-                    </div>
-                    <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
-                        <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
-                        @ingredient.Amount
-                    </div>
-                    <div class="notification-bell">
-                        @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
-                        ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
-                        {
-                        <Tooltip Tip="@GetWarningMessage(ingredient)">
-                            <Icon Src="Images/notification.png" Size="mini"/>
-                        </Tooltip>
-                        }
-                    </div>
-                </div>
-
-                <div class="item-image">
-                    <Icon Name="@ingredient.Name" Size="medium"/>
-                </div>
-
-                <div class="item-name">
-                    @ingredient.Name
-                </div>
-
-                <div class="item-actions">
-                    <Button Icon="editing.png"
-                            Text="Edit"
-                            OnClick="() => OpenModal(ingredient)">
-                    </Button>
-                </div>
-            </div>
-            }
-            @foreach (var ingredient in filteredIngredients)
-            {
-            <div class="item-card">
-                <div class="item-metadata">
-                    <div class="meta-item-custom @GetStatusClass(ingredient.ExpirationStatus)">
-                        <Icon class="me-2" Src="Images/time.png" Size="small"/>
-                        @ingredient.DaysUntilBad
-                    </div>
-                    <div class="meta-item-custom @GetStatusClass(ingredient.StockStatus)">
-                        <Icon class="me-2" Src="Images/shopping-basket.png" Size="small"/>
-                        @ingredient.Amount
-                    </div>
-                    <div class="notification-bell">
-                        @if (ingredient.StockStatus == 2 || ingredient.StockStatus == 3 ||
-                        ingredient.ExpirationStatus == 2 || ingredient.ExpirationStatus == 3)
-                        {
-                        <Tooltip Tip="@GetWarningMessage(ingredient)">
-                            <Icon Src="Images/notification.png" Size="mini"/>
-                        </Tooltip>
-                        }
-                    </div>
-                </div>
-
-                    <div class="item-image">
-                        <Icon Src="@getHtmlPicture(ingredient.Name)" Size="medium"/>
-                    </div>
-
-                <div class="item-name">
-                    @ingredient.Name
-                </div>
-
-                <div class="item-actions">
-                    <Button Icon="editing.png"
-                            Text="Edit"
-                            OnClick="() => OpenModal(ingredient)">
-                    </Button>
-                </div>
-            </div>
-            }
+          
+           
         </div>
 
         <!-- Ingredient Details Modal -->

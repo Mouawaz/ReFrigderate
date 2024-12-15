@@ -90,7 +90,11 @@
 }
 
 .recipe-buttons {
-    margin: 1rem;
+    margin: 1rem;;
+}
+
+.recipe-buttons button {
+    margin-bottom: 1rem;
 }
 
 .form-control {
