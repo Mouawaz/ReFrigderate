@@ -58,7 +58,6 @@ namespace BlazorApp1.Services
             }
             catch
             {
-                // Handle prerendering scenario
                 _isDarkMode = false;
             }
         }
@@ -70,7 +69,7 @@ namespace BlazorApp1.Services
                 IsDarkMode = isDark;
                 await _jsRuntime.InvokeVoidAsync("localStorage.setItem", "theme", isDark ? "dark" : "light");
         
-                // Simplified class manipulation
+
                 await _jsRuntime.InvokeVoidAsync("document.documentElement.classList.remove", "light", "dark");
                 await _jsRuntime.InvokeVoidAsync("document.documentElement.classList.add", isDark ? "dark" : "light");
             }
