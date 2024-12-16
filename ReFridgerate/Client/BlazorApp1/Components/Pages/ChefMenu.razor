@@ -1,9 +1,12 @@
 @page "/menu"
+@using APIContracts.OrderDto
 @using BlazorApp1.Services
 @using APIContracts.RecipeDtos
+@using Entities
+@using Microsoft.AspNetCore.SignalR.Client
 @inject IRecipeService RecipeService
 @inject IThemeState ThemeState
-
+@inject OrdersService OrdersService
 <link href="css/chefmenu.css" rel="stylesheet" />
 
 <AuthorizeView Roles="Chef">
@@ -119,21 +122,62 @@
                 </div>
             </div>
         }
+        <div class="orders-grid">
+            @if(cancelledOrder != null){
+            <h2>Cancelled order</h2>
+            <div>
+
+                <div class="order-card">
+                    <div class="order-metadata">
+                        <div class="meta-item-custom">
+                            <i class="fas fa-table me-2"></i>
+                            Table @cancelledOrder.TableNumber
+                        </div>
+                        <div class="meta-item-custom">
+                            <i class="fas fa-clock me-2"></i>
+                            @cancelledOrder.OrderTime.ToString("HH:mm")
+                        </div>
+                    </div>
+
+                    <div class="dishes-list">
+                        @foreach (var dish in cancelledOrder.Dishes)
+                        {
+                        <div class="dish-item">
+                            <span class="dish-name">@dish.Recipe.name</span>
+                            @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
+                            {
+                            <span class="dish-note">@dish.Quantity.ToString()</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div>
+                <Button Text="Close" Secondary OnClick="CloseCancelledOrder"/>
+            </div>
+            }
+        </div>
     </div>
+    
 </AuthorizeView>
 
 @code {
     private List<RecipeDto> recipes;
     private List<Order> pendingOrders = new List<Order>();
-
+    private OrderDto order;
+    private OrderDto cancelledOrder;
     private class Order
     {
         public RecipeDto Recipe { get; set; }
         public int Quantity { get; set; } = 1;
     }
-
+    private HubConnection? hubConnection;
     protected override async Task OnInitializedAsync()
     {
+        OrdersService.OnOrderCancelled += OnOrdersCancelled;
+        await OrdersService.StartConnection();
+
         ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
         await RefreshRecipes();
     }
@@ -166,6 +210,11 @@
         await RecipeService.UpdateRecipeAsync(recipe.id, recipeToUpdate);
     }
 
+    private void CloseCancelledOrder()
+    {
+        cancelledOrder = null;
+        StateHasChanged();
+    }
     private void AddToPendingOrders(RecipeDto recipe)
     {
         var existingOrder = pendingOrders.FirstOrDefault(o => o.Recipe.id == recipe.id);
@@ -193,12 +242,22 @@
         }
         StateHasChanged();
     }
-
+    Random random = new ();
     private async Task ConfirmOrders()
     {
         try
         {
-            // Here you would implement the logic to send orders to the kitchen
+            order = new OrderDto()
+            {
+                TableNumber = random.Next(1,15),
+                OrderTime = DateTime.Now,
+                Dishes = pendingOrders.Select(or => new Dish()
+                {
+                    Recipe = or.Recipe,
+                    Quantity = or.Quantity
+                }).ToList()
+            };
+            await OrdersService.SendMessage(order);
             pendingOrders.Clear();
         }
         catch (Exception ex)
@@ -206,5 +265,17 @@
             Console.WriteLine($"Error sending orders: {ex.Message}");
         }
         StateHasChanged();
+    }
+    void OnOrdersCancelled(OrderDto order)
+    {
+        cancelledOrder = order;
+        StateHasChanged();
+    }
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await OrdersService.DisposeAsync();
+        }
     }
 }
