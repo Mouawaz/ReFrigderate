@@ -17,286 +17,269 @@
 <AuthorizeView Roles="Chef">
 <Authorized>
 <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
-    <div class="header">
-        <h1>Recipes</h1>
-        <div class="header-controls">
-            <div class="category-filters">
-                <label for="categoryDropdown" class="dropdown-label">Filters:</label>
-                <select id="categoryDropdown" @bind="SelectedType" class="form-select">
-                    <option value="">All</option>
-                    @foreach (var category in recipeTypes)
-                    {
-                        <option value="@category">@category.ToString()</option>
-                    }
-                </select>
-            </div>
-            <Button Icon="add.png"
-                    Text="Add new"
-                    OnClick="() => OpenModal()">
-            </Button>
+<div class="header">
+    <h1>Recipes</h1>
+    <div class="header-controls">
+        <div class="category-filters">
+            <label for="categoryDropdown" class="dropdown-label">Filters:</label>
+            <select id="categoryDropdown" @bind="SelectedType" class="form-select">
+                <option value="">All</option>
+                @foreach (var category in recipeTypes)
+                {
+                    <option value="@category">@category.ToString()</option>
+                }
+            </select>
         </div>
+        <Button Icon="add.png"
+                Text="Add new"
+                OnClick="() => OpenModal()">
+        </Button>
     </div>
-    <div class="recipe-list">
-        @if (_recipeList.Count == 0)
-        {
+</div>
+<div class="recipe-list">
+    @if (_recipeList.Count == 0)
+    {
         <div class="no-items-message">
             <p>No ingredients have been fetched yet. Please try again later!</p>
         </div>
-        }
-        else if (filteredRecipes.Count == 0)
-        {
+    }
+    else if (filteredRecipes.Count == 0)
+    {
         <div class="no-items-message">
             <p>No ingredients match your filters criteria. Adjust your filters and try again!</p>
         </div>
-        }
-        else{
-        @foreach (var recipe in _recipeList) {
-        <div class="recipe-container">
-            <div class="recipe-image">
-                <p class="recipe-name">@recipe.name</p>
-                <Icon Src=@tryGettingSavedPicture(recipe.name) Size="huge"></Icon>
-            </div>
-            <div class="recipe-info">
-                <p>
-                    <b>Type: </b>@recipe.type
-                </p>
-                <p>
-                    <b>Ingredients:</b>
-                </p>
-                @foreach (var recipeIngredient in @recipe.ingredients) {
-                <p>@recipeIngredient.ingredientName</p>
-                }
-                <p>
-                    <b>Instructions:</b>
-                </p>
-                <p>@recipe.instruction</p>
-            </div>
-            <div class="recipe-buttons">
-                <Button Icon="editing.png" OnClick="() => OpenEditModal(recipe)">Edit</Button>
-                <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
-            </div>
-        
-            <div class="recipe-list">
-                @foreach (var recipe in _recipeList) {
-                    <div class="recipe-container">
-                        <div class="recipe-image">
-                            <p class="recipe-name">@recipe.name</p>
-                            <Icon Name="@recipe.name" Size="huge"></Icon>
-                        </div>
-                        <div class="recipe-info">
-                            <p>
-                                <b>Type: </b>@recipe.type
-                            </p>
-                            <p>
-                                <b>Ingredients:</b>
-                            </p>
-                            @foreach (var recipeIngredient in @recipe.ingredients) {
-                                <p>@recipeIngredient.ingredientName</p>
-                            }
-                            <p>
-                                <b>Instructions:</b>
-                            </p>
-                            <p>@recipe.instruction</p>
-                        </div>
-                        <div class="recipe-buttons">
-                            <Button Icon="editing.png" OnClick="() => OpenEditModal(recipe)">Edit</Button>
-                            <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
-                        </div>
-                    </div>
-                }
-            </div>
-            
-            <Modal @ref="addRecipeModal" Title="Create recipe">
-                <ChildContent>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="mt-2">Name: </label>
-                        </div>
-                        <div class="col-10">
-                            <input type="text"
-                                   class="form-control mt-1 no-border"
-                                   placeholder="Enter name"
-                                   @bind="recipeName"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="mt-2">Instructions: </label>
-                        </div>
-                        <div class="col-10">
-                            <input type="text"
-                                   class="form-control mt-1 no-border"
-                                   placeholder="Enter instructions"
-                                   @bind="recipeInstructions"/>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="mt-2">Type: </label>
-                        </div>
-                        <div class="col-10">
-                            <select class="mt-2" @bind="type">
-                                <option>Starter</option>
-                                <option>Main</option>
-                                <option>Desert</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <label>Choose ingredients:</label>
-                        <div class="row m-2 justify-content-center align-items-center">
-                            <div class="col-9">
-                                <select @bind="currentIngredient" class="p-1">
-                                    <option selected>Choose an ingredient</option>
-                                    @foreach (IngredientDto dto in _ingredientList) {
-                                        <option>@dto.Name</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-2">
-                                <input type="number"
-                                       class="form-control no-border"
-                                       placeholder="Enter amount"
-                                       @bind="currentIngredientAmount"/>
-                            </div>
-                            <div class="col-1">
-                                <Button Icon="add.png"
-                                        OnClick="() => AddIngredientToRecipe()">
-                                </Button>
-                            </div>
-                        </div>
-                        @foreach (RecipeIngredientDto dto in selectedIngredients) {
-                            <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
-                                <div class="col-3">
-                                    <label>@dto.IngredientName</label>
-                                </div>
-                                <div class="col-3">
-                                    <label>Quantity: </label>
-                                    @dto.Quantity
-                                </div>
-                                <div class="col-2">
-                                    <Button
-                                        Icon="minus.png"
-                                        OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)">
-                                    </Button>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    @if (!string.IsNullOrWhiteSpace(error)) {
-                        <div class="blazor-error-boundary">
-                            @error <br/>
-                        </div>
-                    }
-                </ChildContent>
-                <FooterContent>
-                    <Button Text="Close" Secondary OnClick="addRecipeModal.Close"/>
-                    <Button Text="Add" OnClick="() => AddRecipe()"/>
-                </FooterContent>
-            </Modal>
-            
-            <Modal @ref="deleteRecipeModal" Title="Delete recipe">
-                <ChildContent>
-                    <p>Are you sure you want to delete @((selectedRecipe != null) ? selectedRecipe.name : "this recipe")? This action is irreversible!</p>
-                </ChildContent>
-                <FooterContent>
-                    <Button Text="Cancel" Secondary OnClick="deleteRecipeModal.Close"/>
-                    <Button Text="Delete" Danger OnClick="DeleteRecipe"/>
-                </FooterContent>
-            </Modal>
-
-            <Modal @ref="editRecipeModal" Title="Edit Recipe">
-                <ChildContent>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="mt-2">Name: </label>
-                        </div>
-                        <div class="col-10">
-                            <input type="text"
-                                   class="form-control mt-1 no-border"
-                                   placeholder="Enter name"
-                                   @bind="editedRecipeName" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="mt-2">Instructions: </label>
-                        </div>
-                        <div class="col-10">
-                            <input type="text"
-                                   class="form-control mt-1 no-border"
-                                   placeholder="Enter instructions"
-                                   @bind="editedRecipeInstructions" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-2">
-                            <label class="mt-2">Type: </label>
-                        </div>
-                        <div class="col-10">
-                            <select class="form-control mt-1 no-border" @bind="editedRecipeType">
-                                <option>Starter</option>
-                                <option>Main</option>
-                                <option>Desert</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="mt-5">
-                        <label>Update Ingredients:</label>
-                        <div class="row m-2 justify-content-center align-items-center">
-                            <div class="col-8">
-                                <select @bind="currentIngredient" class="p-1">
-                                    <option selected>Choose an ingredient</option>
-                                    @foreach (IngredientDto ingredient in _ingredientList)
-                                    {
-                                        <option>@ingredient.Name</option>
-                                    }
-                                </select>
-                            </div>
-                            <div class="col-2">
-                                <input type="number"
-                                       class="form-control no-border"
-                                       placeholder="Amount"
-                                       @bind="currentIngredientAmount" />
-                            </div>
-                            <div class="col-2">
-                                <Button Icon="add.png" OnClick="() => AddIngredientToEditedRecipe()"></Button>
-                            </div>
-                        </div>
-                        @foreach (SimplifiedIngredientDto dto in editedIngredients)
-                        {
-                            <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
-                                <div class="col-4">
-                                    <label>@dto.ingredientName</label>
-                                </div>
-                                <div class="col-4">
-                                    <input type="number"
-                                           class="form-control no-border"
-                                           @bind="dto.ingredientQuantity"
-                                           min="0" />
-                                </div>
-                                <div class="col-2">
-                                    <Button Icon="minus.png" OnClick="() => RemoveIngredientFromEditedRecipe(dto.ingredientName)"></Button>
-                                </div>
-                            </div>
-                        }
-                    </div>
-                    @if (!string.IsNullOrWhiteSpace(editError))
+    }
+    else
+    {
+        @foreach (var recipe in _recipeList)
+        {
+            <div class="recipe-container">
+                <div class="recipe-image">
+                    <p class="recipe-name">@recipe.name</p>
+                    <Icon Src=@tryGettingSavedPicture(recipe.name) Size="huge"></Icon>
+                </div>
+                <div class="recipe-info">
+                    <p>
+                        <b>Type: </b>@recipe.type
+                    </p>
+                    <p>
+                        <b>Ingredients:</b>
+                    </p>
+                    @foreach (var recipeIngredient in @recipe.ingredients)
                     {
-                        <div class="blazor-error-boundary">
-                            @editError <br />
-                        </div>
+                        <p>@recipeIngredient.ingredientName</p>
                     }
-                </ChildContent>
-                <FooterContent>
-                    <Button Text="Close" Secondary OnClick="editRecipeModal.Close" />
-                    <Button Text="Save" OnClick="() => SaveEditedRecipe()" />
-                </FooterContent>
-            </Modal>
+                    <p>
+                        <b>Instructions:</b>
+                    </p>
+                    <p>@recipe.instruction</p>
+                </div>
+                <div class="recipe-buttons">
+                    <Button Icon="editing.png" OnClick="() => OpenEditModal(recipe)">Edit</Button>
+                    <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
+                </div>
+            </div>
+        }
+    }
+</div>
+
+<Modal @ref="addRecipeModal" Title="Create recipe">
+    <ChildContent>
+        <div class="row">
+            <div class="col-2">
+                <label class="mt-2">Name: </label>
+            </div>
+            <div class="col-10">
+                <input type="text"
+                       class="form-control mt-1 no-border"
+                       placeholder="Enter name"
+                       @bind="recipeName"/>
+            </div>
         </div>
-    </Authorized>
-    <NotAuthorized>
-    </NotAuthorized>
+        <div class="row">
+            <div class="col-2">
+                <label class="mt-2">Instructions: </label>
+            </div>
+            <div class="col-10">
+                <input type="text"
+                       class="form-control mt-1 no-border"
+                       placeholder="Enter instructions"
+                       @bind="recipeInstructions"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="mt-2">Type: </label>
+            </div>
+            <div class="col-10">
+                <select class="mt-2" @bind="type">
+                    <option>Starter</option>
+                    <option>Main</option>
+                    <option>Desert</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-5">
+            <label>Choose ingredients:</label>
+            <div class="row m-2 justify-content-center align-items-center">
+                <div class="col-9">
+                    <select @bind="currentIngredient" class="p-1">
+                        <option selected>Choose an ingredient</option>
+                        @foreach (IngredientDto dto in _ingredientList)
+                        {
+                            <option>@dto.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-2">
+                    <input type="number"
+                           class="form-control no-border"
+                           placeholder="Enter amount"
+                           @bind="currentIngredientAmount"/>
+                </div>
+                <div class="col-1">
+                    <Button Icon="add.png"
+                            OnClick="() => AddIngredientToRecipe()">
+                    </Button>
+                </div>
+            </div>
+            @foreach (RecipeIngredientDto dto in selectedIngredients)
+            {
+                <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
+                    <div class="col-3">
+                        <label>@dto.IngredientName</label>
+                    </div>
+                    <div class="col-3">
+                        <label>Quantity: </label>
+                        @dto.Quantity
+                    </div>
+                    <div class="col-2">
+                        <Button
+                            Icon="minus.png"
+                            OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)">
+                        </Button>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (!string.IsNullOrWhiteSpace(error))
+        {
+            <div class="blazor-error-boundary">
+                @error <br/>
+            </div>
+        }
+    </ChildContent>
+    <FooterContent>
+        <Button Text="Close" Secondary OnClick="addRecipeModal.Close"/>
+        <Button Text="Add" OnClick="() => AddRecipe()"/>
+    </FooterContent>
+</Modal>
+
+<Modal @ref="deleteRecipeModal" Title="Delete recipe">
+    <ChildContent>
+        <p>Are you sure you want to delete @((selectedRecipe != null) ? selectedRecipe.name : "this recipe")? This action is irreversible!</p>
+    </ChildContent>
+    <FooterContent>
+        <Button Text="Cancel" Secondary OnClick="deleteRecipeModal.Close"/>
+        <Button Text="Delete" Danger OnClick="DeleteRecipe"/>
+    </FooterContent>
+</Modal>
+
+<Modal @ref="editRecipeModal" Title="Edit Recipe">
+    <ChildContent>
+        <div class="row">
+            <div class="col-2">
+                <label class="mt-2">Name: </label>
+            </div>
+            <div class="col-10">
+                <input type="text"
+                       class="form-control mt-1 no-border"
+                       placeholder="Enter name"
+                       @bind="editedRecipeName"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="mt-2">Instructions: </label>
+            </div>
+            <div class="col-10">
+                <input type="text"
+                       class="form-control mt-1 no-border"
+                       placeholder="Enter instructions"
+                       @bind="editedRecipeInstructions"/>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-2">
+                <label class="mt-2">Type: </label>
+            </div>
+            <div class="col-10">
+                <select class="form-control mt-1 no-border" @bind="editedRecipeType">
+                    <option>Starter</option>
+                    <option>Main</option>
+                    <option>Desert</option>
+                </select>
+            </div>
+        </div>
+        <div class="mt-5">
+            <label>Update Ingredients:</label>
+            <div class="row m-2 justify-content-center align-items-center">
+                <div class="col-8">
+                    <select @bind="currentIngredient" class="p-1">
+                        <option selected>Choose an ingredient</option>
+                        @foreach (IngredientDto ingredient in _ingredientList)
+                        {
+                            <option>@ingredient.Name</option>
+                        }
+                    </select>
+                </div>
+                <div class="col-2">
+                    <input type="number"
+                           class="form-control no-border"
+                           placeholder="Amount"
+                           @bind="currentIngredientAmount"/>
+                </div>
+                <div class="col-2">
+                    <Button Icon="add.png" OnClick="() => AddIngredientToEditedRecipe()"></Button>
+                </div>
+            </div>
+            @foreach (SimplifiedIngredientDto dto in editedIngredients)
+            {
+                <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
+                    <div class="col-4">
+                        <label>@dto.ingredientName</label>
+                    </div>
+                    <div class="col-4">
+                        <input type="number"
+                               class="form-control no-border"
+                               @bind="dto.ingredientQuantity"
+                               min="0"/>
+                    </div>
+                    <div class="col-2">
+                        <Button Icon="minus.png" OnClick="() => RemoveIngredientFromEditedRecipe(dto.ingredientName)"></Button>
+                    </div>
+                </div>
+            }
+        </div>
+        @if (!string.IsNullOrWhiteSpace(editError))
+        {
+            <div class="blazor-error-boundary">
+                @editError <br/>
+            </div>
+        }
+    </ChildContent>
+    <FooterContent>
+        <Button Text="Close" Secondary OnClick="editRecipeModal.Close"/>
+        <Button Text="Save" OnClick="() => SaveEditedRecipe()"/>
+    </FooterContent>
+</Modal>
+</div>
+</Authorized>
+<NotAuthorized>
+    <div class="unauthorized-message">
+        <p>You must be authorized as a Chef to access this page.</p>
+    </div>
+</NotAuthorized>
 </AuthorizeView>
 
 @code {
@@ -328,44 +311,56 @@
     private CseResource.ListRequest lr;
     private bool GoogleAssumedWorking = true;
 
-    protected override async Task OnInitializedAsync() {
+    protected override async Task OnInitializedAsync()
+    {
+        ThemeState.OnThemeChange += async () =>
+        {
+            Console.WriteLine($"Theme changed. Dark mode: {ThemeState.IsDarkMode}");
+            await InvokeAsync(StateHasChanged);
+        };
+
         AuthenticationState authenticationState = await State;
         ClaimsPrincipal claimsPrincipal = authenticationState.User;
-        if (claimsPrincipal.Identity is null || !claimsPrincipal.Identity.IsAuthenticated) {
-            // the user is not logged in
+        if (claimsPrincipal.Identity is null || !claimsPrincipal.Identity.IsAuthenticated)
+        {
             return;
         }
 
-        // Subscribe to theme changes
-        ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
-
         string? userName = claimsPrincipal.Identity?.Name;
+        Console.WriteLine($"usr name: {userName}");
         IEnumerable<Claim> claims = claimsPrincipal.Claims;
-        foreach (var claim in claims) {
+        foreach (var claim in claims)
+        {
             Console.WriteLine($"$ claims: {claim}");
         }
+
         string userIdAsString = claims.Single(c => c.Type == "Id").Value;
         currentUserId = int.Parse(userIdAsString);
 
-        try {
+        try
+        {
             _ingredientList = await IngredientService.GetIngredientsAsync();
             _recipeList = await RecipeService.GetRecipesAsync();
-            try {
+            try
+            {
                 BaseClientService.Initializer init = new();
-                init.ApiKey = PasswordSingleton.Instance.Key; //insert the API key 
+                init.ApiKey = PasswordSingleton.Instance.Key;
                 init.ApplicationName = "Refridgerate";
                 lr = new CustomSearchAPIService(init).Cse.List();
                 lr.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
-                lr.Cx = PasswordSingleton.Instance.Cx; //insert the Browser key
+                lr.Cx = PasswordSingleton.Instance.Cx;
                 lr.FileType = "png";
                 lr.Num = 1;
             }
-            catch (Exception e) {
+            catch (Exception e)
+            {
                 GoogleAssumedWorking = false;
             }
-            filteredRecipes = new List<RecipeDto>(_recipeList); // Initialize filtered list
+
+            filteredRecipes = new List<RecipeDto>(_recipeList);
         }
-        catch (Exception e) {
+        catch (Exception e)
+        {
             Console.WriteLine(e);
             throw;
         }
@@ -386,21 +381,25 @@
         }
     }
 
-    private void FilterByType(string? type) {
+    private void FilterByType(string? type)
+    {
         selectedType = type;
         ApplyFilters();
     }
 
-    private void ApplyFilters() {
+    private void ApplyFilters()
+    {
         var filtered = _recipeList.AsQueryable();
 
         // Apply search filter
-        if (!string.IsNullOrWhiteSpace(searchText)) {
+        if (!string.IsNullOrWhiteSpace(searchText))
+        {
             filtered = filtered.Where(r => r.name.Contains(searchText, StringComparison.OrdinalIgnoreCase));
         }
 
         // Apply type filter
-        if (!string.IsNullOrWhiteSpace(selectedType)) {
+        if (!string.IsNullOrWhiteSpace(selectedType))
+        {
             filtered = filtered.Where(r => r.type == selectedType);
         }
 
@@ -408,7 +407,8 @@
         StateHasChanged();
     }
 
-    private void OpenModal() {
+    private void OpenModal()
+    {
         recipeName = "";
         recipeInstructions = "";
         error = "";
@@ -416,13 +416,17 @@
         addRecipeModal.Open();
     }
 
-    private async void AddRecipe() {
+    private async void AddRecipe()
+    {
         error = "";
-        if (string.IsNullOrWhiteSpace(recipeName) || string.IsNullOrWhiteSpace(recipeInstructions) || string.IsNullOrWhiteSpace(type)) {
+        if (string.IsNullOrWhiteSpace(recipeName) || string.IsNullOrWhiteSpace(recipeInstructions) || string.IsNullOrWhiteSpace(type))
+        {
             error = "One of the values has been left empty";
             return;
         }
-        if (selectedIngredients.Count == 0) {
+
+        if (selectedIngredients.Count == 0)
+        {
             error = "You need some ingredients in a recipe";
             return;
         }
@@ -436,29 +440,33 @@
             ingredients = selectedIngredients
         };
 
-        try {
+        try
+        {
             await RecipeService.AddRecipeAsync(createRecipeDto);
             _recipeList = await RecipeService.GetRecipesAsync();
             addRecipeModal.Close();
             StateHasChanged();
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             error = $"Error adding recipe: {ex.Message}";
         }
     }
 
-
-    private void AddIngredientToRecipe() {
+    private void AddIngredientToRecipe()
+    {
         IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
         RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == currentIngredient);
-        if (ingredientDto is null || attempted is not null) {
+        if (ingredientDto is null || attempted is not null)
+        {
             error = "Something went wrong";
             Console.WriteLine(error);
             return;
         }
 
         error = "";
-        RecipeIngredientDto toAdd = new() {
+        RecipeIngredientDto toAdd = new()
+        {
             IngredientId = ingredientDto.Id,
             IngredientName = ingredientDto.Name,
             Quantity = currentIngredientAmount
@@ -466,65 +474,29 @@
         selectedIngredients.Add(toAdd);
     }
 
-    private void RemoveIngredientFromRecipe(string ingredientName) {
+    private void RemoveIngredientFromRecipe(string ingredientName)
+    {
         RecipeIngredientDto? attempted = selectedIngredients.SingleOrDefault(d => d.IngredientName == ingredientName);
-        if (attempted is null) {
+        if (attempted is null)
+        {
             error = "Something went wrong";
             Console.WriteLine(error);
             return;
         }
+
         selectedIngredients.Remove(attempted);
     }
-    
-    protected override async Task OnInitializedAsync()
-    {
-            ThemeState.OnThemeChange += async () => 
-            { 
-                Console.WriteLine($"Theme changed. Dark mode: {ThemeState.IsDarkMode}");
-                await InvokeAsync(StateHasChanged);
-            };
-        
-        AuthenticationState authenticationState = await State; 
-        ClaimsPrincipal claimsPrincipal = authenticationState.User; 
-        if(claimsPrincipal.Identity is null || !claimsPrincipal.Identity.IsAuthenticated) 
-        { 
-            return; 
-        } 
-        string? userName = claimsPrincipal.Identity?.Name; 
-        Console.WriteLine($"usr name: {userName}");
-        IEnumerable<Claim> claims = claimsPrincipal.Claims;
-        foreach (var claim in claims)
-        {
-            Console.WriteLine($"$ claims: {claim}");
-        }
-        string userIdAsString = claims.Single(c => c.Type == "Id").Value; 
-        currentUserId = int.Parse(userIdAsString);
 
-        try
-        {
-            _ingredientList = await IngredientService.GetIngredientsAsync();
-            _recipeList = await RecipeService.GetRecipesAsync();
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            throw;
-        }
-    }
-    
-    public void Dispose()
-    {
-        ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
-    }
-    
     private void OpenDeleteModal(RecipeDto recipe)
     {
         selectedRecipe = recipe;
         deleteRecipeModal.Open();
     }
 
-    private async void DeleteRecipe() {
-        if (selectedRecipe != null) {
+    private async void DeleteRecipe()
+    {
+        if (selectedRecipe != null)
+        {
             await RecipeService.DeleteRecipeAsync(selectedRecipe.id);
             _recipeList.Remove(selectedRecipe);
             ApplyFilters();
@@ -533,7 +505,8 @@
         }
     }
 
-    private void OpenEditModal(RecipeDto recipe) {
+    private void OpenEditModal(RecipeDto recipe)
+    {
         selectedRecipe = recipe;
         editedRecipeName = recipe.name;
         editedRecipeInstructions = recipe.instruction;
@@ -543,16 +516,19 @@
         editRecipeModal.Open();
     }
 
-    private void AddIngredientToEditedRecipe() {
+    private void AddIngredientToEditedRecipe()
+    {
         IngredientDto? ingredientDto = _ingredientList.SingleOrDefault(d => d.Name == currentIngredient);
         SimplifiedIngredientDto? attempted = editedIngredients.SingleOrDefault(d => d.ingredientName == currentIngredient);
-        if (ingredientDto is null || attempted is not null) {
+        if (ingredientDto is null || attempted is not null)
+        {
             editError = "Something went wrong";
             return;
         }
 
         editError = "";
-        SimplifiedIngredientDto toAdd = new() {
+        SimplifiedIngredientDto toAdd = new()
+        {
             ingredientId = ingredientDto.Id,
             ingredientName = ingredientDto.Name,
             ingredientQuantity = currentIngredientAmount
@@ -560,64 +536,86 @@
         editedIngredients.Add(toAdd);
     }
 
-    private void RemoveIngredientFromEditedRecipe(string ingredientName) {
+    private void RemoveIngredientFromEditedRecipe(string ingredientName)
+    {
         SimplifiedIngredientDto? attempted = editedIngredients.SingleOrDefault(d => d.ingredientName == ingredientName);
-        if (attempted is null) {
+        if (attempted is null)
+        {
             editError = "Something went wrong";
             return;
         }
+
         editedIngredients.Remove(attempted);
     }
 
-    private async Task SaveEditedRecipe() {
+    private async Task SaveEditedRecipe()
+    {
         editError = "";
-        if (string.IsNullOrWhiteSpace(editedRecipeName) || string.IsNullOrWhiteSpace(editedRecipeInstructions) || string.IsNullOrWhiteSpace(editedRecipeType)) {
+        if (string.IsNullOrWhiteSpace(editedRecipeName) || string.IsNullOrWhiteSpace(editedRecipeInstructions) || string.IsNullOrWhiteSpace(editedRecipeType))
+        {
             editError = "One of the values has been left empty";
             return;
         }
-        if (editedIngredients.Count == 0) {
+
+        if (editedIngredients.Count == 0)
+        {
             editError = "You need some ingredients in a recipe";
             return;
         }
 
-        var createRecipeDto = new CreateRecipeDto {
+        var createRecipeDto = new CreateRecipeDto
+        {
             name = editedRecipeName,
             instructions = editedRecipeInstructions,
             type = editedRecipeType,
             creatorId = selectedRecipe.creatorId,
-            ingredients = editedIngredients.Select(i => new RecipeIngredientDto {
+            ingredients = editedIngredients.Select(i => new RecipeIngredientDto
+            {
                 IngredientId = i.ingredientId,
                 IngredientName = i.ingredientName,
                 Quantity = i.ingredientQuantity
             }).ToList()
         };
 
-        try {
+        try
+        {
             RecipeDto updatedRecipe = await RecipeService.UpdateRecipeAsync(selectedRecipe.id, createRecipeDto);
             var index = _recipeList.FindIndex(r => r.id == selectedRecipe.id);
-            if (index != -1) {
+            if (index != -1)
+            {
                 _recipeList[index] = updatedRecipe;
             }
+
             ApplyFilters();
             editRecipeModal.Close();
         }
-        catch (Exception ex) {
+        catch (Exception ex)
+        {
             editError = $"Error saving recipe: {ex.Message}";
         }
     }
-    private string tryGettingSavedPicture(string name) {
+
+    private string tryGettingSavedPicture(string name)
+    {
         name += " dish";
-        if (!GoogleAssumedWorking) {
+        if (!GoogleAssumedWorking)
+        {
             return "https://www.google.com/imgres?q=error%20png&imgurl=https%3A%2F%2Fe7.pngegg.com%2Fpngimages%2F285%2F84%2Fpng-clipart-computer-icons-error-super-8-film-angle-triangle-thumbnail.png&imgrefurl=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fsearch%3Fq%3Derror&docid=Pwxq0JhpzuoCXM&tbnid=VMz0C3m3-GsgGM&vet=12ahUKEwi57c2c7qSKAxUhm_0HHTtzG6MQM3oECBgQAA..i&w=348&h=348&hcb=2&ved=2ahUKEwi57c2c7qSKAxUhm_0HHTtzG6MQM3oECBgQAA";
         }
-        if (!ImageMemorySingleton.Instance.containsKey(name)) {
+
+        if (!ImageMemorySingleton.Instance.containsKey(name))
+        {
             ImageMemorySingleton.Instance.add(name, getHtmlPicture(name));
         }
+
         return ImageMemorySingleton.Instance.get(name);
     }
-    private string getHtmlPicture(string name) {
+
+    private string getHtmlPicture(string name)
+    {
         Console.WriteLine($"generating image for query: {name}...");
         lr.Q = name;
         return lr.Execute().Items[0].Link;
     }
+
 }
