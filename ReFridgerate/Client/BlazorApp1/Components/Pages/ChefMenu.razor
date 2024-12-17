@@ -122,42 +122,39 @@
                 </div>
             </div>
         }
+        @if(cancelledOrder != null){
+        <h2 style="font-size: 20px; margin-bottom: 16px">Cancelled order</h2>
         <div class="orders-grid">
-            @if(cancelledOrder != null){
-            <h2>Cancelled order</h2>
-            <div>
-
-                <div class="order-card">
-                    <div class="order-metadata">
-                        <div class="meta-item-custom">
-                            <i class="fas fa-table me-2"></i>
-                            Table @cancelledOrder.TableNumber
-                        </div>
-                        <div class="meta-item-custom">
-                            <i class="fas fa-clock me-2"></i>
-                            @cancelledOrder.OrderTime.ToString("HH:mm")
-                        </div>
+            <div class="order-card">
+                <div class="order-metadata">
+                    <div class="meta-item-custom">
+                        <i class="fas fa-table me-2"></i>
+                        Table @cancelledOrder.TableNumber
                     </div>
-
-                    <div class="dishes-list">
-                        @foreach (var dish in cancelledOrder.Dishes)
-                        {
-                        <div class="dish-item">
-                            <span class="dish-name">@dish.Recipe.name</span>
-                            @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
-                            {
-                            <span class="dish-note">@dish.Quantity.ToString()</span>
-                            }
-                        </div>
-                        }
+                    <div class="meta-item-custom">
+                        <i class="fas fa-clock me-2"></i>
+                        @cancelledOrder.OrderTime.ToString("HH:mm")
                     </div>
                 </div>
+
+                <div class="dishes-list">
+                    @foreach (var dish in cancelledOrder.Dishes)
+                    {
+                    <div class="dish-item">
+                        <span class="dish-name">@dish.Recipe.name</span>
+                        @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
+                        {
+                        <span class="dish-note"> @dish.Quantity.ToString()</span>
+                        }
+                    </div>
+                    }
+                </div>
             </div>
-            <div>
-                <Button Text="Close" Secondary OnClick="CloseCancelledOrder"/>
-            </div>
-            }
         </div>
+        <div>
+            <Button Text="Close" Secondary OnClick="CloseCancelledOrder"/>
+        </div>
+        }
     </div>
     
 </AuthorizeView>
@@ -269,7 +266,7 @@
     void OnOrdersCancelled(OrderDto order)
     {
         cancelledOrder = order;
-        StateHasChanged();
+        InvokeAsync(StateHasChanged);
     }
     public async ValueTask DisposeAsync()
     {

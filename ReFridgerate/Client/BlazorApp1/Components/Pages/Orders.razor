@@ -11,61 +11,72 @@
 <link href="css/orders.css" rel="stylesheet"/>
 <title>Orders</title>
 <AuthorizeView Roles="Chef">
-<div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
-    <div class="header">
-        <h1>Orders</h1>
-    </div>
+    <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
+        <div class="header">
+            <h1>Orders</h1>
+        </div>
 
-    <div class="orders-grid">
-        @foreach (var order in filteredOrders)
-        {
-            <div class="order-card">
-                <div class="order-metadata">
-                    <div class="meta-item-custom">
-                        <i class="fas fa-table me-2"></i>
-                        Table @order.TableNumber
-                    </div>
-                    <div class="meta-item-custom">
-                        <i class="fas fa-clock me-2"></i>
-                        @order.OrderTime.ToString("HH:mm")
-                    </div>
-                </div>
-
-                <div class="dishes-list">
-                    @foreach (var dish in order.Dishes)
-                    {
-                        <div class="dish-item">
-                            <span class="dish-name">@dish.Recipe.name</span>
-                            @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
-                            {
-                                <span class="dish-note">@dish.Quantity.ToString()</span>
-                            }
+        <div class="orders-grid">
+            @foreach (var order in filteredOrders)
+            {
+                <div class="order-card">
+                    <div class="order-metadata">
+                        <div class="meta-item-custom">
+                            <i class="fas fa-table me-2"></i>
+                            Table @order.TableNumber
                         </div>
-                    }
-                </div>
+                        <div class="meta-item-custom">
+                            <i class="fas fa-clock me-2"></i>
+                            @order.OrderTime.ToString("HH:mm")
+                        </div>
+                    </div>
 
-                <div class="order-actions">
-                    <Button Icon="check.png"
-                            Text="Accept"
-                            OnClick="@(e => AcceptOrder(order))"/>
-                    <Button Icon="cancel.png"
-                            Text="Deny"
-                            Danger="true"
-                            OnClick="@(e => DenyOrder(order))"/>
+                    <div class="dishes-list">
+                        @foreach (var dish in order.Dishes)
+                        {
+                            <div class="dish-item">
+                                <span class="dish-name">@dish.Recipe.name</span>
+                                @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
+                                {
+                                    <span class="dish-note">@dish.Quantity.ToString()</span>
+                                }
+                            </div>
+                        }
+                    </div>
+
+                    <div class="order-actions">
+                        <Button Icon="check.png"
+                                Text="Accept"
+                                OnClick="@(e => AcceptOrder(order))"/>
+                        <Button Icon="cancel.png"
+                                Text="Deny"
+                                Danger="true"
+                                OnClick="@(e => DenyOrder(order))"/>
+                    </div>
                 </div>
-            </div>
-        }
+            }
+        </div>
+        <div>
+            <p style="color: red">@ErrorLabel</p>
+        </div>
     </div>
-    <div>
-        <p style="color: red">@ErrorLabel</p>
-    </div>
-</div>
+    
+    <Modal @ref="modal" Title="Order Status">
+        <ChildContent>
+            <p>@modalMessage</p>
+        </ChildContent>
+        <FooterContent>
+            <Button Text="Close" OnClick="modal.Close"/>
+        </FooterContent>
+    </Modal>
 </AuthorizeView>
 @code {
     private HubConnection? hubConnection;
     private List<OrderDto> orders = new List<OrderDto>();
     private List<OrderDto> filteredOrders = new List<OrderDto>();
     private string ErrorLabel = "";
+    private Modal modal;
+    private string modalMessage; 
     public class Order
     {
         public int TableNumber { get; set; }
@@ -166,6 +177,8 @@
         
         orders.Remove(order);
         filteredOrders.Remove(order);
+        modalMessage = $"Order for Table {order.TableNumber} has been accepted!";
+        modal.Open();
         StateHasChanged();
         return ;
     }
@@ -175,6 +188,8 @@
         await OrdersService.SendCancellation(order);
         orders.Remove(order);
         filteredOrders.Remove(order);
+        modalMessage = $"Order for Table {order.TableNumber} has been denied.";
+        modal.Open();
         StateHasChanged();
         return;
     }
