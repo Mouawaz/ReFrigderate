@@ -33,12 +33,12 @@ public class UserLogic : IUserRepository
 
     public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
     {
-        if (loginDto.email.Equals(null) || loginDto.password.Equals(null))
+        if (loginDto.email == null || loginDto.password == null)
         {
             throw new ArgumentException("Fields cannot be empty");
             
         }
-        else if (!loginDto.email.Contains("@") && loginDto.password.Contains("."))
+        else if (!loginDto.email.Contains('@') || loginDto.password.Contains('.'))
         {
             throw new  ArgumentException("Invalid email");
         }
@@ -57,7 +57,7 @@ public class UserLogic : IUserRepository
 
     public async Task<bool> UpdateAsync(int id, int role)
     {
-        if (id.Equals(null) || id < 1 || role.Equals(null))
+        if (id == null || id < 1)
         {
             throw new ArgumentException("Provided information is not valid");
         }
@@ -76,6 +76,10 @@ public class UserLogic : IUserRepository
         if (userDto.FirstName.Any(char.IsDigit ) || userDto.LastName.Any(char.IsDigit))
         {
             throw new ArgumentException("First and Last name cannot contain digits");
+        }
+        else if (userDto.Password.Length < 5 )
+        {
+            throw new  ArgumentException("Password has to be longer than 5 characters");
         }
         return await clientManager.AddAsync(userDto);
     }

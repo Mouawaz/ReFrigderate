@@ -27,7 +27,7 @@ public class IngredientController : ControllerBase
         try
         {
             IngredientDto ingredient =
-               await ingredientRepo.UpdateAsync(id, userInfo, userInfo.Difference);
+               await ingredientRepo.UpdateAsync(id, userInfo);
             return Results.Ok(ingredient);
         }
         catch (ArgumentException e)

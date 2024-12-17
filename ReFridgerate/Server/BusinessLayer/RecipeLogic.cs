@@ -20,7 +20,7 @@ public class RecipeLogic : IRecipeRepository
 
     public async Task<RecipeDto> AddAsync(CreateRecipeDto recipeDto)
     {
-        if (recipeDto.name.Equals(null) || recipeDto.type.Equals(null) || recipeDto.creatorId.Equals(null) || recipeDto.type.Equals(null))
+        if (recipeDto.name == null || recipeDto.type == null)
         {
             throw new ArgumentException("Data cannot be null");
         }
@@ -30,7 +30,7 @@ public class RecipeLogic : IRecipeRepository
         }
         foreach (RecipeIngredientDto ingredient in recipeDto.ingredients)
         {
-            if (ingredient.IngredientId.Equals(null) || ingredient.IngredientId < 1 || ingredient.IngredientName.Equals(null))
+            if (ingredient.IngredientId < 1 || ingredient.IngredientName == null)
             {
                 throw new ArgumentException("Invalid recipe ingredient information");
             }
@@ -40,22 +40,29 @@ public class RecipeLogic : IRecipeRepository
 
     public async Task<RecipeDto> UpdateAsync(int id, CreateRecipeDto recipe)
     {
-        if (id.Equals(null) || recipe.name.Equals(null) || recipe.instructions.Equals(null) || recipe.ingredients.Count.Equals(0) ||
-            recipe.type.Equals(null) || recipe.creatorId.Equals(null))
+        if (recipe.name == null || recipe.ingredients.Count.Equals(0) ||
+            recipe.type == null)
         {
             throw new ArgumentException("Data cannot be null");
         }
 
-        if (id < 1 || recipe.name.All(c =>char.IsDigit(c) || recipe.creatorId < 1 || recipe.type.Any(c =>char.IsDigit(c))))
+        if (id < 1 || recipe.creatorId < 1 || recipe.type.Any(c =>char.IsDigit(c)))
         {
             throw new ArgumentException("Invalid recipe information");
+        }
+        foreach (RecipeIngredientDto ingredient in recipe.ingredients)
+        {
+            if (ingredient.IngredientId < 1 || ingredient.IngredientName == null)
+            {
+                throw new ArgumentException("Invalid recipe ingredient information");
+            }
         }
         return await clientManager.UpdateRecipeAsync(id, recipe);
     }
 
     public async Task DeleteAsync(int id)
     {
-        if (id.Equals(null) || id < 1)
+        if (id < 1)
         {
             throw new ArgumentException("Id cannot be null or negative");
         }
