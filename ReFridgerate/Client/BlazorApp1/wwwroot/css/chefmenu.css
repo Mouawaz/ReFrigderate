@@ -1,0 +1,245 @@
+.page-container {
+    padding: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.page-container.dark {
+    background-color: #1a1a1a;
+    color: #ffffff;
+}
+
+.page-container.light {
+    background-color: #f5f5f5;
+    color: #333333;
+}
+
+.header {
+    margin-bottom: 24px;
+}
+
+.header h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.menu-grid,
+.orders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.menu-card,
+.order-card {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 16px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.dark .menu-card,
+.dark .order-card {
+    background-color: #2d2d2d;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.menu-card:hover,
+.order-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.menu-metadata,
+.order-metadata {
+    margin-bottom: 12px;
+}
+
+.meta-item-custom {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.meta-item-custom i {
+    margin-right: 8px;
+    width: 16px;
+    text-align: center;
+}
+
+.menu-toggle,
+.order-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px solid #eee;
+}
+
+.dark .menu-toggle,
+.dark .order-actions {
+    border-top-color: #404040;
+}
+
+/* Switch styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+/* Button styling */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 4px;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.btn-primary {
+    background-color: #2196F3;
+    color: white;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn i {
+    margin-right: 8px;
+}
+
+/* Current order section */
+.current-order {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 2px solid #eee;
+}
+
+.dark .current-order {
+    border-top-color: #404040;
+}
+
+.current-order h2 {
+    font-size: 20px;
+    margin-bottom: 16px;
+}
+
+/* Loading state */
+.loading {
+    text-align: center;
+    padding: 40px;
+    font-style: italic;
+    color: #666;
+}
+
+.dark .loading {
+    color: #999;
+}
+
+/* Status colors */
+.status-new {
+    color: #2196F3;
+}
+
+.status-inprogress {
+    color: #ff9800;
+}
+
+.status-ready {
+    color: #4caf50;
+}
+
+.status-completed {
+    color: #666;
+}
+
+/* Quantity controls */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    background: transparent;
+    cursor: pointer;
+}
+
+.dark .quantity-controls button {
+    border-color: #404040;
+    color: #fff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .menu-grid,
+    .orders-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .menu-card,
+    .order-card {
+        padding: 12px;
+    }
+
+    .header h1 {
+        font-size: 20px;
+    }
+}

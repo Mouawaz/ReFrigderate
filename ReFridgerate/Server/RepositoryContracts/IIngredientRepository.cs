@@ -1,5 +1,5 @@
 using APIContracts.IngridientDtos;
-using Entities;
+
 
 namespace RepositoryContracts;
 public interface IIngredientRepository

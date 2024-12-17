@@ -1,0 +1,281 @@
+@page "/menu"
+@using APIContracts.OrderDto
+@using BlazorApp1.Services
+@using APIContracts.RecipeDtos
+@using Entities
+@using Microsoft.AspNetCore.SignalR.Client
+@inject IRecipeService RecipeService
+@inject IThemeState ThemeState
+@inject OrdersService OrdersService
+<link href="css/chefmenu.css" rel="stylesheet" />
+
+<AuthorizeView Roles="Chef">
+    <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
+        <div class="header">
+            <h1>Menu Management</h1>
+        </div>
+
+        @if (recipes != null)
+        {
+            <div class="menu-grid">
+                @foreach (var recipe in recipes)
+                {
+                    <div class="menu-card">
+                        <div class="menu-metadata">
+                            <div class="meta-item-custom">
+                                <i class="fas fa-utensils me-2"></i>
+                                @recipe.name
+                            </div>
+                            <div class="meta-item-custom">
+                                <i class="fas fa-tag me-2"></i>
+                                @recipe.type
+                            </div>
+                        </div>
+                        <div class="menu-toggle">
+                            <label class="switch">
+                                <input type="checkbox" 
+                                       checked="@recipe.modifcationsAllowed" 
+                                       @onchange="@((e) => ToggleRecipeOnMenu(recipe, e.Value))" />
+                                <span class="slider round"></span>
+                            </label>
+                            <span>@(recipe.modifcationsAllowed ? "Available" : "Unavailable")</span>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="loading">
+                <p><em>Loading menu items...</em></p>
+            </div>
+        }
+    </div>
+</AuthorizeView>
+
+<AuthorizeView Roles="Chef,Waiter">
+    <div class="page-container @(ThemeState.IsDarkMode ? "dark" : "light")">
+        <div class="header">
+            <h1>Order Creation</h1>
+        </div>
+
+        <div class="orders-grid">
+            @if (recipes?.Any(r => r.modifcationsAllowed) == true)
+            {
+                @foreach (var recipe in recipes.Where(r => r.modifcationsAllowed))
+                {
+                    <div class="order-card">
+                        <div class="order-metadata">
+                            <div class="meta-item-custom">
+                                <i class="fas fa-utensils me-2"></i>
+                                @recipe.name
+                            </div>
+                            <div class="meta-item-custom">
+                                <i class="fas fa-tag me-2"></i>
+                                @recipe.type
+                            </div>
+                        </div>
+                        <div class="order-actions">
+                            <Button Icon="add.png"
+                                    Text="Add to Order"
+                                    OnClick="@(() => AddToPendingOrders(recipe))"/>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        @if (pendingOrders.Any())
+        {
+            <div class="current-order mt-4">
+                <h2>Current Order</h2>
+                <div class="orders-grid">
+                    @foreach (var order in pendingOrders)
+                    {
+                        <div class="order-card">
+                            <div class="order-metadata">
+                                <div class="meta-item-custom">
+                                    <i class="fas fa-utensils me-2"></i>
+                                    @order.Recipe.name
+                                </div>
+                                <div class="meta-item-custom">
+                                    <i class="fas fa-hashtag me-2"></i>
+                                    Quantity: @order.Quantity
+                                </div>
+                            </div>
+                            <div class="order-actions">
+                                <Button Icon="add.png"
+                                        Text="Add"
+                                        OnClick="@(() => AdjustOrderQuantity(order, 1))"/>
+                                <Button Icon="minus.png"
+                                        Text="Remove"
+                                        OnClick="@(() => AdjustOrderQuantity(order, -1))"/>
+                            </div>
+                        </div>
+                    }
+                    
+                    <div class="order-actions mt-3">
+                        <Button Icon="send.png"
+                                Text="Send Order"
+                                OnClick="@ConfirmOrders"/>
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="orders-grid">
+            @if(cancelledOrder != null){
+            <h2>Cancelled order</h2>
+            <div>
+
+                <div class="order-card">
+                    <div class="order-metadata">
+                        <div class="meta-item-custom">
+                            <i class="fas fa-table me-2"></i>
+                            Table @cancelledOrder.TableNumber
+                        </div>
+                        <div class="meta-item-custom">
+                            <i class="fas fa-clock me-2"></i>
+                            @cancelledOrder.OrderTime.ToString("HH:mm")
+                        </div>
+                    </div>
+
+                    <div class="dishes-list">
+                        @foreach (var dish in cancelledOrder.Dishes)
+                        {
+                        <div class="dish-item">
+                            <span class="dish-name">@dish.Recipe.name</span>
+                            @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
+                            {
+                            <span class="dish-note">@dish.Quantity.ToString()</span>
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div>
+                <Button Text="Close" Secondary OnClick="CloseCancelledOrder"/>
+            </div>
+            }
+        </div>
+    </div>
+    
+</AuthorizeView>
+
+@code {
+    private List<RecipeDto> recipes;
+    private List<Order> pendingOrders = new List<Order>();
+    private OrderDto order;
+    private OrderDto cancelledOrder;
+    private class Order
+    {
+        public RecipeDto Recipe { get; set; }
+        public int Quantity { get; set; } = 1;
+    }
+    private HubConnection? hubConnection;
+    protected override async Task OnInitializedAsync()
+    {
+        OrdersService.OnOrderCancelled += OnOrdersCancelled;
+        await OrdersService.StartConnection();
+
+        ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+        await RefreshRecipes();
+    }
+
+    private async Task RefreshRecipes()
+    {
+        recipes = await RecipeService.GetRecipesAsync();
+    }
+
+    private async Task ToggleRecipeOnMenu(RecipeDto recipe, object isChecked)
+    {
+        bool isOnMenu = (bool)isChecked;
+        recipe.modifcationsAllowed = isOnMenu;  // This controls visibility in waiter menu
+
+        var recipeToUpdate = new CreateRecipeDto
+        {
+            name = recipe.name,
+            type = recipe.type,  // Don't change the type
+            instructions = recipe.instruction,
+            modificationsAllowed = recipe.modifcationsAllowed,
+            creatorId = recipe.creatorId,
+            ingredients = recipe.ingredients.Select(i => new RecipeIngredientDto
+            {
+                IngredientId = i.ingredientId,
+                IngredientName = i.ingredientName,
+                Quantity = i.ingredientQuantity
+            }).ToList()
+        };
+
+        await RecipeService.UpdateRecipeAsync(recipe.id, recipeToUpdate);
+    }
+
+    private void CloseCancelledOrder()
+    {
+        cancelledOrder = null;
+        StateHasChanged();
+    }
+    private void AddToPendingOrders(RecipeDto recipe)
+    {
+        var existingOrder = pendingOrders.FirstOrDefault(o => o.Recipe.id == recipe.id);
+        if (existingOrder != null)
+        {
+            existingOrder.Quantity++;
+        }
+        else
+        {
+            // Create a new order without modifying the original recipe
+            pendingOrders.Add(new Order { 
+                Recipe = recipe,  // The recipe stays in the original list
+                Quantity = 1 
+            });
+        }
+        StateHasChanged();
+    }
+
+    private void AdjustOrderQuantity(Order order, int delta)
+    {
+        order.Quantity += delta;
+        if (order.Quantity <= 0)
+        {
+            pendingOrders.Remove(order);
+        }
+        StateHasChanged();
+    }
+    Random random = new ();
+    private async Task ConfirmOrders()
+    {
+        try
+        {
+            order = new OrderDto()
+            {
+                TableNumber = random.Next(1,15),
+                OrderTime = DateTime.Now,
+                Dishes = pendingOrders.Select(or => new Dish()
+                {
+                    Recipe = or.Recipe,
+                    Quantity = or.Quantity
+                }).ToList()
+            };
+            await OrdersService.SendMessage(order);
+            pendingOrders.Clear();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error sending orders: {ex.Message}");
+        }
+        StateHasChanged();
+    }
+    void OnOrdersCancelled(OrderDto order)
+    {
+        cancelledOrder = order;
+        StateHasChanged();
+    }
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            await OrdersService.DisposeAsync();
+        }
+    }
+}

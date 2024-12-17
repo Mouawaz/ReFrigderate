@@ -75,202 +75,228 @@
                 <Button Icon="editing.png" OnClick="() => OpenEditModal(recipe)">Edit</Button>
                 <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
             </div>
-        </div>
-        }
-        }
-    </div>
-</div>
-
-<!-- Add Recipe Modal -->
-<Modal @ref="addRecipeModal" Title="Create recipe">
-    <ChildContent>
-        <div class="row">
-            <div class="col-2">
-                <label class="mt-2">Name: </label>
+        
+            <div class="recipe-list">
+                @foreach (var recipe in _recipeList) {
+                    <div class="recipe-container">
+                        <div class="recipe-image">
+                            <p class="recipe-name">@recipe.name</p>
+                            <Icon Name="@recipe.name" Size="huge"></Icon>
+                        </div>
+                        <div class="recipe-info">
+                            <p>
+                                <b>Type: </b>@recipe.type
+                            </p>
+                            <p>
+                                <b>Ingredients:</b>
+                            </p>
+                            @foreach (var recipeIngredient in @recipe.ingredients) {
+                                <p>@recipeIngredient.ingredientName</p>
+                            }
+                            <p>
+                                <b>Instructions:</b>
+                            </p>
+                            <p>@recipe.instruction</p>
+                        </div>
+                        <div class="recipe-buttons">
+                            <Button Icon="editing.png" OnClick="() => OpenEditModal(recipe)">Edit</Button>
+                            <Button Danger Icon="whiteDelete.png" OnClick="() => OpenDeleteModal(recipe)">Delete</Button>
+                        </div>
+                    </div>
+                }
             </div>
-            <div class="col-10">
-                <input type="text"
-                       class="form-control mt-1 no-border"
-                       placeholder="Enter name"
-                       @bind="recipeName"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <label class="mt-2">Instructions: </label>
-            </div>
-            <div class="col-10">
-                <input type="text"
-                       class="form-control mt-1 no-border"
-                       placeholder="Enter instructions"
-                       @bind="recipeInstructions"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <label class="mt-2">Type: </label>
-            </div>
-            <div class="col-10">
-                <select class="mt-2" @bind="type">
-                    @foreach (var recipeType in recipeTypes) {
-                        <option>@recipeType</option>
-                    }
-                </select>
-            </div>
-        </div>
-        <div class="mt-5">
-            <label>Choose ingredients:</label>
-            <div class="row m-2 justify-content-center align-items-center">
-                <div class="col-9">
-                    <select @bind="currentIngredient" class="p-1">
-                        <option selected>Choose an ingredient</option>
-                        @foreach (IngredientDto dto in _ingredientList) {
-                            <option>@dto.Name</option>
+            
+            <Modal @ref="addRecipeModal" Title="Create recipe">
+                <ChildContent>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="mt-2">Name: </label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text"
+                                   class="form-control mt-1 no-border"
+                                   placeholder="Enter name"
+                                   @bind="recipeName"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="mt-2">Instructions: </label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text"
+                                   class="form-control mt-1 no-border"
+                                   placeholder="Enter instructions"
+                                   @bind="recipeInstructions"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="mt-2">Type: </label>
+                        </div>
+                        <div class="col-10">
+                            <select class="mt-2" @bind="type">
+                                <option>Starter</option>
+                                <option>Main</option>
+                                <option>Desert</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <label>Choose ingredients:</label>
+                        <div class="row m-2 justify-content-center align-items-center">
+                            <div class="col-9">
+                                <select @bind="currentIngredient" class="p-1">
+                                    <option selected>Choose an ingredient</option>
+                                    @foreach (IngredientDto dto in _ingredientList) {
+                                        <option>@dto.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <input type="number"
+                                       class="form-control no-border"
+                                       placeholder="Enter amount"
+                                       @bind="currentIngredientAmount"/>
+                            </div>
+                            <div class="col-1">
+                                <Button Icon="add.png"
+                                        OnClick="() => AddIngredientToRecipe()">
+                                </Button>
+                            </div>
+                        </div>
+                        @foreach (RecipeIngredientDto dto in selectedIngredients) {
+                            <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
+                                <div class="col-3">
+                                    <label>@dto.IngredientName</label>
+                                </div>
+                                <div class="col-3">
+                                    <label>Quantity: </label>
+                                    @dto.Quantity
+                                </div>
+                                <div class="col-2">
+                                    <Button
+                                        Icon="minus.png"
+                                        OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)">
+                                    </Button>
+                                </div>
+                            </div>
                         }
-                    </select>
-                </div>
-                <div class="col-2">
-                    <input type="number"
-                           class="form-control no-border"
-                           placeholder="Enter amount"
-                           @bind="currentIngredientAmount"/>
-                </div>
-                <div class="col-1">
-                    <Button Icon="add.png"
-                            OnClick="() => AddIngredientToRecipe()">
-                    </Button>
-                </div>
-            </div>
-            @foreach (RecipeIngredientDto dto in selectedIngredients) {
-                <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
-                    <div class="col-3">
-                        <label>@dto.IngredientName</label>
                     </div>
-                    <div class="col-3">
-                        <label>Quantity: </label>
-                        @dto.Quantity
-                    </div>
-                    <div class="col-2">
-                        <Button
-                            Icon="minus.png"
-                            OnClick="() => RemoveIngredientFromRecipe(dto.IngredientName)">
-                        </Button>
-                    </div>
-                </div>
-            }
-        </div>
-        @if (!string.IsNullOrWhiteSpace(error)) {
-            <div class="blazor-error-boundary">
-                @error <br/>
-            </div>
-        }
-    </ChildContent>
-    <FooterContent>
-        <Button Text="Close" Secondary OnClick="addRecipeModal.Close"/>
-        <Button Text="Add" OnClick="() => AddRecipe()"/>
-    </FooterContent>
-</Modal>
-
-<!-- Delete Recipe Modal -->
-<Modal @ref="deleteRecipeModal" Title="Delete recipe">
-    <ChildContent>
-        <p>Are you sure you want to delete @((selectedRecipe != null) ? selectedRecipe.name : "this recipe")? This action is irreversible!</p>
-    </ChildContent>
-    <FooterContent>
-        <Button Text="Cancel" Secondary OnClick="deleteRecipeModal.Close"/>
-        <Button Text="Delete" Danger OnClick="DeleteRecipe"/>
-    </FooterContent>
-</Modal>
-
-<!-- Edit Recipe Modal -->
-<Modal @ref="editRecipeModal" Title="Edit Recipe">
-    <ChildContent>
-        <div class="row">
-            <div class="col-2">
-                <label class="mt-2">Name: </label>
-            </div>
-            <div class="col-10">
-                <input type="text"
-                       class="form-control mt-1 no-border"
-                       placeholder="Enter name"
-                       @bind="editedRecipeName"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <label class="mt-2">Instructions: </label>
-            </div>
-            <div class="col-10">
-                <input type="text"
-                       class="form-control mt-1 no-border"
-                       placeholder="Enter instructions"
-                       @bind="editedRecipeInstructions"/>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-2">
-                <label class="mt-2">Type: </label>
-            </div>
-            <div class="col-10">
-                <select class="form-control mt-1 no-border" @bind="editedRecipeType">
-                    @foreach (var recipeType in recipeTypes) {
-                        <option>@recipeType</option>
+                    @if (!string.IsNullOrWhiteSpace(error)) {
+                        <div class="blazor-error-boundary">
+                            @error <br/>
+                        </div>
                     }
-                </select>
-            </div>
-        </div>
-        <div class="mt-5">
-            <label>Update Ingredients:</label>
-            <div class="row m-2 justify-content-center align-items-center">
-                <div class="col-8">
-                    <select @bind="currentIngredient" class="p-1">
-                        <option selected>Choose an ingredient</option>
-                        @foreach (IngredientDto ingredient in _ingredientList) {
-                            <option>@ingredient.Name</option>
+                </ChildContent>
+                <FooterContent>
+                    <Button Text="Close" Secondary OnClick="addRecipeModal.Close"/>
+                    <Button Text="Add" OnClick="() => AddRecipe()"/>
+                </FooterContent>
+            </Modal>
+            
+            <Modal @ref="deleteRecipeModal" Title="Delete recipe">
+                <ChildContent>
+                    <p>Are you sure you want to delete @((selectedRecipe != null) ? selectedRecipe.name : "this recipe")? This action is irreversible!</p>
+                </ChildContent>
+                <FooterContent>
+                    <Button Text="Cancel" Secondary OnClick="deleteRecipeModal.Close"/>
+                    <Button Text="Delete" Danger OnClick="DeleteRecipe"/>
+                </FooterContent>
+            </Modal>
+
+            <Modal @ref="editRecipeModal" Title="Edit Recipe">
+                <ChildContent>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="mt-2">Name: </label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text"
+                                   class="form-control mt-1 no-border"
+                                   placeholder="Enter name"
+                                   @bind="editedRecipeName" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="mt-2">Instructions: </label>
+                        </div>
+                        <div class="col-10">
+                            <input type="text"
+                                   class="form-control mt-1 no-border"
+                                   placeholder="Enter instructions"
+                                   @bind="editedRecipeInstructions" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2">
+                            <label class="mt-2">Type: </label>
+                        </div>
+                        <div class="col-10">
+                            <select class="form-control mt-1 no-border" @bind="editedRecipeType">
+                                <option>Starter</option>
+                                <option>Main</option>
+                                <option>Desert</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mt-5">
+                        <label>Update Ingredients:</label>
+                        <div class="row m-2 justify-content-center align-items-center">
+                            <div class="col-8">
+                                <select @bind="currentIngredient" class="p-1">
+                                    <option selected>Choose an ingredient</option>
+                                    @foreach (IngredientDto ingredient in _ingredientList)
+                                    {
+                                        <option>@ingredient.Name</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="col-2">
+                                <input type="number"
+                                       class="form-control no-border"
+                                       placeholder="Amount"
+                                       @bind="currentIngredientAmount" />
+                            </div>
+                            <div class="col-2">
+                                <Button Icon="add.png" OnClick="() => AddIngredientToEditedRecipe()"></Button>
+                            </div>
+                        </div>
+                        @foreach (SimplifiedIngredientDto dto in editedIngredients)
+                        {
+                            <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
+                                <div class="col-4">
+                                    <label>@dto.ingredientName</label>
+                                </div>
+                                <div class="col-4">
+                                    <input type="number"
+                                           class="form-control no-border"
+                                           @bind="dto.ingredientQuantity"
+                                           min="0" />
+                                </div>
+                                <div class="col-2">
+                                    <Button Icon="minus.png" OnClick="() => RemoveIngredientFromEditedRecipe(dto.ingredientName)"></Button>
+                                </div>
+                            </div>
                         }
-                    </select>
-                </div>
-                <div class="col-2">
-                    <input type="number"
-                           class="form-control no-border"
-                           placeholder="Amount"
-                           @bind="currentIngredientAmount"/>
-                </div>
-                <div class="col-2">
-                    <Button Icon="add.png" OnClick="() => AddIngredientToEditedRecipe()"></Button>
-                </div>
-            </div>
-            @foreach (SimplifiedIngredientDto dto in editedIngredients) {
-                <div class="row ingredient-content justify-content-center align-items-center h20 m-2 p-2">
-                    <div class="col-4">
-                        <label>@dto.ingredientName</label>
                     </div>
-                    <div class="col-4">
-                        <input type="number"
-                               class="form-control no-border"
-                               @bind="dto.ingredientQuantity"
-                               min="0"/>
-                    </div>
-                    <div class="col-2">
-                        <Button Icon="minus.png" OnClick="() => RemoveIngredientFromEditedRecipe(dto.ingredientName)"></Button>
-                    </div>
-                </div>
-            }
+                    @if (!string.IsNullOrWhiteSpace(editError))
+                    {
+                        <div class="blazor-error-boundary">
+                            @editError <br />
+                        </div>
+                    }
+                </ChildContent>
+                <FooterContent>
+                    <Button Text="Close" Secondary OnClick="editRecipeModal.Close" />
+                    <Button Text="Save" OnClick="() => SaveEditedRecipe()" />
+                </FooterContent>
+            </Modal>
         </div>
-        @if (!string.IsNullOrWhiteSpace(editError)) {
-            <div class="blazor-error-boundary">
-                @editError <br/>
-            </div>
-        }
-    </ChildContent>
-    <FooterContent>
-        <Button Text="Close" Secondary OnClick="editRecipeModal.Close"/>
-        <Button Text="Save" OnClick="() => SaveEditedRecipe()"/>
-    </FooterContent>
-</Modal>
-</Authorized>
-<NotAuthorized>
-</NotAuthorized>
+    </Authorized>
+    <NotAuthorized>
+    </NotAuthorized>
 </AuthorizeView>
 
 @code {
@@ -449,8 +475,50 @@
         }
         selectedIngredients.Remove(attempted);
     }
+    
+    protected override async Task OnInitializedAsync()
+    {
+            ThemeState.OnThemeChange += async () => 
+            { 
+                Console.WriteLine($"Theme changed. Dark mode: {ThemeState.IsDarkMode}");
+                await InvokeAsync(StateHasChanged);
+            };
+        
+        AuthenticationState authenticationState = await State; 
+        ClaimsPrincipal claimsPrincipal = authenticationState.User; 
+        if(claimsPrincipal.Identity is null || !claimsPrincipal.Identity.IsAuthenticated) 
+        { 
+            return; 
+        } 
+        string? userName = claimsPrincipal.Identity?.Name; 
+        Console.WriteLine($"usr name: {userName}");
+        IEnumerable<Claim> claims = claimsPrincipal.Claims;
+        foreach (var claim in claims)
+        {
+            Console.WriteLine($"$ claims: {claim}");
+        }
+        string userIdAsString = claims.Single(c => c.Type == "Id").Value; 
+        currentUserId = int.Parse(userIdAsString);
 
-    private void OpenDeleteModal(RecipeDto recipe) {
+        try
+        {
+            _ingredientList = await IngredientService.GetIngredientsAsync();
+            _recipeList = await RecipeService.GetRecipesAsync();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
+    public void Dispose()
+    {
+        ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
+    }
+    
+    private void OpenDeleteModal(RecipeDto recipe)
+    {
         selectedRecipe = recipe;
         deleteRecipeModal.Open();
     }

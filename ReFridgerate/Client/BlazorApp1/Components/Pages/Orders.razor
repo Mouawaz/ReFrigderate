@@ -1,6 +1,12 @@
 @page "/orders"
+@using APIContracts.IngridientDtos
+@using APIContracts.OrderDto
+@using APIContracts.RecipeDtos
 @using BlazorApp1.Services
+@using Microsoft.AspNetCore.SignalR.Client
 @inject IThemeState ThemeState
+@inject OrdersService OrdersService
+@inject IIngredientService IngredientService
 
 <link href="css/orders.css" rel="stylesheet"/>
 <title>Orders</title>
@@ -15,7 +21,7 @@
         {
             <div class="order-card">
                 <div class="order-metadata">
-                    <div class="meta-item-custom @GetStatusClass(order.Status)">
+                    <div class="meta-item-custom">
                         <i class="fas fa-table me-2"></i>
                         Table @order.TableNumber
                     </div>
@@ -29,10 +35,10 @@
                     @foreach (var dish in order.Dishes)
                     {
                         <div class="dish-item">
-                            <span class="dish-name">@dish.Name</span>
-                            @if (!string.IsNullOrEmpty(dish.Note))
+                            <span class="dish-name">@dish.Recipe.name</span>
+                            @if (!string.IsNullOrEmpty(dish.Quantity.ToString()))
                             {
-                                <span class="dish-note">@dish.Note</span>
+                                <span class="dish-note">@dish.Quantity.ToString()</span>
                             }
                         </div>
                     }
@@ -50,13 +56,16 @@
             </div>
         }
     </div>
+    <div>
+        <p style="color: red">@ErrorLabel</p>
+    </div>
 </div>
 </AuthorizeView>
 @code {
-
-    private List<Order> orders;
-    private List<Order> filteredOrders;
-
+    private HubConnection? hubConnection;
+    private List<OrderDto> orders = new List<OrderDto>();
+    private List<OrderDto> filteredOrders = new List<OrderDto>();
+    private string ErrorLabel = "";
     public class Order
     {
         public int TableNumber { get; set; }
@@ -71,54 +80,24 @@
         public string Note { get; set; }
     }
 
-    protected override void OnInitialized()
+    protected async override Task OnInitializedAsync()
     {
+        //SignalR stuff for socket communication
+        OrdersService.OnOrderReceived += OnOrdersReceived;
+        await OrdersService.StartConnection();
+        
         // Subscribe to theme changes
         ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
         
-        // Dummy data
-        orders = new List<Order>
-        {
-            new Order
-            {
-                TableNumber = 1,
-                OrderTime = DateTime.Now.AddMinutes(-30),
-                Status = "new",
-                Dishes = new List<Dish>
-                {
-                    new Dish { Name = "Spaghetti Carbonara", Note = "Extra cheese" },
-                    new Dish { Name = "Caesar Salad", Note = "No croutons" }
-                }
-            },
-            new Order
-            {
-                TableNumber = 2,
-                OrderTime = DateTime.Now.AddMinutes(-15),
-                Status = "new",
-                Dishes = new List<Dish>
-                {
-                    new Dish { Name = "Margherita Pizza", Note = "Well done" },
-                    new Dish { Name = "Tiramisu" },
-                    new Dish { Name = "Espresso" }
-                }
-            },
-            new Order
-            {
-                TableNumber = 3,
-                OrderTime = DateTime.Now.AddMinutes(-5),
-                Status = "new",
-                Dishes = new List<Dish>
-                {
-                    new Dish { Name = "Steak", Note = "Medium rare" },
-                    new Dish { Name = "Mashed Potatoes", Note = "Extra butter" },
-                    new Dish { Name = "Green Salad" }
-                }
-            }
-        };
-        filteredOrders = new List<Order>(orders);
+        filteredOrders = new List<OrderDto>(orders);
     }
 
-    
+    void OnOrdersReceived(OrderDto order)
+    {
+        orders.Add(order);
+        filteredOrders = new List<OrderDto>(orders);
+        InvokeAsync(StateHasChanged);
+    }
 
     private string GetStatusClass(string status)
     {
@@ -132,19 +111,81 @@
         };
     }
 
-    private Task AcceptOrder(Order order)
+    private async Task AcceptOrder(OrderDto order)
     {
+        Dictionary<int, int> ingredientsToUpdate = new Dictionary<int, int>();
+        List<IngredientDto> ingredients = await IngredientService.GetIngredientsAsync();
+
+        foreach (var ingredient in ingredients)
+        {
+            int neddedAmount = 0;
+            foreach (var dish in order.Dishes)
+            {
+                SimplifiedIngredientDto ingredientDto = dish.Recipe.ingredients.Find(i => i.ingredientId == ingredient.Id);
+                if (!(ingredientDto == null))
+                {
+                    neddedAmount += ingredientDto.ingredientQuantity * dish.Quantity;
+                }
+            }
+
+            if (neddedAmount > ingredient.Amount)
+            {
+                ErrorLabel = "There are not enough ingredients to complete the whole order";
+                return;
+            }
+
+            if (neddedAmount != 0)
+            {
+                ingredientsToUpdate.Add(ingredient.Id, neddedAmount);
+
+            }
+        }
+
+        foreach (var ingredientInfo in ingredientsToUpdate)
+        {
+            IngredientDto ingredient = ingredients.Find(i => i.Id == ingredientInfo.Key);
+            UpdateIngredientDto updateInfo = new UpdateIngredientDto()
+            {
+                DateOfExpiration = new DateTime().ToString("d/M/yyyy"),
+                Difference = ingredientInfo.Value ,
+                Substraction = true,
+                amount = ingredient.Amount,
+                Reason = "Automatic"
+            };
+            try
+            {
+                IngredientDto updatedIngredient = await IngredientService.UpdateIngredientAsync(ingredient.Id, updateInfo);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                ErrorLabel = e.Message;
+                throw;
+            }
+        }
+        
         orders.Remove(order);
         filteredOrders.Remove(order);
         StateHasChanged();
-        return Task.CompletedTask;
+        return ;
     }
 
-    private Task DenyOrder(Order order)
+    private async Task DenyOrder(OrderDto order)
     {
+        await OrdersService.SendCancellation(order);
         orders.Remove(order);
         filteredOrders.Remove(order);
         StateHasChanged();
-        return Task.CompletedTask;
+        return;
     }
+
+    public async ValueTask DisposeAsync()
+    {
+        if (hubConnection is not null)
+        {
+            OrdersService.OnOrderReceived -= OnOrdersReceived;
+            await OrdersService.DisposeAsync();
+        }
+    }
+
 }
