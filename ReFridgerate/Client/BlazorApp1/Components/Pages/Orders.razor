@@ -7,6 +7,7 @@
 @inject IThemeState ThemeState
 @inject OrdersService OrdersService
 @inject IIngredientService IngredientService
+@inject NavigationManager NavManager
 
 <link href="css/orders.css" rel="stylesheet"/>
 <title>Orders</title>
@@ -76,7 +77,8 @@
     private List<OrderDto> filteredOrders = new List<OrderDto>();
     private string ErrorLabel = "";
     private Modal modal;
-    private string modalMessage; 
+    private string modalMessage;
+    private bool firstRender = true;
     public class Order
     {
         public int TableNumber { get; set; }
@@ -90,22 +92,42 @@
         public string Name { get; set; }
         public string Note { get; set; }
     }
-
+    
+    private async void LocationChanged(object sender, LocationChangedEventArgs e)
+    {
+        if (!firstRender)
+        {
+            if (e.Location.EndsWith("/orders"))
+            {
+                await OrdersService.RequestOrders();
+            }
+        }
+    }
     protected async override Task OnInitializedAsync()
     {
         //SignalR stuff for socket communication
         OrdersService.OnOrderReceived += OnOrdersReceived;
+        OrdersService.OnOrdersReceived += OnOrderListReceived;
         await OrdersService.StartConnection();
+        NavManager.LocationChanged += LocationChanged;
         
         // Subscribe to theme changes
         ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
         
         filteredOrders = new List<OrderDto>(orders);
+        firstRender = false;
     }
 
     void OnOrdersReceived(OrderDto order)
     {
         orders.Add(order);
+        filteredOrders = new List<OrderDto>(orders);
+        InvokeAsync(StateHasChanged);
+    }
+
+    void OnOrderListReceived(List<OrderDto> ordersList)
+    {
+        orders = ordersList;
         filteredOrders = new List<OrderDto>(orders);
         InvokeAsync(StateHasChanged);
     }

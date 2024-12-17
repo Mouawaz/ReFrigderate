@@ -6,4 +6,6 @@ public interface IOrdersHub
 {
     Task ReceiveOrder(OrderDto order);
     Task ReceiveCancellation(OrderDto order);
+    
+    Task ReceiveOrders(List<OrderDto> orders);
 }

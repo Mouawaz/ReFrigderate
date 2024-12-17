@@ -11,7 +11,7 @@ public class OrdersService : IAsyncDisposable
     private readonly NavigationManager navigationManager;
     public event Action<OrderDto> OnOrderReceived;
     public event Action<OrderDto> OnOrderCancelled; 
-
+    public event Action<List<OrderDto>> OnOrdersReceived; 
     public OrdersService(NavigationManager navigationManager)
     {
         this.navigationManager = navigationManager;
@@ -31,6 +31,7 @@ public class OrdersService : IAsyncDisposable
         
         hubConnection.On<OrderDto>("ReceiveOrder", (order) => OnOrderReceived?.Invoke(order));
         hubConnection.On<OrderDto>("ReceiveCancellation", (order) => OnOrderCancelled?.Invoke(order));
+        hubConnection.On<List<OrderDto>>("ReceiveOrders", (orders) => OnOrdersReceived?.Invoke(orders));
         await hubConnection.StartAsync();
     }
 
@@ -46,6 +47,11 @@ public class OrdersService : IAsyncDisposable
         await hubConnection.SendAsync("CancelOrder", order);
     }
 
+    public async Task RequestOrders()
+    {
+        if (hubConnection is null) return;
+        await hubConnection.SendAsync("GetOrders");
+    }
     public async ValueTask DisposeAsync()
     {
         if (hubConnection is not null)
