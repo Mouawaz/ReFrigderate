@@ -49,22 +49,16 @@
 
             <div class="bottom-menu">
                 <div class="nav-item">
-                    <Button
-                        CustomClass="nav-link w-100 theme-toggle-nav"
-                        OnClick="(() => Logout())"
-                        Secondary="true">
+                    <NavLink ActiveClass="none" class="nav-link" href="/" @onclick="() => Logout()">
                         <img class="icon-img" src="Images/logout.png" alt="Logout"/>
                         <span>Logout</span>
-                    </Button>
+                    </NavLink>
                 </div>
                 <div class="nav-item">
-                    <Button
-                        CustomClass="nav-link w-100 theme-toggle-nav"
-                        OnClick="@(async (e) => await ToggleTheme())"
-                        Secondary="true">
+                    <NavLink class="nav-link" @onclick="() => ToggleTheme()">
                         <img class="icon-img" src="@(ThemeState.IsDarkMode ? "Images/moon.png" : "Images/sun.png")" alt="theme"/>
                         <span>@(ThemeState.IsDarkMode ? "Dark Mode" : "Light Mode")</span>
-                    </Button>
+                    </NavLink>
                 </div>
                 <div class="nav-item">
                     <NavLink class="nav-link" href="admin">
@@ -78,23 +72,21 @@
 </div>
 
 @code {
-    protected override Task OnInitializedAsync() {
-        ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
-        return Task.CompletedTask;
-    }
-    
-    public void Dispose()
-    {
-        ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
-    }
-    
-    private void Logout() {
-        ((SimpleAuthProvider)AuthProvider).Logout();
-    }
+protected override Task OnInitializedAsync() {
+ThemeState.OnThemeChange += async () => { await InvokeAsync(StateHasChanged); };
+return Task.CompletedTask;
+}
 
-    private Task ToggleTheme()
-    {
-        ThemeState.IsDarkMode = !ThemeState.IsDarkMode;
-        return Task.CompletedTask;
-    }
+public void Dispose() {
+ThemeState.OnThemeChange -= async () => await InvokeAsync(StateHasChanged);
+}
+
+private void Logout() {
+((SimpleAuthProvider)AuthProvider).Logout();
+}
+
+private Task ToggleTheme() {
+ThemeState.IsDarkMode = !ThemeState.IsDarkMode;
+return Task.CompletedTask;
+}
 }

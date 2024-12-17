@@ -83,9 +83,9 @@
                             <Icon Src="@getHtmlPicture(ingredient.Name)" Size="medium"/>
                         </div>
 
-                        <div class="item-name">
-                            @ingredient.Name
-                        </div>
+                <div class="item-name">
+                    @ingredient.Name
+                </div>
 
                         <div class="item-actions">
                             <Button Icon="editing.png"
@@ -252,6 +252,8 @@
     private Modal detailsModal;
     private String WarningTooltip;
     private string ReasonForSubtraction { get; set; } = string.Empty;
+    Dictionary<string, string?> nameToLink = new();
+    private bool GoogleAssumedWorking = true;
 
     private int selectedOptionAdd;
 
@@ -538,7 +540,16 @@
         }
 
         filteredIngredients = filtered.ToList();
-        StateHasChanged(); // Ensure UI updates
+    }
+    private string tryGettingSavedPicture(string name) {
+        name += " ingredient icon";
+        if (!GoogleAssumedWorking) {
+            return "https://www.google.com/imgres?q=error%20png&imgurl=https%3A%2F%2Fe7.pngegg.com%2Fpngimages%2F285%2F84%2Fpng-clipart-computer-icons-error-super-8-film-angle-triangle-thumbnail.png&imgrefurl=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fsearch%3Fq%3Derror&docid=Pwxq0JhpzuoCXM&tbnid=VMz0C3m3-GsgGM&vet=12ahUKEwi57c2c7qSKAxUhm_0HHTtzG6MQM3oECBgQAA..i&w=348&h=348&hcb=2&ved=2ahUKEwi57c2c7qSKAxUhm_0HHTtzG6MQM3oECBgQAA";
+        }
+        if (!ImageMemorySingleton.Instance.containsKey(name)) {
+            ImageMemorySingleton.Instance.add(name, getHtmlPicture(name));
+        }
+        return ImageMemorySingleton.Instance.get(name);
     }
 
 

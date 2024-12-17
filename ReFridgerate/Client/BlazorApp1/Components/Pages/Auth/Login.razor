@@ -92,7 +92,6 @@
     private async Task LoginAsync() {
         try {
             await ((SimpleAuthProvider)AuthProvider).Login(email, password);
-            // navMgr.NavigateTo("/home");
         }
         catch (Exception e) {
             Console.WriteLine(e.Message);

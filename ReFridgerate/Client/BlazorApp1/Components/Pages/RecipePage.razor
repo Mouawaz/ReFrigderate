@@ -54,7 +54,7 @@
         <div class="recipe-container">
             <div class="recipe-image">
                 <p class="recipe-name">@recipe.name</p>
-                <Icon Src=@getHtmlPicture(recipe.name) Size="huge"></Icon>
+                <Icon Src=@tryGettingSavedPicture(recipe.name) Size="huge"></Icon>
             </div>
             <div class="recipe-info">
                 <p>
@@ -300,6 +300,7 @@
     private string? selectedType;
     private readonly List<string> recipeTypes = new() { "Starter", "Main", "Desert" };
     private CseResource.ListRequest lr;
+    private bool GoogleAssumedWorking = true;
 
     protected override async Task OnInitializedAsync() {
         AuthenticationState authenticationState = await State;
@@ -323,14 +324,19 @@
         try {
             _ingredientList = await IngredientService.GetIngredientsAsync();
             _recipeList = await RecipeService.GetRecipesAsync();
-            BaseClientService.Initializer init = new();
-            init.ApiKey = PasswordSingleton.Instance.Key; //insert the API key 
-            init.ApplicationName = "Refridgerate";
-            lr = new CustomSearchAPIService(init).Cse.List();
-            lr.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
-            lr.Cx = PasswordSingleton.Instance.Cx; //insert the Browser key
-            lr.FileType = "png";
-            lr.Num = 1;
+            try {
+                BaseClientService.Initializer init = new();
+                init.ApiKey = PasswordSingleton.Instance.Key; //insert the API key 
+                init.ApplicationName = "Refridgerate";
+                lr = new CustomSearchAPIService(init).Cse.List();
+                lr.SearchType = CseResource.ListRequest.SearchTypeEnum.Image;
+                lr.Cx = PasswordSingleton.Instance.Cx; //insert the Browser key
+                lr.FileType = "png";
+                lr.Num = 1;
+            }
+            catch (Exception e) {
+                GoogleAssumedWorking = false;
+            }
             filteredRecipes = new List<RecipeDto>(_recipeList); // Initialize filtered list
         }
         catch (Exception e) {
@@ -531,8 +537,19 @@
             editError = $"Error saving recipe: {ex.Message}";
         }
     }
+    private string tryGettingSavedPicture(string name) {
+        name += " dish";
+        if (!GoogleAssumedWorking) {
+            return "https://www.google.com/imgres?q=error%20png&imgurl=https%3A%2F%2Fe7.pngegg.com%2Fpngimages%2F285%2F84%2Fpng-clipart-computer-icons-error-super-8-film-angle-triangle-thumbnail.png&imgrefurl=https%3A%2F%2Fwww.pngegg.com%2Fen%2Fsearch%3Fq%3Derror&docid=Pwxq0JhpzuoCXM&tbnid=VMz0C3m3-GsgGM&vet=12ahUKEwi57c2c7qSKAxUhm_0HHTtzG6MQM3oECBgQAA..i&w=348&h=348&hcb=2&ved=2ahUKEwi57c2c7qSKAxUhm_0HHTtzG6MQM3oECBgQAA";
+        }
+        if (!ImageMemorySingleton.Instance.containsKey(name)) {
+            ImageMemorySingleton.Instance.add(name, getHtmlPicture(name));
+        }
+        return ImageMemorySingleton.Instance.get(name);
+    }
     private string getHtmlPicture(string name) {
-        lr.Q = name + " dish";
+        Console.WriteLine($"generating image for query: {name}...");
+        lr.Q = name;
         return lr.Execute().Items[0].Link;
     }
 }
