@@ -1,6 +1,7 @@
 .page-container {
-    padding: 20px;
-    transition: background-color 0.3s, color 0.3s;
+    min-height: 50vh;
+    padding: 2rem;
+    transition: background-color 0.3s ease;
 }
 
 .page-container.dark {
@@ -14,14 +15,11 @@
 }
 
 .header {
-    margin-bottom: 24px;
+    padding: 1rem;
+    padding-bottom: 3rem;
+    color: var(--text-primary);
 }
 
-.header h1 {
-    font-size: 24px;
-    font-weight: 600;
-    margin: 0;
-}
 
 .menu-grid,
 .orders-grid {

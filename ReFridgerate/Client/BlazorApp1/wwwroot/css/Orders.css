@@ -38,16 +38,9 @@
 }
 
 .header {
-    background-color: var(--header-bg);
     padding: 1rem;
     padding-bottom: 3rem;
     color: var(--text-primary);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
 }
 
 .search-box {
