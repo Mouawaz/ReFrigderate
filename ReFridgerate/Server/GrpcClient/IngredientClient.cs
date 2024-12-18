@@ -16,8 +16,6 @@ public class IngredientClient : IIngredientClientManager
         channel = GrpcChannel.ForAddress("http://localhost:8080");
         ingredientService = new IngredientService.IngredientServiceClient(channel);
     }
-    
-    
     public IngredientDto UpdateIngredient(IngredientDto ingredientDto, int difference)
     {
         UpdateIngredientRequest request = new()
@@ -94,6 +92,23 @@ public class IngredientClient : IIngredientClientManager
 
         return response.Success_;
     }
-    
-    
+    public async Task<IngredientDto> CreateIngredient(CreateIngredientDto dto) {
+        CreateIngredientRequest request = new() {
+            Cost = dto.Cost,
+            Category = dto.Category,
+            Name = dto.Name
+        };
+        Ingredient ingredient = await ingredientService.CreateIngredientAsync(request);
+        return new()
+        {
+            Id = ingredient.Id,
+            Name = ingredient.Name,
+            Cost = ingredient.Cost,
+            Amount = ingredient.Amount,
+            DaysUntilBad = ingredient.DaysUntilBad,
+            StockStatus = ingredient.StockStatus,
+            Category = (IngredientCategory)ingredient.Category,
+            ExpirationStatus = ingredient.ExpirationStatus
+        };;
+    }
 }

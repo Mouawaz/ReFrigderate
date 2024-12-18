@@ -78,7 +78,8 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
             PreparedStatement psQuickId = connection.prepareStatement("SELECT max(ingredientid) FROM refridgerate.ingredient");
             PreparedStatement psInsertIngredient = connection.prepareStatement("INSERT INTO refridgerate.ingredient VALUES (null, ?, ?, CAST(? AS refridgerate.ingredient_category), ?)");
             ResultSet rsQuickId = psQuickId.executeQuery();
-            psInsertIngredient.setInt(1, rsQuickId.getInt(1));
+            rsQuickId.next();
+            psInsertIngredient.setInt(1, rsQuickId.getInt(1)+1);
             psInsertIngredient.setString(2, name);
             psInsertIngredient.setString(3, CATEGORY);
             psInsertIngredient.setFloat(4, cost);

@@ -8,4 +8,5 @@ public interface IIngredientRepository
     IQueryable<IngredientDto> GetAllIngredients();
     Task<ThresholdDto> GetSingleTresholdAsync(int id);
     Task<bool> UpdateTresholdsAsync(int id, ThresholdDto thresholdDto);
+    Task<IngredientDto> CreateIngredient(CreateIngredientDto createIngredientDto);
 }

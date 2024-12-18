@@ -81,4 +81,13 @@ public class IngredientLogic : IIngredientRepository
         thresholdDto.IndredientId = id;
         return await clientManager.UpdateTresholdsAsync(thresholdDto);
     }
+        public async Task<IngredientDto> CreateIngredient(CreateIngredientDto createIngredientDto) {
+        if (createIngredientDto.Name.Length < 3) {
+            throw new ArgumentException("The name is too short");
+        }
+        if (createIngredientDto.Cost < 0f) {
+            throw new ArgumentException("The cost cannot be less then 0");
+        }
+        return await clientManager.CreateIngredient(createIngredientDto);
+    }
 }

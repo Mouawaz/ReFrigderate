@@ -1,7 +1,7 @@
 namespace APIContracts.IngridientDtos;
 
 public class CreateIngredientDto {
-    public string name { get; set; }
-    public string category { get; set; }
-    public float cost { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public float Cost { get; set; }
 }

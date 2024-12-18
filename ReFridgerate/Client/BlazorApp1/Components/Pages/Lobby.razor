@@ -450,9 +450,9 @@
     private async Task ConfirmNewIngredient() {
         try {
             CreateIngredientDto dto = new() {
-                cost = newIngredientCost,
-                category = newIngredientCategory.Substring(0,1) + newIngredientCategory.Substring(1).ToLower(),
-                name = newIngredientName
+                Cost = newIngredientCost,
+                Category = newIngredientCategory.Substring(0,1) + newIngredientCategory.Substring(1).ToLower(),
+                Name = newIngredientName
             };
             IngredientDto updatedIngredient = await IngredientService.AddIngredientAsync(dto); 
             ingredients[updatedIngredient.Id - 1] = updatedIngredient; 
