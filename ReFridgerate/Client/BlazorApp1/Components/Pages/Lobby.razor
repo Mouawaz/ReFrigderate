@@ -1,4 +1,5 @@
 @page "/lobby"
+@using System.Globalization
 @using APIContracts.IngridientDtos
 @using BlazorApp.Components.Services
 @using BlazorApp1.Services
@@ -37,6 +38,10 @@
                            @bind-value:event="oninput"
                            @onkeyup="FilterIngredients" />
                 </div>
+                <Button Icon="add.png"
+                        Text="Add new"
+                        OnClick="() => OpenAddModal()">
+                </Button>
             </div>
 
         </div>
@@ -80,7 +85,7 @@
                         </div>
 
                         <div class="item-image">
-                            <Icon Src="@getHtmlPicture(ingredient.Name)" Size="medium"/>
+                            <Icon Src="@tryGettingSavedPicture(ingredient.Name)" Size="medium"/>
                         </div>
 
                 <div class="item-name">
@@ -237,10 +242,59 @@
                 <Button Text="Apply Changes" OnClick="ApplyStockChanges"/>
             </FooterContent>
         </Modal>
+        
+        
+        
+        @* Create a new ingredient modal *@
+        <Modal @ref="createModal" Title="Create Details">
+            <ChildContent>
+                <div class="mb-3 row s\2">
+                    <div class="col-5">
+                        <label class="mt-1">Name:  </label>
+                    </div>
+                    <div class="col-7">
+                        <input type="text"
+                               placeholder="Enter the ingredients name"
+                               @bind="newIngredientName"/>
+                    </div>
+                </div>
+                <div class="mb-3 row s\2">
+                    <div class="col-5">
+                        <label class="mt-1">Category:  </label>
+                    </div>
+                    <div class="col-7">
+                        <select id="categoryDropdown" @bind="newIngredientCategory" class="form-select">
+                            <option value="">All</option>
+                            @foreach (IngredientCategory category in Enum.GetValues(typeof(IngredientCategory)))
+                            {
+                                <option value="@category">@category.ToString()</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="mb-3 row s\2">
+                    <div class="col-5">
+                        <label class="mt-1">Cost:  </label>
+                    </div>
+                    <div class="col-7">
+                        <input type="text"
+                               placeholder="Provide the cost of the ingredient"
+                               @bind="newIngredientCost"/>
+                    </div>
+                </div>
+            </ChildContent>
+            <FooterContent>
+                <Button Text="Close" Secondary OnClick="createModal.Close"/>
+                <Button Text="Apply Changes" OnClick="ConfirmNewIngredient"/> 
+            </FooterContent>
+        </Modal>
     </div>
 </AuthorizeView>
 
 @code {
+    private string newIngredientName;
+    private string newIngredientCategory;
+    private float newIngredientCost;
     private string searchText = "";
     private List<IngredientDto> ingredients = new();
     private List<IngredientDto> filteredIngredients = new();
@@ -250,6 +304,7 @@
     private int redTime { get; set; }
     private IngredientDto selectedIngredient;
     private Modal detailsModal;
+    private Modal createModal;
     private String WarningTooltip;
     private string ReasonForSubtraction { get; set; } = string.Empty;
     Dictionary<string, string?> nameToLink = new();
@@ -361,6 +416,10 @@
         RefreshThresholds();
         detailsModal.Open();
     }
+    
+    private void OpenAddModal() {
+        createModal.Open();
+    }
 
     private async Task UpdateIngredientStock(IngredientDto ingredient, int newStockStatus, bool isSubtraction)
     {
@@ -376,7 +435,6 @@
             };
 
             IngredientDto updatedIngredient = await IngredientService.UpdateIngredientAsync(ingredient.Id, updateIngredient);
-
             var index = ingredients.FindIndex(i => i.Id == updatedIngredient.Id);
             if (index != -1)
             {
@@ -389,7 +447,24 @@
             Console.WriteLine($"Error updating ingredient: {ex.Message}");
         }
     }
-
+    private async Task ConfirmNewIngredient() {
+        try {
+            CreateIngredientDto dto = new() {
+                cost = newIngredientCost,
+                category = newIngredientCategory.Substring(0,1) + newIngredientCategory.Substring(1).ToLower(),
+                name = newIngredientName
+            };
+            IngredientDto updatedIngredient = await IngredientService.AddIngredientAsync(dto); 
+            ingredients[updatedIngredient.Id - 1] = updatedIngredient; 
+            FilterIngredients();
+            createModal.Close();
+        }
+        catch (Exception e) {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+    
     private async Task ApplyStockChanges()
     {
         if (selectedIngredient != null)
@@ -509,6 +584,7 @@
         return msg;
     }
     private string getHtmlPicture(string name) {
+        Console.WriteLine($"generating image for query: {name}...");
         lr.Q = name + " ingredient icon";
         return lr.Execute().Items[0].Link;
     }
