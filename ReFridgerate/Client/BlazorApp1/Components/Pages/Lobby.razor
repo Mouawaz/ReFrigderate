@@ -455,7 +455,7 @@
                 Name = newIngredientName
             };
             IngredientDto updatedIngredient = await IngredientService.AddIngredientAsync(dto); 
-            ingredients[updatedIngredient.Id - 1] = updatedIngredient; 
+            ingredients.Add(updatedIngredient);
             FilterIngredients();
             createModal.Close();
         }
