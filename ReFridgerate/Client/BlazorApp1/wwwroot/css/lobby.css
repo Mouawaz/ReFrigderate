@@ -144,7 +144,7 @@
 }
 
 .search-box {
-    width: 100%; 
+    width: 60%; 
     max-width: 400px; 
     background-color: var(--input-bg);
     border: 1px solid var(--search-border);
@@ -345,5 +345,10 @@
     }
 }
 
-
+.filter-search{
+    width: 40%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
 

@@ -19,24 +19,26 @@
             <h1>Ingredients</h1>
            
             <div class="header-controls">
+                <div class="filter-search">
                 <div class="category-filters">
                     <label for="categoryDropdown" class="dropdown-label">Filters:</label>
                     <select id="categoryDropdown" @bind="SelectedCategory" class="form-select">
                         <option value="">All</option>
                         @foreach (IngredientCategory category in Enum.GetValues(typeof(IngredientCategory)))
                         {
-                        <option value="@category">@category.ToString()</option>
+                            <option value="@category">@category.ToString()</option>
                         }
                     </select>
                 </div>
 
                 <div class="search-box">
-                    <img class="ingredientt" src="Images/search.png" alt="search" />
+                    <img class="ingredientt" src="Images/search.png" alt="search"/>
                     <input type="text"
                            placeholder="Search..."
                            @bind-value="searchText"
                            @bind-value:event="oninput"
-                           @onkeyup="FilterIngredients" />
+                           @onkeyup="FilterIngredients"/>
+                </div>
                 </div>
                 <Button Icon="add.png"
                         Text="Add new"
