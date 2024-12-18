@@ -9,5 +9,5 @@ public interface DBIngredientManager {
     ArrayList<IngredientLocal> GetAllIngredients();
     IngredientLocal UpdateIngredient(int ingredientId, int quantity, int daysUntilBad);
     Boolean UpdateWarningAmount(int ingredientId, int yellowAmount, int redAmount, int yellowTime, int redTime);
-    IngredientLocal CreateIngredient(String name, IngredientLocal.IngredientCategory CATEGORY, float cost);
+    IngredientLocal CreateIngredient(String name, String CATEGORY, float cost);
 }

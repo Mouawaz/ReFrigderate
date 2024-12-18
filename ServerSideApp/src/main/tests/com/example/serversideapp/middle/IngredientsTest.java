@@ -1,45 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 package com.example.serversideapp.middle;
 
 import Server.IngredientOuterClass;
@@ -60,7 +18,7 @@ class IngredientsTest {
                 .setName("Test")
                 .setCost(0.5f)
                 .setAmount(11)
-                .setDaysUntilBad(0)
+                .setDaysUntilBad(-3)
                 .setAmountStatus(1)
                 .setExpirationStatus(3)
                 .build();
@@ -84,12 +42,10 @@ class IngredientsTest {
     void getAllIngredients() {
         IngredientOuterClass.AllIngredientResponse resp = gim.GetAllIngredients();
         assertEquals(resp.getMessages(0), test);
-        System.out.println(resp.getMessages(0));
     }
 
     @Test
     void updateWarningAmount() {
-        System.out.println(gim.GetAllIngredients().getMessages(0));
         assertEquals(gim.GetAllIngredients().getMessages(0).getAmountStatus(), 1);
         assertDoesNotThrow(()->{
             gim.UpdateWarningAmount(IngredientOuterClass.UpdateWarningAmountsRequest.newBuilder()
@@ -97,7 +53,6 @@ class IngredientsTest {
                     .setYellowAmount(12).build());
         });
         assertEquals(gim.GetAllIngredients().getMessages(0).getAmountStatus(), 3);
-        System.out.println(gim.GetAllIngredients().getMessages(0));
         assertDoesNotThrow(()->{
             gim.UpdateWarningAmount(IngredientOuterClass.UpdateWarningAmountsRequest.newBuilder()
                     .setRedAmount(5)
@@ -107,8 +62,14 @@ class IngredientsTest {
         });
     }
     @Test
-    void getTreshold(){
+    void createIngredient(){
+        assertDoesNotThrow(()->{
+            gim.CreateIngredient(IngredientOuterClass.CreateIngredientRequest.newBuilder()
+                    .setName("Sauce")
+                    .setCategory("Legume")
+                    .setCost(2.0f).build());
 
+        });
     }
     @AfterEach
     void printOut(){

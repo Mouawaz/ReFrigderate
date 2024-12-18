@@ -54,18 +54,21 @@ public class GeneralIngredientsManagerImpl implements GeneralIngredientsManager{
         throw new RuntimeException("No ingredient with id " + request.getId() + " was found");
     }
 
+    @Override
+    public IngredientOuterClass.Ingredient CreateIngredient(IngredientOuterClass.CreateIngredientRequest request) {
+        return parseFromLocal(dbIngredientManager.CreateIngredient(request.getName(), request.getCategory(), request.getCost()));
+    }
+
     //Parses from IngredientLocal to message Ingredient
     private IngredientOuterClass.Ingredient parseFromLocal(IngredientLocal local){
             int redAmount = local.getRedAmount();
             int yellowAmount = local.getYellowAmount();
             int redTime = local.getRedDays();
             int yellowTime = local.getYellowDays();
-
             Date todaysDate = new Date();
             int days = (int)TimeUnit.MILLISECONDS.toDays(local.getExpirationDate().getTime() - todaysDate.getTime());
             int amountWarning = local.getAmount() <= yellowAmount ? (local.getAmount() <= redAmount ? 3 : 2) : 1;
             int timeWarning = days <= yellowTime ? (days <= redTime ? 3 : 2) : 1;
-
             return IngredientOuterClass.Ingredient.newBuilder()
                     .setId(local.getId())
                     .setName(local.getName())

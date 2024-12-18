@@ -2,10 +2,11 @@ package com.example.serversideapp.back;
 
 import com.example.serversideapp.shared.IngredientLocal;
 import com.example.serversideapp.shared.IngredientLocal.IngredientCategory;
+import org.hibernate.mapping.List;
 
 import java.sql.*;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Date;
 
 public class DBIngredientQuery extends DBGeneral implements DBIngredientManager {
@@ -72,30 +73,44 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
     }
 
     @Override
-    public IngredientLocal CreateIngredient(String name, IngredientCategory CATEGORY, float cost) {
+    public IngredientLocal CreateIngredient(String name, String CATEGORY, float cost) {
         try(Connection connection = getConnected()){
-            PreparedStatement psInsertIngredient = connection.prepareStatement("INSERT INTO refridgerate.ingredient VALUES (null, DEFAULT, ?, ?, ?)");
-
+            PreparedStatement psInsertIngredient = connection.prepareStatement("INSERT INTO refridgerate.ingredient VALUES (null, DEFAULT, ?, CAST(? AS refridgerate.ingredient_category), ?)");
+            psInsertIngredient.setString(1, name);
+            psInsertIngredient.setString(2, CATEGORY);
+            psInsertIngredient.setFloat(3, cost);
+            psInsertIngredient.executeUpdate();
+            return GetAllIngredients().getLast();
         }
         catch (SQLException e){
             throw new RuntimeException(e);
         }
-        return null;
     }
 
-    //TODO: update, since now the date only resets if the total count reaches zero
-    //Perhaps make a list of dates and counts, fall the smallest one that is non zero?
     private Date findRecentDate(ResultSet rsDates) throws SQLException {
-        rsDates.next();
-        Date minDate = rsDates.getDate(2);
-        int count = rsDates.getInt(1);
-        while (rsDates.next()) {
-            if (count <= 0) {
-                minDate = rsDates.getDate(2);
+        ArrayList<ArrayList<Object>> DateCount2D = new ArrayList<>();
+        while (rsDates.next()){
+            int mod = rsDates.getInt(1);
+            if (mod > 0){
+                DateCount2D.add(new ArrayList<>(Arrays.asList(rsDates.getDate(2), mod)));
             }
-            count += rsDates.getInt(1);
+            else{
+                for (int i = 0; i < DateCount2D.size(); i++) {
+                    int value = Integer.valueOf(DateCount2D.get(i).get(1).toString());
+                    if (value > -mod){
+                        DateCount2D.get(i).set(1, value+mod);
+                        break;
+                    }
+                    mod -= value;
+                    DateCount2D.remove(DateCount2D.get(i));
+                    i--;
+                }
+            }
         }
-        return minDate;
+        if (DateCount2D.isEmpty()){
+            return new Date();
+        }
+        return (Date)DateCount2D.getFirst().getFirst();
     }
 
     private ArrayList<IngredientLocal> getListOfIngredient(ResultSet rsIngredients, PreparedStatement psBatches, PreparedStatement psDates) throws SQLException {
@@ -107,14 +122,12 @@ public class DBIngredientQuery extends DBGeneral implements DBIngredientManager 
                 String name = rsIngredients.getString(3);
                 IngredientCategory category = IngredientCategory.valueOf(rsIngredients.getString(4).toUpperCase());
                 float cost = rsIngredients.getFloat(5);
-
                 psBatches.setInt(1, ingredientID);
                 psDates.setInt(1, ingredientID);
                 ResultSet rsBatches = psBatches.executeQuery();
                 int batchSum = rsBatches.next() ? rsBatches.getInt(1) : 0;
                 ResultSet rsDates = psDates.executeQuery();
-                Date recentDate = rsDates.next() ? findRecentDate(rsDates) : null;
-
+                Date recentDate = findRecentDate(rsDates);
                 ans.add(new IngredientLocal(
                         ingredientID,
                         name,

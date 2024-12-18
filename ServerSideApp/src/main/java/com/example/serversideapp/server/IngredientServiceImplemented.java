@@ -40,4 +40,9 @@ public class IngredientServiceImplemented extends IngredientServiceGrpc.Ingredie
             responseObserver.onError(e);
         }
     }
+
+    @Override
+    public void createIngredient(IngredientOuterClass.CreateIngredientRequest request, StreamObserver<IngredientOuterClass.Ingredient> responseObserver) {
+        super.createIngredient(request, responseObserver);
+    }
 }

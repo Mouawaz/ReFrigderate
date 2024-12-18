@@ -65,10 +65,16 @@ message Success {
 message IdRequest {
   int32 Id = 1;
 }
+message CreateIngredientRequest {
+  string Name = 1;
+  string category = 2;
+  float cost = 3;
+}
 
 service IngredientService {
   rpc GetAllIngredients(Empty) returns (AllIngredientResponse);
   rpc UpdateIngredient(UpdateIngredientRequest) returns (Ingredient);
+  rpc CreateIngredient(CreateIngredientRequest) returns (Ingredient);
   rpc UpdateWarningAmount(UpdateWarningAmountsRequest) returns (Success);
   rpc GetTreshold(IdRequest) returns (UpdateWarningAmountsRequest);
   //rpc CreateIngredient(CreateIngredientRequest) returns (Ingredient);  // Added new RPC for creating ingredients
